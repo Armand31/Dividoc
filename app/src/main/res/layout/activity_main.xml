@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:layout_margin="20dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/add_new_case"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="@string/add_case_button"
+            style="?android:attr/buttonBarButtonStyle" />
+            <!-- android:onClick="addNewCase" -->
+
+        <Button
+            android:id="@+id/export_file_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/export_file_button"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            style="?android:attr/buttonBarButtonStyle" />
+        <!-- android:onClick="exportFiles" -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/select_cases_files_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_weight="1"
+            android:text="@string/select_cases_files"
+            style="?android:attr/buttonBarButtonStyle"  />
+        <!-- android:onClick="switchBetweenFilesAndArchives" -->
+
+        <Button
+            android:id="@+id/select_cases_archives_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_weight="1"
+            android:text="@string/select_cases_archives"
+            style="?android:attr/buttonBarButtonStyle" />
+        <!-- android:onClick="switchBetweenFilesAndArchives" -->
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragments_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

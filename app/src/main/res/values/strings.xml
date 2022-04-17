@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Dividoc</string>
+
+    <!-- Buttons -->
+    <string name="add_case_button">Add a new case</string>
+    <string name="export_file_button">Export files</string>
+    <string name="select_cases_files">Files</string>
+    <string name="select_cases_archives">Archives</string>
+
 </resources>

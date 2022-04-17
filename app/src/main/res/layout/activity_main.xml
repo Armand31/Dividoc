@@ -21,7 +21,6 @@
             android:layout_weight="1"
             android:text="@string/add_case_button"
             style="?android:attr/buttonBarButtonStyle" />
-            <!-- android:onClick="addNewCase" -->
 
         <Button
             android:id="@+id/export_file_button"
@@ -33,7 +32,6 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             style="?android:attr/buttonBarButtonStyle" />
-        <!-- android:onClick="exportFiles" -->
 
     </LinearLayout>
 

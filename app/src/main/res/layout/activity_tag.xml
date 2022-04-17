@@ -1,6 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="20dp" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/tag_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tag_title"
+            android:textColor="@color/text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_weight="4" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_help_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/tag_help"
+            android:focusable="true"
+            app:backgroundTint="@color/primary"
+            app:srcCompat="@android:drawable/ic_menu_help"
+            android:layout_weight="1" />
+        <!-- android:onClick="showInfoMessage" -->
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/gender_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1" />
+
+    <Spinner
+        android:id="@+id/age_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:autofillHints=""
+        android:hint="@string/name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:autofillHints=""
+        android:hint="@string/location"
+        android:inputType="text"
+        android:maxLines="3"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/info_supp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:autofillHints=""
+        android:hint="@string/additional_information"
+        android:layout_weight="1"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/cc_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/tag_separator1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dot_separator"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/sn_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/tag_separator2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dot_separator"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/vsn_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/tag_separator3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dot_separator"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/ocdc_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/ocdc"
+            android:textAlignment="center"
+            android:importantForAutofill="no"
+            android:textColor="@color/text"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_gallery_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/tag_gallery_description"
+            android:focusable="true"
+            app:backgroundTint="@color/primary"
+            app:fabCustomSize="50dp"
+            android:layout_marginEnd="30dp"
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/record_tagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/tag_audio_description"
+            android:focusable="true"
+            app:backgroundTint="@color/primary"
+            app:fabCustomSize="50dp"
+            android:layout_marginStart="30dp"
+            app:srcCompat="@android:drawable/ic_btn_speak_now" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_delete_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/tag_delete_description"
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            android:clickable="true"
+            android:focusable="true"
+            app:fabCustomSize="50dp"
+            android:layout_marginEnd="30dp"
+            app:backgroundTint="@color/primary" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_save_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/tag_save_description"
+            app:srcCompat="@android:drawable/ic_menu_save"
+            android:clickable="true"
+            android:focusable="true"
+            app:fabCustomSize="50dp"
+            android:layout_marginStart="30dp"
+            app:backgroundTint="@color/primary" />
+
+    </LinearLayout>
+
+</LinearLayout>

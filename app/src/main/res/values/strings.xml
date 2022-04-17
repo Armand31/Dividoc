@@ -7,4 +7,40 @@
     <string name="select_cases_files">Files</string>
     <string name="select_cases_archives">Archives</string>
 
+    <!-- Informational and help messages -->
+    <string name="tag_title">Please complete the victim\'s identification form</string>
+
+    <!-- Labels -->
+    <string name="name">Name</string>
+    <string name="location">Location</string>
+    <string name="additional_information">Addition information</string>
+    <string name="dot_separator" translatable="false">.</string>
+
+    <string name="ocdc" translatable="false">OCDC</string>
+
+    <!-- Spinners -->
+    <string-array name="gender">
+        <item><b>Sex</b></item>
+        <item>Man</item>
+        <item>Woman</item>
+        <item>Unknown</item>
+    </string-array>
+
+    <string-array name="age">
+        <item><b>Age range</b></item>
+        <item>Adult</item>
+        <item>Teenager</item>
+        <item>Kid</item>
+        <item>Baby</item>
+        <item>Unknown</item>
+    </string-array>
+
+
+    <!-- Other -->
+    <string name="tag_help">Displays tag information to help filling the form</string>
+    <string name="tag_gallery_description">Displays the photo gallery to overview pictures</string>
+    <string name="tag_audio_description">Displays the audio list and player</string>
+    <string name="tag_delete_description">Deletes the current case</string>
+    <string name="tag_save_description">Saves the current case</string>
+
 </resources>

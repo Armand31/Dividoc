@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InitActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input_serial_number"
+        android:layout_gravity="center"
+        android:layout_margin="20dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_margin="20dp" >
+
+        <EditText
+            android:id="@+id/country_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
+            android:textAllCaps="true"
+            android:autofillHints="AA"
+            android:hint="@string/country_code_hint" />
+
+        <EditText
+            android:id="@+id/serial_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:autofillHints="000"
+            android:inputType="number"
+            android:maxLength="3"
+            android:hint="@string/serial_number_hint" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/start"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:enabled="false"
+        android:textAllCaps="true"/>
+
+</LinearLayout>

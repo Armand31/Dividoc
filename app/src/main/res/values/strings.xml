@@ -6,17 +6,25 @@
     <string name="export_file_button">Export files</string>
     <string name="select_cases_files">Files</string>
     <string name="select_cases_archives">Archives</string>
+    <string name="start">Start</string>
 
     <!-- Informational and help messages -->
     <string name="tag_title">Please complete the victim\'s identification form</string>
 
-    <!-- Labels -->
+    <!-- Labels and hints -->
     <string name="name">Name</string>
     <string name="location">Location</string>
     <string name="additional_information">Addition information</string>
     <string name="dot_separator" translatable="false">.</string>
+    <string name="input_serial_number">Please enter your phone\'s serial number</string>
+    <string name="country_code_hint">AA</string>
+    <string name="serial_number_hint" translatable="false">000</string>
 
     <string name="ocdc" translatable="false">OCDC</string>
+
+    <!-- Warnings -->
+    <string name="warning">Warning</string>
+    <string name="input_verification">Is this number: %s correct ?\nBe aware that you cannot change it later</string>
 
     <!-- Spinners -->
     <string-array name="gender">

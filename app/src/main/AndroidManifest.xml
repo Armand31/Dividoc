@@ -19,8 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="TagActivity" />
-        <activity android:name="ExportActivity" />
+        <activity android:name=".TagActivity" />
+        <activity android:name=".ExportActivity" />
+        <activity android:name=".InitActivity" />
     </application>
 
 </manifest>

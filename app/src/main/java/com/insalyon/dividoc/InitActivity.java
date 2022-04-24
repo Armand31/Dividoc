@@ -1,5 +1,6 @@
 package com.insalyon.dividoc;
 
+import android.Manifest;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class InitActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class InitActivity extends AppCompatActivity {
 
         start = (Button) findViewById(R.id.start);
         start.setEnabled(false);
-        start.setOnClickListener(view -> confirmAndQuit());
+        start.setOnClickListener(view -> confirmSerialNumber());
     }
 
     /**
@@ -76,9 +78,9 @@ public class InitActivity extends AppCompatActivity {
 
     /**
      * Ask to the user for confirmation of his input (country code and serial number). If he
-     * confirms, InitActivity is ended
+     * confirms, the user is now asked for permissions
      */
-    private void confirmAndQuit() {
+    private void confirmSerialNumber() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -94,7 +96,7 @@ public class InitActivity extends AppCompatActivity {
             preferencesEditor.putString("serialNumber", serialNumber.getText().toString());
             preferencesEditor.apply();
 
-            InitActivity.this.finish();
+            askForPermissions();
         });
 
         builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
@@ -104,6 +106,22 @@ public class InitActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         // Show dialog
         dialog.show();
+    }
+
+    /**
+     * Ask the user for permissions and quit
+     * @TODO : Better handling of permission requests as in com.insalyon.dividoc.TagActivity#verifyCameraPermission()
+     */
+    public void askForPermissions() {
+
+        String[] permissions = {
+                Manifest.permission.CAMERA
+        };
+        int requestCode = 1;
+
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
+
+        InitActivity.this.finish();
     }
 
     /**

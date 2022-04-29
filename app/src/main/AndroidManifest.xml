@@ -3,6 +3,8 @@
     package="com.insalyon.dividoc">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -14,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dividoc">
         <activity
+            android:name=".ReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecordActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -22,11 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".TagActivity" />
         <activity android:name=".ExportActivity" />
         <activity android:name=".InitActivity" />
-
+        <activity android:name=".GalleryActivity" />
     </application>
 
 </manifest>

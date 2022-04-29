@@ -2,12 +2,16 @@ package com.insalyon.dividoc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         if (!preferences.contains("FirstStart")) {
             startActivity(new Intent(MainActivity.this, InitActivity.class));
         }
+
+        context = getApplicationContext();
     }
 
     /**
@@ -39,5 +45,14 @@ public class MainActivity extends AppCompatActivity {
         // Start ExportActivity if the "Export files" button is clicked
         Button exportFilesButton = (Button) findViewById(R.id.export_file_button);
         exportFilesButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, ExportActivity.class)));
+    }
+
+    /**
+     * Give the context of the app to FilesPath class
+     * @return the context of the app
+     */
+    public static Context getAppContext() {
+        Log.d("idiot", "Context : " + context);
+        return context;
     }
 }

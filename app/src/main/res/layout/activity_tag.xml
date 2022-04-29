@@ -53,7 +53,7 @@
         android:layout_weight="1" />
 
     <EditText
-        android:id="@+id/enter_name"
+        android:id="@+id/name_input"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:autofillHints=""
@@ -63,7 +63,7 @@
         android:layout_weight="1" />
 
     <EditText
-        android:id="@+id/location"
+        android:id="@+id/location_input"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:autofillHints=""
@@ -73,7 +73,7 @@
         android:layout_weight="1" />
 
     <EditText
-        android:id="@+id/info_supp"
+        android:id="@+id/additional_info_input"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:autofillHints=""
@@ -161,7 +161,7 @@
         android:orientation="horizontal" >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_gallery_tag"
+            android:id="@+id/gallery_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -173,7 +173,7 @@
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/record_tagBtn"
+            android:id="@+id/record_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -194,7 +194,7 @@
         android:layout_weight="1" >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_delete_tag"
+            android:id="@+id/delete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/tag_delete_description"
@@ -206,7 +206,7 @@
             app:backgroundTint="@color/primary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_save_tag"
+            android:id="@+id/save_case_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/tag_save_description"

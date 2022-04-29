@@ -115,11 +115,12 @@ public class InitActivity extends AppCompatActivity {
     public void askForPermissions() {
 
         String[] permissions = {
-                Manifest.permission.CAMERA
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
-        int requestCode = 1;
 
-        ActivityCompat.requestPermissions(this, permissions, requestCode);
+        ActivityCompat.requestPermissions(this, permissions, 1);
 
         InitActivity.this.finish();
     }

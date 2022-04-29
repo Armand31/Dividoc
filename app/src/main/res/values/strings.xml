@@ -7,6 +7,7 @@
     <string name="select_cases_files">Files</string>
     <string name="select_cases_archives">Archives</string>
     <string name="start">Start</string>
+    <string name="discard_changes">Discard changes</string>
 
     <!-- Informational and help messages -->
     <string name="tag_title">Please complete the victim\'s identification form</string>
@@ -25,6 +26,8 @@
     <!-- Warnings -->
     <string name="warning">Warning</string>
     <string name="input_verification">Is this number: %s correct ?\nBe aware that you cannot change it later</string>
+    <string name="invalid_ocdc">OCDC accepts only letters, digits and dashes</string>
+    <string name="cancel_changes">Changes will not be saved.\nDo you want to continue ?</string>
 
     <!-- Spinners -->
     <string-array name="gender">

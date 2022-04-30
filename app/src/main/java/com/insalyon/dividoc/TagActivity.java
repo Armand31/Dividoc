@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputFilter;
@@ -20,6 +21,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
@@ -160,6 +162,8 @@ public class TagActivity extends AppCompatActivity {
      */
     private void dispatchTakePictureIntent() {
 
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         // Callback to wait for result. Triggers actions.
         // Documentation here : https://developer.android.com/training/basics/intents/result
         // StackOverflow here : https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
@@ -185,11 +189,14 @@ public class TagActivity extends AppCompatActivity {
 
                         // Save the picture
                         // TODO Handle AM and PM to avoid overwritting
-                        String pictureFileName = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + "_.jpg";
-                        File pictureFile = new File(newCaseImageFolder.getPath() + File.separator + pictureFileName);
+                        String pictureFileName = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + "_";
                         try {
-                            if (!pictureFile.createNewFile()) {
-                                Toast.makeText(this, "Error : File already exists", Toast.LENGTH_SHORT).show();
+                            if (!File.createTempFile(
+                                    pictureFileName, /* prefix */
+                                    ".jpg", /* suffix */
+                                    newCaseImageFolder /* directory */
+                            ).isFile()) {
+                                Toast.makeText(this, "Error : Picture file could not be created", Toast.LENGTH_SHORT).show();
                             }
                         } catch (IOException e) {
                             Toast.makeText(this, "Error : Picture file could not be created", Toast.LENGTH_SHORT).show();
@@ -201,7 +208,6 @@ public class TagActivity extends AppCompatActivity {
                 }
         );
 
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         dispatchTakePictureIntentLauncher.launch(takePictureIntent);
     }
 

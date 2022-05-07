@@ -51,7 +51,7 @@ public class GalleryActivity extends AppCompatActivity {
     /**
      * Set listeners for the buttons
      */
-    public void setButtonListeners(ActivityResultLauncher<Uri> registerForActivityResult) {
+    private void setButtonListeners(ActivityResultLauncher<Uri> registerForActivityResult) {
 
         // Finish the activity when return button is clicked
         FloatingActionButton backButton = findViewById(R.id.return_gallery);
@@ -107,7 +107,7 @@ public class GalleryActivity extends AppCompatActivity {
      * Get the number of pictures taken for a specified case (number of files in the images/ subdirectory)
      * @return the number of pictures
      */
-    public int getNumberOfPictures() {
+    private int getNumberOfPictures() {
 
         String[] pictures = new File(this.workingImageDirectory).list();
 
@@ -122,7 +122,7 @@ public class GalleryActivity extends AppCompatActivity {
     /**
      * Makes the informational message blink
      */
-    public void makeInfoMessageBlinks() {
+    private void makeInfoMessageBlinks() {
 
         TextView maxPhotoInfo = findViewById(R.id.max_photo_info);
 
@@ -171,7 +171,7 @@ public class GalleryActivity extends AppCompatActivity {
     /**
      * Public class used as an adapter for the grid view
      */
-    public class ImageAdapter extends BaseAdapter {
+    private class ImageAdapter extends BaseAdapter {
 
         private final Context context;
         private final File[] fileList;

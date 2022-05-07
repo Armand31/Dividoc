@@ -24,6 +24,7 @@
     <string name="input_serial_number">Please enter your phone\'s serial number</string>
     <string name="country_code_hint">AA</string>
     <string name="serial_number_hint" translatable="false">000</string>
+    <string name="delete_label">Delete</string>
 
     <string name="ocdc" translatable="false">OCDC</string>
 
@@ -35,10 +36,13 @@
     <string name="cannot_create_picture_file">Error : Picture file could not be created</string>
     <string name="cannot_create_pictures_dir">Error : The images\' directory cannot be created</string>
     <string name="cannot_access_pictures_dir">Error : The images\' directory cannot be accessed</string>
+    <string name="delete_picture_warning">Once a photo is deleted, it can\'t be recovered. Do you want to continue ?</string>
 
     <!-- res content description -->
     <string name="return_previous_act">Return to the previous activity</string>
     <string name="add_picture">Add a picture to the case</string>
+    <string name="image_description">An image of the case</string>
+    <string name="delete_picture_content_description">A button to delete the picture</string>
 
     <!-- Spinners -->
     <string-array name="gender">

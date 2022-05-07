@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Dividoc</string>
 
+    <!-- Activities titles -->
+    <string name="gallery">Photo Gallery</string>
+
     <!-- Buttons -->
     <string name="add_case_button">Add a new case</string>
     <string name="export_file_button">Export files</string>
@@ -11,6 +14,7 @@
 
     <!-- Informational and help messages -->
     <string name="tag_title">Please complete the victim\'s identification form</string>
+    <string name="max_photos_gallery">Maximum %d photos</string>
 
     <!-- Labels and hints -->
     <string name="name">Name</string>
@@ -28,6 +32,13 @@
     <string name="input_verification">Is this number: %s correct ?\nBe aware that you cannot change it later</string>
     <string name="invalid_ocdc">OCDC accepts only letters, digits and dashes</string>
     <string name="cancel_changes">Changes will not be saved.\nDo you want to continue ?</string>
+    <string name="cannot_create_picture_file">Error : Picture file could not be created</string>
+    <string name="cannot_create_pictures_dir">Error : The images\' directory cannot be created</string>
+    <string name="cannot_access_pictures_dir">Error : The images\' directory cannot be accessed</string>
+
+    <!-- res content description -->
+    <string name="return_previous_act">Return to the previous activity</string>
+    <string name="add_picture">Add a picture to the case</string>
 
     <!-- Spinners -->
     <string-array name="gender">

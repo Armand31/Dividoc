@@ -110,7 +110,7 @@ public class InitActivity extends AppCompatActivity {
 
     /**
      * Ask the user for permissions and quit
-     * @TODO : Better handling of permission requests as in com.insalyon.dividoc.TagActivity#verifyCameraPermission()
+     * TODO : Better handling of permission requests as in com.insalyon.dividoc.TagActivity#verifyCameraPermission()
      */
     public void askForPermissions() {
 

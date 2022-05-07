@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +29,14 @@ import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class TagActivity extends AppCompatActivity {
+
+    private String workingImageDirectory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class TagActivity extends AppCompatActivity {
         // If this is a new case
         if (getIntent().getBooleanExtra("newCase", false))
         {
+            this.workingImageDirectory = FilesPath.getNewCaseImageFolder();
             verifyCameraPermission();
             dispatchTakePictureIntent();
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
@@ -114,6 +119,7 @@ public class TagActivity extends AppCompatActivity {
         FloatingActionButton galleryButton = findViewById(R.id.gallery_button);
         galleryButton.setOnClickListener(view -> {
             Intent galleryIntent = new Intent(TagActivity.this, GalleryActivity.class);
+            galleryIntent.putExtra("workingImageDirectory", workingImageDirectory);
             startActivity(galleryIntent);
         });
 
@@ -158,57 +164,35 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     * Opens camera and request for a photo before continuing
+     * Opens camera and saves the photo at the specified URI upon success
      */
     private void dispatchTakePictureIntent() {
 
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Creation of the images directory in new_case directory
+        File workingImageDirectoryFileObject = new File(workingImageDirectory);
+        if (!workingImageDirectoryFileObject.exists()) {
+            if (!workingImageDirectoryFileObject.mkdirs()) {
+                (Toast.makeText(this, getString(R.string.cannot_create_pictures_dir), Toast.LENGTH_SHORT)).show();
+            }
+        }
 
-        // Callback to wait for result. Triggers actions.
+        File pictureFile = new File(workingImageDirectory, "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
+        Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", pictureFile);
+
+        /// Callback used to launch camera and trigger action on success and/or failure
         // Documentation here : https://developer.android.com/training/basics/intents/result
         // StackOverflow here : https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
-        ActivityResultLauncher<Intent> dispatchTakePictureIntentLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
+        // About TakePicture() : https://stackoverflow.com/questions/61941959/activityresultcontracts-takepicture
+        ActivityResultLauncher<Uri> dispatchTakePictureIntentLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicture(),
                 result -> {
-                    // If a picture was shot
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-
-                        // Create directory to store pictures
-                        File newCaseImageFolder = new File(FilesPath.getNewCaseImageFolder());
-                        if (!newCaseImageFolder.exists()) {
-                            if (newCaseImageFolder.mkdirs()) {
-                                Log.d("idiot", "newCaseImageFolder was created successfully");
-                            } else {
-                                Toast.makeText(this, "Error : New folder could not be created - Please report it", Toast.LENGTH_SHORT).show();
-                                this.finish();
-                            }
-                        } else {
-                            // TODO Delete this else statement when the deletion of new_case folder is handled
-                            Toast.makeText(this, "newCaseImageFolder already exists", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // Save the picture
-                        // TODO Handle AM and PM to avoid overwritting
-                        String pictureFileName = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + "_";
-                        try {
-                            if (!File.createTempFile(
-                                    pictureFileName, /* prefix */
-                                    ".jpg", /* suffix */
-                                    newCaseImageFolder /* directory */
-                            ).isFile()) {
-                                Toast.makeText(this, "Error : Picture file could not be created", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (IOException e) {
-                            Toast.makeText(this, "Error : Picture file could not be created", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-                    } else {
+                    if (!result) {
                         this.finish();
                     }
                 }
         );
 
-        dispatchTakePictureIntentLauncher.launch(takePictureIntent);
+        dispatchTakePictureIntentLauncher.launch(photoUri);
     }
 
     /**

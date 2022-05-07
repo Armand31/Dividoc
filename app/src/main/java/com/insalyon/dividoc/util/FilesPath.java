@@ -1,8 +1,5 @@
 package com.insalyon.dividoc.util;
 
-import android.content.Context;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.insalyon.dividoc.MainActivity;

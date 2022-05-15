@@ -3,6 +3,7 @@
 
     <!-- Activities titles -->
     <string name="gallery">Photo Gallery</string>
+    <string name="review">Please check that the information are correct</string>
 
     <!-- Buttons -->
     <string name="add_case_button">Add a new case</string>
@@ -18,8 +19,11 @@
 
     <!-- Labels and hints -->
     <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
     <string name="location">Location</string>
     <string name="additional_information">Addition information</string>
+    <string name="tag" translatable="false">Tag</string>
     <string name="dot_separator" translatable="false">.</string>
     <string name="input_serial_number">Please enter your phone\'s serial number</string>
     <string name="country_code_hint">AA</string>
@@ -37,12 +41,22 @@
     <string name="cannot_create_pictures_dir">Error : The images\' directory cannot be created</string>
     <string name="cannot_access_pictures_dir">Error : The images\' directory cannot be accessed</string>
     <string name="delete_picture_warning">Once a photo is deleted, it can\'t be recovered. Do you want to continue ?</string>
+    <string name="delete_case_label">Once a case is deleted, it can\'t be recovered. Do you want to continue ?</string>
+    <string name="cannot_create_case_dir">Error : The directory to store the case cannot be created</string>
+    <string name="cannot_save_pictures">Error : The pictures cannot be saved</string>
 
     <!-- res content description -->
     <string name="return_previous_act">Return to the previous activity</string>
     <string name="add_picture">Add a picture to the case</string>
     <string name="image_description">An image of the case</string>
     <string name="delete_picture_content_description">A button to delete the picture</string>
+    <string name="tag_help">Displays tag information to help filling the form</string>
+    <string name="tag_gallery_description">Displays the photo gallery to overview pictures</string>
+    <string name="tag_audio_description">Displays the audio list and player</string>
+    <string name="tag_delete_description">Deletes the current case</string>
+    <string name="tag_save_description">Saves the current case</string>
+    <string name="edit_button_description">Edit the case</string>
+    <string name="save_button_description">Save the case into phone memory</string>
 
     <!-- Spinners -->
     <string-array name="gender">
@@ -61,12 +75,7 @@
         <item>Unknown</item>
     </string-array>
 
-
     <!-- Other -->
-    <string name="tag_help">Displays tag information to help filling the form</string>
-    <string name="tag_gallery_description">Displays the photo gallery to overview pictures</string>
-    <string name="tag_audio_description">Displays the audio list and player</string>
-    <string name="tag_delete_description">Deletes the current case</string>
-    <string name="tag_save_description">Saves the current case</string>
+    <string name="ocdc_default_value" translatable="false">0</string>
 
 </resources>

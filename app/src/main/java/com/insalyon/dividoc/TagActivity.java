@@ -1,6 +1,7 @@
 package com.insalyon.dividoc;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,12 +44,13 @@ public class TagActivity extends AppCompatActivity {
         defineSpinners();
         loadTagFields();
         setOCDCFilter();
-        setButtonListeners();
+        setButtonListeners(registration());
 
         // If this is a new case
         if (getIntent().getBooleanExtra("newCase", false))
         {
             this.workingImageDirectory = FilesPath.getNewCaseImageFolder();
+            createImageNewCaseFolder();
             verifyCameraPermission();
             dispatchTakePictureIntent();
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
@@ -110,8 +112,9 @@ public class TagActivity extends AppCompatActivity {
     /**
      * Set listeners for the buttons, launching different activities
      */
-    private void setButtonListeners() {
+    private void setButtonListeners(ActivityResultLauncher<Intent> activityResultLauncher) {
 
+        // Start the gallery activity
         FloatingActionButton galleryButton = findViewById(R.id.gallery_button);
         galleryButton.setOnClickListener(view -> {
             Intent galleryIntent = new Intent(TagActivity.this, GalleryActivity.class);
@@ -119,22 +122,33 @@ public class TagActivity extends AppCompatActivity {
             startActivity(galleryIntent);
         });
 
+        // Start the record activity
         FloatingActionButton recordButton = findViewById(R.id.record_button);
         recordButton.setOnClickListener(view -> {
             Intent galleryIntent = new Intent(TagActivity.this, RecordActivity.class);
             startActivity(galleryIntent);
         });
 
+        // Delete the case
         FloatingActionButton deleteButton = findViewById(R.id.delete_button);
-        deleteButton.setOnClickListener(view -> {
+        deleteButton.setOnClickListener(view -> deleteCase());
 
-        });
-
+        // Start the review activity
         FloatingActionButton saveButton = findViewById(R.id.save_case_button);
-        saveButton.setOnClickListener(view -> {
-            Intent galleryIntent = new Intent(TagActivity.this, ReviewActivity.class);
-            startActivity(galleryIntent);
-        });
+        saveButton.setOnClickListener(view -> startReviewActivity(activityResultLauncher));
+    }
+
+    /**
+     * Creates the image directory in new_case directory
+     */
+    private void createImageNewCaseFolder() {
+
+        File workingImageDirectoryFileObject = new File(workingImageDirectory);
+        if (!workingImageDirectoryFileObject.exists()) {
+            if (!workingImageDirectoryFileObject.mkdirs()) {
+                (Toast.makeText(this, getString(R.string.cannot_create_pictures_dir), Toast.LENGTH_SHORT)).show();
+            }
+        }
     }
 
     /**
@@ -163,14 +177,6 @@ public class TagActivity extends AppCompatActivity {
      * Opens camera and saves the photo at the specified URI upon success
      */
     private void dispatchTakePictureIntent() {
-
-        // Creation of the images directory in new_case directory
-        File workingImageDirectoryFileObject = new File(workingImageDirectory);
-        if (!workingImageDirectoryFileObject.exists()) {
-            if (!workingImageDirectoryFileObject.mkdirs()) {
-                (Toast.makeText(this, getString(R.string.cannot_create_pictures_dir), Toast.LENGTH_SHORT)).show();
-            }
-        }
 
         File pictureFile = new File(workingImageDirectory, "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
         Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", pictureFile);
@@ -210,7 +216,81 @@ public class TagActivity extends AppCompatActivity {
         preferencesEditor.apply();
 
         ((TextView) findViewById(R.id.vsn_tag)).setText(String.valueOf(VSN));
+    }
 
+    /**
+     * Deletes the generated case
+     */
+    private void deleteCase() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(TagActivity.this);
+        builder.setMessage(getResources().getString(R.string.delete_case_label))
+                .setTitle(getResources().getString(R.string.warning))
+                .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
+                    try {
+                        FilesPath.deleteDirectory(new File(workingImageDirectory));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    finish();
+                })
+                .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {})
+                .show();
+    }
+
+    /**
+     * The registerForActivityResult must be declared before the activity is started otherwise
+     * an error is triggered and the activity is crashing
+     * See https://stackoverflow.com/questions/64476827/how-to-resolve-the-error-lifecycleowners-must-call-register-before-they-are-sta
+     * @return the activity result launcher
+     */
+    private ActivityResultLauncher<Intent> registration() {
+
+        // Callback that will finish this tag activity when the review activity (which is a child
+        // of tag activity) will end
+        return registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() != Activity.RESULT_CANCELED) {
+                    this.finish();
+                }
+            }
+        );
+    }
+
+    /**
+     * Starts the review activity and pass the info to it
+     */
+    private void startReviewActivity(ActivityResultLauncher<Intent> activityResultLauncher) {
+
+        Intent reviewIntent = new Intent(TagActivity.this, ReviewActivity.class);
+
+        // Control information
+        reviewIntent.putExtra("newCase", getIntent().getBooleanExtra("newCase", false));
+        reviewIntent.putExtra("workingImageDirectory", this.workingImageDirectory);
+
+        // Inputted information
+        reviewIntent.putExtra("name", ((EditText) findViewById(R.id.name_input)).getText().toString());
+        reviewIntent.putExtra("gender", ((Spinner) findViewById(R.id.gender_spinner)).getSelectedItem().toString());
+        reviewIntent.putExtra("manual_location", ((TextView) findViewById(R.id.location_input)).getText().toString());
+        reviewIntent.putExtra("age", ((Spinner) findViewById(R.id.age_spinner)).getSelectedItem().toString());
+        reviewIntent.putExtra("additional_information", ((TextView) findViewById(R.id.additional_info_input)).getText().toString());
+
+        // Tag
+        String ocdc;
+        if (((TextView) findViewById(R.id.ocdc_tag)).getText().toString().equals("")) {
+            ocdc = getString(R.string.ocdc_default_value);
+        } else {
+            ocdc = ((TextView) findViewById(R.id.ocdc_tag)).getText().toString();
+        }
+        reviewIntent.putExtra("OCDC", ocdc);
+        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        String tag = preferences.getString("countryCode", "")
+            + preferences.getString("serialNumber", "")
+            + "_" + preferences.getInt("VSN", 1)
+            + "_" + ocdc;
+        reviewIntent.putExtra("tag", tag);
+
+        activityResultLauncher.launch(reviewIntent);
     }
 
     /**

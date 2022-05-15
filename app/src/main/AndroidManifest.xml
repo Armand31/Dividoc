@@ -16,7 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Dividoc">
+        android:theme="@style/Theme.Dividoc"
+        android:name="com.insalyon.dividoc.util.DiviContext" >
         <activity
             android:name=".ReviewActivity"
             android:exported="false" />
@@ -47,7 +48,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
 
     </application>
 

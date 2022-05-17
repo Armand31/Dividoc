@@ -25,7 +25,12 @@ import androidx.core.content.FileProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,6 +60,9 @@ public class TagActivity extends AppCompatActivity {
             dispatchTakePictureIntent();
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
             setVSN();
+        } else {
+            this.workingImageDirectory = FilesPath.getCaseImageFolder(getIntent().getStringExtra("workingDirectory"));
+            fetchData();
         }
     }
 
@@ -275,7 +283,7 @@ public class TagActivity extends AppCompatActivity {
         reviewIntent.putExtra("age", ((Spinner) findViewById(R.id.age_spinner)).getSelectedItem().toString());
         reviewIntent.putExtra("additional_information", ((TextView) findViewById(R.id.additional_info_input)).getText().toString());
 
-        // Tag
+        // Tag (OCDC and tag)
         String ocdc;
         if (((TextView) findViewById(R.id.ocdc_tag)).getText().toString().equals("")) {
             ocdc = getString(R.string.ocdc_default_value);
@@ -291,6 +299,66 @@ public class TagActivity extends AppCompatActivity {
         reviewIntent.putExtra("tag", tag);
 
         activityResultLauncher.launch(reviewIntent);
+    }
+
+    /**
+     * Fills the input fields with the previously saved information (in data.json file)
+     */
+    private void fetchData() {
+
+        String caseFolder = FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("workingDirectory");
+        File jsonFile = new File(FilesPath.getJsonDataFile(caseFolder));
+
+        // Reading the JSON file
+        StringBuilder jsonText = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(jsonFile));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                jsonText.append(line);
+                jsonText.append('\n');
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            Toast.makeText(this, getString(R.string.cannot_open_json_file), Toast.LENGTH_SHORT).show();
+        }
+
+        // Parse the JSON text and feed the input fields
+        JSONObject json;
+        try {
+
+            // JSON Parsing
+            json = new JSONObject(String.valueOf(jsonText));
+
+            // Inputs feeding
+            ((EditText) findViewById(R.id.name_input)).setText(json.getString("Name"));
+            ((EditText) findViewById(R.id.location_input)).setText(json.getString("HandwrittenLocation"));
+            ((EditText) findViewById(R.id.additional_info_input)).setText(json.getString("AdditionalInformation"));
+            ((EditText) findViewById(R.id.ocdc_tag)).setText(json.getString("OCDC"));
+            ((TextView) findViewById(R.id.vsn_tag)).setText(json.getString("VSN"));
+
+            // Spinners inputs feeding
+            String compareValue = json.getString("Age");
+            Spinner mSpinner = (Spinner) findViewById(R.id.age_spinner);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.age, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mSpinner.setAdapter(adapter);
+            int spinnerPosition = adapter.getPosition(compareValue);
+            mSpinner.setSelection(spinnerPosition);
+
+            compareValue = json.getString("Gender");
+            mSpinner = (Spinner) findViewById(R.id.gender_spinner);
+            adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mSpinner.setAdapter(adapter);
+            spinnerPosition = adapter.getPosition(compareValue);
+            mSpinner.setSelection(spinnerPosition);
+
+        } catch (JSONException e) {
+            Toast.makeText(this, getString(R.string.cannot_parse_json_file), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

@@ -44,6 +44,8 @@
     <string name="delete_case_label">Once a case is deleted, it can\'t be recovered. Do you want to continue ?</string>
     <string name="cannot_create_case_dir">Error : The directory to store the case cannot be created</string>
     <string name="cannot_save_pictures">Error : The pictures cannot be saved</string>
+    <string name="cannot_open_json_file">The data could not be loaded</string>
+    <string name="cannot_parse_json_file">The JSON data could not be parsed</string>
 
     <!-- res content description -->
     <string name="return_previous_act">Return to the previous activity</string>
@@ -57,6 +59,7 @@
     <string name="tag_save_description">Saves the current case</string>
     <string name="edit_button_description">Edit the case</string>
     <string name="save_button_description">Save the case into phone memory</string>
+    <string name="edit_case_description">Edit the case</string>
 
     <!-- Spinners -->
     <string-array name="gender">

@@ -77,7 +77,7 @@ public class GalleryActivity extends AppCompatActivity {
      */
     private void dispatchTakePictureIntent(ActivityResultLauncher<Uri> registerForActivityResult) {
 
-        File pictureFile = new File(workingImageDirectory + "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
+        File pictureFile = new File(workingImageDirectory + File.separator + "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
         Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", pictureFile);
 
         registerForActivityResult.launch(photoUri);

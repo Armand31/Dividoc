@@ -31,6 +31,8 @@ public class FilesPath extends AppCompatActivity {
 
     public static String getHtmlDataFile(String baseFolder) { return baseFolder + File.separator + htmlDataFile; }
 
+    public static String getCaseImageFolder(String caseString) { return getCasesFolder() + File.separator + caseString + File.separator + "images"; }
+
     /**
      * Deletes file or a directory recursively
      * The delete() method from File Class can delete a directory only if it's empty, that's why we need the deleteDirectory method

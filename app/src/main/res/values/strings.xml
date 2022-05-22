@@ -4,6 +4,7 @@
     <!-- Activities titles -->
     <string name="gallery">Photo Gallery</string>
     <string name="review">Please check that the information are correct</string>
+    <string name="transfer">Transfer</string>
 
     <!-- Buttons -->
     <string name="add_case_button">Add a new case</string>
@@ -12,6 +13,9 @@
     <string name="select_cases_archives">Archives</string>
     <string name="start">Start</string>
     <string name="discard_changes">Discard changes</string>
+    <string name="return_button">Return</string>
+    <string name="send_button">Send</string>
+    <string name="confirm_export">Export</string>
 
     <!-- Informational and help messages -->
     <string name="tag_title">Please complete the victim\'s identification form</string>
@@ -29,8 +33,10 @@
     <string name="country_code_hint">AA</string>
     <string name="serial_number_hint" translatable="false">000</string>
     <string name="delete_label">Delete</string>
-
+    <string name="expiration_label">Directory\'s expiration date</string>
     <string name="ocdc" translatable="false">OCDC</string>
+    <string name="password_label">Directory password</string>
+    <string name="zip_path_label">Path to zip folder</string>
 
     <!-- Warnings -->
     <string name="warning">Warning</string>
@@ -46,6 +52,7 @@
     <string name="cannot_save_pictures">Error : The pictures cannot be saved</string>
     <string name="cannot_open_json_file">The data could not be loaded</string>
     <string name="cannot_parse_json_file">The JSON data could not be parsed</string>
+    <string name="read_before_export">A folder containing all your files will be created and can be exported by: USB, email or bluetooth. If the file remains in your phone for more than %d hours, it will be encrypted and you will have to contact the ICRC to decrypt it. Make sure that the authorities are ready to receive the file. </string>
 
     <!-- res content description -->
     <string name="return_previous_act">Return to the previous activity</string>

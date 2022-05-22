@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"/>
-    <!-- TODO Permission for writing external storage when SDK version > 28 -->
+    <!-- TODO Permission for writing external storage when SDK version > 28 https://developer.android.com/about/versions/11/privacy/storage-->
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dividoc"
-        android:name="com.insalyon.dividoc.util.DiviContext" >
+        android:name="com.insalyon.dividoc.util.DiviContext"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".ReviewActivity"
             android:exported="false" />
@@ -34,10 +35,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".TagActivity" />
-        <activity android:name=".ExportActivity" />
         <activity android:name=".InitActivity" />
         <activity android:name=".GalleryActivity" />
         <activity android:name=".DisplayImageActivity" />
+        <activity android:name=".TransferActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

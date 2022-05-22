@@ -58,6 +58,7 @@ public class TagActivity extends AppCompatActivity {
             createImageNewCaseFolder();
             verifyCameraPermission();
             dispatchTakePictureIntent();
+            // TODO : Watermark the images
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
             setVSN();
         } else {

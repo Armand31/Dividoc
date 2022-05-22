@@ -31,7 +31,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
+// TODO : Watermark the saved images
 public class GalleryActivity extends AppCompatActivity {
 
     private String workingImageDirectory;
@@ -55,7 +55,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         // Finish the activity when return button is clicked
         FloatingActionButton backButton = findViewById(R.id.return_gallery);
-        backButton.setOnClickListener(click -> this.finish());
+        backButton.setOnClickListener(click -> onBackPressed());
 
         // Take picture if the camera button is clicked
         FloatingActionButton takePictureButton = findViewById(R.id.take_photo_button);
@@ -164,6 +164,7 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     @Override
+    // TODO Ensure that there is minimum a photo before finishing
     public void onBackPressed() {
         this.finish();
     }

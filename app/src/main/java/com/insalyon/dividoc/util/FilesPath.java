@@ -1,5 +1,7 @@
 package com.insalyon.dividoc.util;
 
+import android.os.Environment;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
@@ -19,6 +21,9 @@ public class FilesPath extends AppCompatActivity {
 
     private static final String htmlDataFile = "index.html";
 
+    // Download directory / App name folder
+    private static final String exportDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + DiviContext.getAppContext().getString(DiviContext.getAppContext().getApplicationInfo().labelRes);
+
     public static String getAppRootFolder() { return appRootFolder; }
 
     public static String getCasesFolder() { return casesFolder; }
@@ -32,6 +37,10 @@ public class FilesPath extends AppCompatActivity {
     public static String getHtmlDataFile(String baseFolder) { return baseFolder + File.separator + htmlDataFile; }
 
     public static String getCaseImageFolder(String caseString) { return getCasesFolder() + File.separator + caseString + File.separator + "images"; }
+
+    public static String getExportDirectory() {
+        System.out.println("Export directory : " + exportDirectory);
+        return exportDirectory; }
 
     /**
      * Deletes file or a directory recursively

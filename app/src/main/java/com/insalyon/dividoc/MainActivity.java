@@ -1,20 +1,23 @@
 package com.insalyon.dividoc;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.insalyon.dividoc.fragments.FilesFragment;
+import com.insalyon.dividoc.util.FilesPath;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initializaiton
+        // Initialization
         setButtonListeners();
         switchBetweenFilesAndArchives(findViewById(R.id.select_cases_files_button));
 
@@ -40,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
      * new activities
      */
     private void setButtonListeners() {
+
         // Start TagActivity if the "Add a new case" button is clicked
-        Button addNewCaseButton = (Button) findViewById(R.id.add_new_case);
+        Button addNewCaseButton = findViewById(R.id.add_new_case);
         addNewCaseButton.setOnClickListener(view -> {
             Intent tagActivityNewCase = new Intent(MainActivity.this, TagActivity.class);
             tagActivityNewCase.putExtra("newCase", true);
@@ -49,15 +53,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Start ExportActivity if the "Export files" button is clicked
-        Button exportFilesButton = (Button) findViewById(R.id.export_file_button);
-        exportFilesButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, ExportActivity.class)));
+        Button exportFilesButton = findViewById(R.id.export_file_button);
+        exportFilesButton.setOnClickListener(view -> startTransfer());
     }
 
     /**
      * Allows switching between files and archives menu in the main activity
      * Triggered by callback (see onClick field in id/select_cases_files_button in activity_main.xml)
      */
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void switchBetweenFilesAndArchives(View view) {
 
         Button currentCases = findViewById(R.id.select_cases_files_button);
@@ -92,6 +95,34 @@ public class MainActivity extends AppCompatActivity {
         */
     }
 
+    /**
+     *
+     */
+    public void startTransfer() {
+
+        if (new File(FilesPath.getCasesFolder()).listFiles() != null) {
+
+            //String date = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            //((TextView) findViewById(R.id.max_photo_info)).setText(getResources().getString(R.string.max_photos_gallery, MAX_PHOTOS_ALLOWED));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getResources().getString(R.string.warning))
+                    .setMessage(getResources().getString(R.string.read_before_export, TransferActivity.getHours()))
+                    .setPositiveButton(getResources().getString(R.string.confirm_export),
+                            ((dialogInterface, i) -> {
+                                Intent exportIntent = new Intent(this, TransferActivity.class);
+                                startActivity(exportIntent);
+                            }))
+                    .setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> {}));
+            builder.create().show();
+        } else {
+            Toast.makeText(this, "There is no file to export", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Reloads the cases list in the menu
+     */
     @Override
     public void onResume() {
 

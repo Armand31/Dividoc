@@ -19,7 +19,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/tag_title"
-            android:textColor="@color/text"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_weight="4" />
@@ -95,8 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:importantForAutofill="no"
-            android:inputType="none"
-            android:textColor="@color/text" />
+            android:inputType="none" />
 
         <TextView
             android:id="@+id/tag_separator1"
@@ -112,8 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:importantForAutofill="no"
-            android:inputType="none"
-            android:textColor="@color/text" />
+            android:inputType="none" />
 
         <TextView
             android:id="@+id/tag_separator2"
@@ -129,8 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:importantForAutofill="no"
-            android:inputType="none"
-            android:textColor="@color/text" />
+            android:inputType="none" />
 
         <TextView
             android:id="@+id/tag_separator3"
@@ -148,7 +144,6 @@
             android:hint="@string/ocdc"
             android:textAlignment="center"
             android:importantForAutofill="no"
-            android:textColor="@color/text"
             android:inputType="textPersonName" />
 
     </LinearLayout>

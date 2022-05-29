@@ -5,6 +5,7 @@
     <string name="gallery">Photo Gallery</string>
     <string name="review">Please check that the information are correct</string>
     <string name="transfer">Transfer</string>
+    <string name="settings">Settings</string>
 
     <!-- Buttons -->
     <string name="add_case_button">Add a new case</string>
@@ -67,6 +68,27 @@
     <string name="edit_button_description">Edit the case</string>
     <string name="save_button_description">Save the case into phone memory</string>
     <string name="edit_case_description">Edit the case</string>
+
+    <!-- Settings strings -->
+    <string name="dark_mode">Dark mode</string>
+    <string name="dark_mode_info">Enable the dark theme</string>
+    <string name="super_user_mode">Super user mode</string>
+    <string name="super_user_mode_info">Deactivate the password protection for zipped files</string>
+    <string name="lang">Language</string>
+    <string name="lang_info">Change application\'s language</string>
+    <string-array name="language_array">
+        <item>English</item>
+        <item>Français</item>
+        <item>Español</item>
+        <item>Português</item>
+    </string-array>
+    <string-array name="language_array_values">
+        <item>en</item>
+        <item>fr</item>
+        <item>es</item>
+        <item>pt</item>
+    </string-array>
+    <!-- Language code cannot got '-' & must be 2 small case letter only -->
 
     <!-- Spinners -->
     <string-array name="gender">

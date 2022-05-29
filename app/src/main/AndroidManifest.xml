@@ -39,6 +39,9 @@
         <activity android:name=".GalleryActivity" />
         <activity android:name=".DisplayImageActivity" />
         <activity android:name=".TransferActivity" />
+        <activity android:name=".SettingsActivity"
+            android:configChanges="layoutDirection|locale" />
+        <!-- https://stackoverflow.com/questions/18725396/onconfigurationchange-not-called-after-changing-locale -->
 
         <provider
             android:name="androidx.core.content.FileProvider"

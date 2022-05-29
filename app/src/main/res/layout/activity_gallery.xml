@@ -22,7 +22,6 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/gallery"
-            android:textColor="@color/primary"
             android:textSize="24sp"
             android:textStyle="bold" />
 

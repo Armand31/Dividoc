@@ -1,0 +1,23 @@
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="dark_mode"
+        app:title="@string/dark_mode"
+        app:summary="@string/dark_mode_info"
+        app:defaultValue="false" />
+
+    <SwitchPreferenceCompat
+        app:key="super_user_mode"
+        app:title="@string/super_user_mode"
+        app:summary="@string/super_user_mode_info"
+        app:defaultValue="true" />
+
+    <ListPreference
+        app:key="lang"
+        app:title="@string/lang"
+        app:summary="@string/lang_info"
+        app:entries="@array/language_array"
+        app:entryValues="@array/language_array_values" />
+
+</PreferenceScreen>

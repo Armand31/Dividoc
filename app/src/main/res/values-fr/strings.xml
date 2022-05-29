@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">Dividoc</string>
+
+    <!-- Titres des activités -->
+    <string name="gallery">Galerie photo</string>
+    <string name="review">Veuillez vérifier que les informations sont correctes</string>.
+    <string name="transfer">Transfert</string>
+    <string name="settings">Settings</string>
+
+    <!-- Boutons -->
+    <string name="add_case_button">Ajouter un nouveau cas</string>
+    <string name="export_file_button">Exporter des fichiers</string>
+    <string name="select_cases_files">Fichiers</string>
+    <string name="select_cases_archives">Archives</string>
+    <string name="start">Démarrage</string>
+    <string name="discard_changes">Discard des modifications</string>
+    <string name="return_button">Retour</string>
+    <string name="send_button">Envoyer</string>
+    <string name="confirm_export">Exportation</string>
+
+    <!-- Messages d'information et d'aide -->
+    <string name="tag_title">Veuillez remplir le formulaire d\'identification de la victime</string>.
+    <string name="max_photos_gallery">Maximum %d photos</string>
+
+    <!-- Étiquettes et conseils -->
+    <string name="name">Nom</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="location">Location</string>
+    <string name="additional_information">Informations complémentaires</string>
+    <string name="tag" translatable="false">Tag</string>
+    <string name="dot_separator" translatable="false">.</string>
+    <string name="input_serial_number">Veuillez saisir le numéro de série de votre téléphone</string>.
+    <string name="country_code_hint">AA</string>
+    <string name="serial_number_hint" translatable="false">000</string>
+    <string name="delete_label">Delete</string>
+    <string name="expiration_label">Date d\'expiration du répertoire</string>
+    <string name="ocdc" translatable="false">OCDC</string>
+    <string name="password_label">Mot de passe du répertoire</string>
+    <string name="zip_path_label">Chemin du dossier zip</string>
+
+    <!-- Avertissements -->
+    <string name="warning">Avertissement</string>
+    <string name="input_verification">Ce numéro : %s est-il correct ?\nSachez que vous ne pourrez pas le modifier ultérieurement</string>.
+    <string name="invalid_ocdc">L\'OCDC n\'accepte que les lettres, les chiffres et les tirets</string>
+    <string name="cancel_changes">Les modifications ne seront pas enregistrées.</string> Voulez-vous continuer ?
+    <string name="cannot_create_picture_file">Erreur : Le fichier image n\'a pas pu être créé</string>
+    <string name="cannot_create_pictures_dir">Erreur : Le répertoire images\' ne peut pas être créé</string>
+    <string name="cannot_access_pictures_dir">Erreur : Le répertoire images\' ne peut être accédé</string>
+    <string name="delete_picture_warning">Une fois qu\'une photo est supprimée, elle ne peut pas être récupérée. Voulez-vous continuer ?</string>
+    <string name="delete_case_label">Une fois qu\'un cas est supprimé, il ne peut pas être récupéré. Voulez-vous continuer ?</string>
+    <string name="cannot_create_case_dir">Erreur : Le répertoire pour stocker le cas ne peut pas être créé</string>
+    <string name="cannot_save_pictures">Erreur : Les images ne peuvent pas être sauvegardées</string>
+    <string name="cannot_open_json_file">Les données n\'ont pas pu être chargées</string>
+    <string name="cannot_parse_json_file">Les données JSON n\'ont pas pu être analysées</string>
+    <string name="read_before_export">Un dossier contenant tous vos fichiers sera créé et pourra être exporté par : USB, email ou bluetooth. Si le fichier reste dans votre téléphone pendant plus de %d heures, il sera crypté et vous devrez contacter le CICR pour le décrypter. Assurez-vous que les autorités sont prêtes à recevoir le fichier. </string>
+
+        <!-- res DeepL content -->
+    <string name="return_previous_act">Retour à l\'activité précédente</string>
+    <string name="add_picture">Ajouter une image à l\'affaire</string>
+    <string name="image_description">Une image de l\'affaire</string>
+    <string name="delete_picture_content_description">Un bouton pour supprimer l\'image</string>
+    <string name="tag_help">Affiche les informations du tag pour aider à remplir le formulaire</string>
+    <string name="tag_gallery_description">Affiche la galerie photo pour visualiser les images</string>
+    <string name="tag_audio_description">Affiche la liste et le lecteur audio</string>
+    <string name="tag_delete_description">Supprime l\'affaire en cours</string>
+    <string name="tag_save_description">Enregistre l\'affaire en cours</string>
+    <string name="edit_button_description">Editer le cas</string>
+    <string name="save_button_description">Enregistrer l\'affaire dans la mémoire du téléphone</string>
+    <string name="edit_case_description">Modifier l\'étui</string>
+
+    <!-- Settings strings -->
+    <string name="dark_mode">Thème sombre</string>
+    <string name="dark_mode_info">Active le thème sombre</string>
+    <string name="super_user_mode">Mode super utilisateur</string>
+    <string name="super_user_mode_info">Désactive la protection par mot de passe des fichiers zip</string>
+    <string name="lang">Langue</string>
+    <string name="lang_info">Changer la langue de l\'application</string>
+
+        <!-- Spinners -->
+    <string-array name="gender">
+        <item><b>Sex</b></item>
+        <item>Man</item>
+        <item>Woman</item>
+        <item>Unknown</item>
+    </string-array>
+
+    <string-array name="age">
+        <item><b>Age range</b></item>
+        <item>Adult</item>
+        <item>Teenager</item>
+        <item>Kid</item>
+        <item>Baby</item>
+        <item>Inconnu</item>
+    </string-array>
+
+        <!-- Autres -->
+    <string name="ocdc_default_value" translatable="false">0</string>
+</resources>
+
+

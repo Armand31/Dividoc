@@ -1,41 +1,59 @@
 package com.insalyon.dividoc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 import com.insalyon.dividoc.fragments.FilesFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
+import java.util.Locale;
 
+// TODO : Set the theme as the system default at initialization
+// TODO : Delete new_case at startup if it exist
 public class MainActivity extends AppCompatActivity {
+
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        applyPreferences();
         setContentView(R.layout.activity_main);
 
         // Initialization
         setButtonListeners();
         switchBetweenFilesAndArchives(findViewById(R.id.select_cases_files_button));
 
-
         // If this is the first time the user is using the app, he has to input his serial number via the InitActivity
         SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         if (!preferences.contains("FirstStart")) {
             startActivity(new Intent(MainActivity.this, InitActivity.class));
         }
+
+        // Registration of the callback that will trigger the reload of the view when the locale as changed
+        // and the settings activity is closed
+        this.activityResultLauncher = registration();
     }
 
     /**
@@ -96,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Starts the transfer activity that will zip the files
      */
     public void startTransfer() {
 
@@ -118,6 +136,78 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "There is no file to export", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Creates an Options Menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+    /**
+     * Handles settings icon click event
+     * @param item the menu item that is clicked
+     * @return true on success
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings_menu) {
+            Intent settings = new Intent(this, SettingsActivity.class);
+            this.activityResultLauncher.launch(settings);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Apply the preferences if they were changed from the defaults
+     */
+    private void applyPreferences() {
+        SettingsActivity.setTheme();
+        setLang();
+    }
+
+    /**
+     * Sets the lang
+     * TODO : Factorize code with com.insalyon.dividoc.SettingsActivity#setLang()
+     */
+    private void setLang() {
+
+        // Getting the selected language
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String lang = sharedPreferences.getString("lang", "en");
+
+        // Changes the application's configuration
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Resources resources = this.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
+
+    /**
+     * Callback that will reloads the view if the locale was changed in the settings
+     * The return variable must be declared before the activity is started otherwise
+     * an error is triggered and the activity is crashing
+     * See https://stackoverflow.com/questions/64476827/how-to-resolve-the-error-lifecycleowners-must-call-register-before-they-are-sta
+     * @return the activity result launcher
+     */
+    private ActivityResultLauncher<Intent> registration() {
+
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        this.recreate();
+                    }
+                }
+        );
     }
 
     /**

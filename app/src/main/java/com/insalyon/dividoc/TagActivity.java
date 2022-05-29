@@ -247,15 +247,14 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     * The registerForActivityResult must be declared before the activity is started otherwise
+     * Callback that will finish this tag activity when the review activity (which is a child of tag activity) will end
+     * The return variable must be declared before the activity is started otherwise
      * an error is triggered and the activity is crashing
      * See https://stackoverflow.com/questions/64476827/how-to-resolve-the-error-lifecycleowners-must-call-register-before-they-are-sta
      * @return the activity result launcher
      */
     private ActivityResultLauncher<Intent> registration() {
 
-        // Callback that will finish this tag activity when the review activity (which is a child
-        // of tag activity) will end
         return registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -342,7 +341,7 @@ public class TagActivity extends AppCompatActivity {
 
             // Spinners inputs feeding
             String compareValue = json.getString("Age");
-            Spinner mSpinner = (Spinner) findViewById(R.id.age_spinner);
+            Spinner mSpinner = findViewById(R.id.age_spinner);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.age, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpinner.setAdapter(adapter);
@@ -350,7 +349,7 @@ public class TagActivity extends AppCompatActivity {
             mSpinner.setSelection(spinnerPosition);
 
             compareValue = json.getString("Gender");
-            mSpinner = (Spinner) findViewById(R.id.gender_spinner);
+            mSpinner = findViewById(R.id.gender_spinner);
             adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpinner.setAdapter(adapter);

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 
 public class InitActivity extends AppCompatActivity {
 
@@ -89,12 +90,12 @@ public class InitActivity extends AppCompatActivity {
 
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
-            SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
-            SharedPreferences.Editor preferencesEditor = preferences.edit();
-            preferencesEditor.putBoolean("FirstStart", false);
-            preferencesEditor.putString("countryCode", countryCode.getText().toString());
-            preferencesEditor.putString("serialNumber", serialNumber.getText().toString());
-            preferencesEditor.apply();
+            SharedPreferences defaultPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor defaultPreferencesEditor = defaultPreferences.edit();
+            defaultPreferencesEditor.putBoolean("FirstStart", false);
+            defaultPreferencesEditor.putString("countryCode", countryCode.getText().toString());
+            defaultPreferencesEditor.putString("serialNumber", serialNumber.getText().toString());
+            defaultPreferencesEditor.apply();
 
             askForPermissions();
         });
@@ -117,7 +118,8 @@ public class InitActivity extends AppCompatActivity {
         String[] permissions = {
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION
         };
 
         ActivityCompat.requestPermissions(this, permissions, 1);

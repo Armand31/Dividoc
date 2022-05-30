@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
@@ -89,19 +90,22 @@ public class ReviewActivity extends AppCompatActivity {
                     }
                     finish();
                 })
-                .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {})
+                .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {
+                })
                 .show();
     }
 
     /**
-     * Save the information into the phone's memory
+     * Save the information into the phone's memory, in a dedicated folder
      */
     private void saveCase() throws IOException {
 
         this.workingCaseDirectory = new File(FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("tag"));
 
-        // Renaming the new_case folder with the tag if this is a new case
+        // If we are saving a new case
         if (getIntent().getBooleanExtra("newCase", true)) {
+
+            // Renaming the new_case folder with the tag if this is a new case
             File newCaseFolder = new File(FilesPath.getNewCaseFolder());
             if (!newCaseFolder.renameTo(this.workingCaseDirectory)) {
                 Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
@@ -123,7 +127,7 @@ public class ReviewActivity extends AppCompatActivity {
      */
     private void createJSON() {
 
-        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Save data to JSON object
         JSONObject jsonData = new JSONObject();
@@ -139,6 +143,8 @@ public class ReviewActivity extends AppCompatActivity {
             jsonData.put("Age", getIntent().getStringExtra("age"));
             jsonData.put("HandwrittenLocation", getIntent().getStringExtra("manual_location"));
             jsonData.put("AdditionalInformation", getIntent().getStringExtra("additional_information"));
+            jsonData.put("Latitude", getIntent().getDoubleExtra("latitude", 0.0));
+            jsonData.put("Longitude", getIntent().getDoubleExtra("longitude", 0.0));
         } catch (JSONException e) {
             Toast.makeText(this, "Unable to format the data to JSON", Toast.LENGTH_SHORT).show();
         }
@@ -175,6 +181,8 @@ public class ReviewActivity extends AppCompatActivity {
         data.put("Age", getIntent().getStringExtra("age"));
         data.put("HandwrittenLocation", getIntent().getStringExtra("manual_location"));
         data.put("AdditionalInformation", getIntent().getStringExtra("additional_information"));
+        data.put("Latitude", Double.toString(getIntent().getDoubleExtra("latitude", 0.0)));
+        data.put("Longitude", Double.toString(getIntent().getDoubleExtra("longitude", 0.0)));
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>\n" +
@@ -186,7 +194,6 @@ public class ReviewActivity extends AppCompatActivity {
                 "\t<body>\n");
 
         for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.keySet().toArray()[i]);
             String key = (String) data.keySet().toArray()[i];
             stringBuilder.append(String.format(
                    "\t\t<div>%s : %s</div>\n", key, data.get(key)

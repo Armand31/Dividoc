@@ -3,9 +3,11 @@ package com.insalyon.dividoc;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -19,8 +21,10 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
@@ -39,6 +43,7 @@ import java.util.Locale;
 public class TagActivity extends AppCompatActivity {
 
     private String workingImageDirectory;
+    private double latitude = 0.0, longitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class TagActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra("newCase", false))
         {
             this.workingImageDirectory = FilesPath.getNewCaseImageFolder();
+            getCaseLocation();
             createImageNewCaseFolder();
             verifyCameraPermission();
             dispatchTakePictureIntent();
@@ -90,7 +96,7 @@ public class TagActivity extends AppCompatActivity {
      */
     private void loadTagFields() {
 
-        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         ((TextView) findViewById(R.id.cc_tag)).setText(preferences.getString("countryCode", "error"));
         ((TextView) findViewById(R.id.sn_tag)).setText(preferences.getString("serialNumber", "error"));
@@ -145,6 +151,40 @@ public class TagActivity extends AppCompatActivity {
         // Start the review activity
         FloatingActionButton saveButton = findViewById(R.id.save_case_button);
         saveButton.setOnClickListener(view -> startReviewActivity(activityResultLauncher));
+    }
+
+    /**
+     * Gets the location of the body
+     */
+    private void getCaseLocation() {
+
+        // Verify location permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        // Get the location if the permission was granted
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 50, location -> {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        });
+
+        /*
+        Requires Google Play Store and a google account
+
+        Needs to add the dependency in the build.gradle file : implementation 'com.google.android.gms:play-services-location:19.0.1'
+
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    System.out.println("location : " + location);
+                }
+            }
+        });
+        */
     }
 
     /**
@@ -291,12 +331,17 @@ public class TagActivity extends AppCompatActivity {
             ocdc = ((TextView) findViewById(R.id.ocdc_tag)).getText().toString();
         }
         reviewIntent.putExtra("OCDC", ocdc);
-        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences customPreferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         String tag = preferences.getString("countryCode", "")
             + preferences.getString("serialNumber", "")
-            + "_" + preferences.getInt("VSN", 1)
+            + "_" + customPreferences.getInt("VSN", 1)
             + "_" + ocdc;
         reviewIntent.putExtra("tag", tag);
+
+        // Coordinates
+        reviewIntent.putExtra("latitude", this.latitude);
+        reviewIntent.putExtra("longitude", this.longitude);
 
         activityResultLauncher.launch(reviewIntent);
     }

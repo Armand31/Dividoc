@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         switchBetweenFilesAndArchives(findViewById(R.id.select_cases_files_button));
 
         // If this is the first time the user is using the app, he has to input his serial number via the InitActivity
-        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!preferences.contains("FirstStart")) {
             startActivity(new Intent(MainActivity.this, InitActivity.class));
         }

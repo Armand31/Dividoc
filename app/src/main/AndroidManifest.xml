@@ -7,8 +7,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"/>
     <!-- TODO Permission for writing external storage when SDK version > 28 https://developer.android.com/about/versions/11/privacy/storage-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,14 @@
         android:theme="@style/Theme.Dividoc"
         android:name="com.insalyon.dividoc.util.DiviContext"
         android:requestLegacyExternalStorage="true">
+
+        <!-- Recommended for Android 9 (API level 28) and lower. -->
+        <!-- Required for Android 10 (API level 29) and higher. -->
+        <service
+            android:name=".services.NavigationService"
+            android:foregroundServiceType="location" >
+        </service>
+
         <activity
             android:name=".ReviewActivity"
             android:exported="false" />

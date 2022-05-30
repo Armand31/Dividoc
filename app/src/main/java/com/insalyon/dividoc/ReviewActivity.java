@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class ReviewActivity extends AppCompatActivity {
@@ -112,11 +114,14 @@ public class ReviewActivity extends AppCompatActivity {
             }
         }
 
+        // Get the time and date
+        Date time = Calendar.getInstance().getTime();
+
         // Format data to json and writing it to file
-        createJSON();
+        createJSON(time);
 
         // Format data to html and writing it to a file
-        createHTML();
+        createHTML(time);
 
         setResult(Activity.RESULT_OK);
         this.finish();
@@ -125,7 +130,7 @@ public class ReviewActivity extends AppCompatActivity {
     /**
      * Creates a JSON file to save the data formatted in JSON
      */
-    private void createJSON() {
+    private void createJSON(Date time) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -145,6 +150,7 @@ public class ReviewActivity extends AppCompatActivity {
             jsonData.put("AdditionalInformation", getIntent().getStringExtra("additional_information"));
             jsonData.put("Latitude", getIntent().getDoubleExtra("latitude", 0.0));
             jsonData.put("Longitude", getIntent().getDoubleExtra("longitude", 0.0));
+            jsonData.put("Time & date", String.valueOf(time));
         } catch (JSONException e) {
             Toast.makeText(this, "Unable to format the data to JSON", Toast.LENGTH_SHORT).show();
         }
@@ -164,7 +170,7 @@ public class ReviewActivity extends AppCompatActivity {
      * Creates an HTML file to save the formatted data
      */
     // TODO Improve the HTML file information
-    private void createHTML() {
+    private void createHTML(Date time) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -183,6 +189,7 @@ public class ReviewActivity extends AppCompatActivity {
         data.put("AdditionalInformation", getIntent().getStringExtra("additional_information"));
         data.put("Latitude", Double.toString(getIntent().getDoubleExtra("latitude", 0.0)));
         data.put("Longitude", Double.toString(getIntent().getDoubleExtra("longitude", 0.0)));
+        data.put("Time & date", String.valueOf(time));
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>\n" +

@@ -323,24 +323,38 @@ public class TagActivity extends AppCompatActivity {
         reviewIntent.putExtra("age", ((Spinner) findViewById(R.id.age_spinner)).getSelectedItem().toString());
         reviewIntent.putExtra("additional_information", ((TextView) findViewById(R.id.additional_info_input)).getText().toString());
 
-        // Tag (OCDC and tag)
-        String ocdc;
-        if (((TextView) findViewById(R.id.ocdc_tag)).getText().toString().equals("")) {
-            ocdc = getString(R.string.ocdc_default_value);
-        } else {
-            ocdc = ((TextView) findViewById(R.id.ocdc_tag)).getText().toString();
-        }
-        reviewIntent.putExtra("OCDC", ocdc);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String tag = preferences.getString("countryCode", "")
-            + preferences.getString("serialNumber", "")
-            + "_" + preferences.getInt("VSN", 1)
-            + "_" + ocdc;
-        reviewIntent.putExtra("tag", tag);
+        if (getIntent().getBooleanExtra("newCase", false)) {
 
-        // Coordinates
-        reviewIntent.putExtra("latitude", this.latitude);
-        reviewIntent.putExtra("longitude", this.longitude);
+            // Tag (OCDC and tag)
+            String ocdc;
+            if (((TextView) findViewById(R.id.ocdc_tag)).getText().toString().equals("")) {
+                ocdc = getString(R.string.ocdc_default_value);
+            } else {
+                ocdc = ((TextView) findViewById(R.id.ocdc_tag)).getText().toString();
+            }
+            reviewIntent.putExtra("OCDC", ocdc);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String tag = preferences.getString("countryCode", "")
+                    + preferences.getString("serialNumber", "")
+                    + "_" + preferences.getInt("VSN", 1)
+                    + "_" + ocdc;
+            reviewIntent.putExtra("tag", tag);
+
+            // Coordinates
+            reviewIntent.putExtra("latitude", this.latitude);
+            reviewIntent.putExtra("longitude", this.longitude);
+        } else {
+            try {
+
+                JSONObject json = openJSON();
+                reviewIntent.putExtra("tag", json.getString("Tag"));
+                reviewIntent.putExtra("latitude", json.getString("Latitude"));
+                reviewIntent.putExtra("longitude", json.getString("Longitude"));
+
+            } catch (JSONException e) {
+                Toast.makeText(this, getString(R.string.cannot_parse_json_file), Toast.LENGTH_SHORT).show();
+            }
+        }
 
         activityResultLauncher.launch(reviewIntent);
     }
@@ -350,31 +364,8 @@ public class TagActivity extends AppCompatActivity {
      */
     private void fetchData() {
 
-        String caseFolder = FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("workingDirectory");
-        File jsonFile = new File(FilesPath.getJsonDataFile(caseFolder));
-
-        // Reading the JSON file
-        StringBuilder jsonText = new StringBuilder();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(jsonFile));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                jsonText.append(line);
-                jsonText.append('\n');
-            }
-            br.close();
-        }
-        catch (IOException e) {
-            Toast.makeText(this, getString(R.string.cannot_open_json_file), Toast.LENGTH_SHORT).show();
-        }
-
-        // Parse the JSON text and feed the input fields
-        JSONObject json;
-        try {
-
-            // JSON Parsing
-            json = new JSONObject(String.valueOf(jsonText));
+            JSONObject json = openJSON();
 
             // Inputs feeding
             ((EditText) findViewById(R.id.name_input)).setText(json.getString("Name"));
@@ -403,6 +394,34 @@ public class TagActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Toast.makeText(this, getString(R.string.cannot_parse_json_file), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Opens the JSON file that is linked with the current case
+     * @return the JSONObject
+     */
+    private JSONObject openJSON() throws JSONException {
+
+        String caseFolder = FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("workingDirectory");
+        File jsonFile = new File(FilesPath.getJsonDataFile(caseFolder));
+
+        // Reading the JSON file
+        StringBuilder jsonText = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(jsonFile));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                jsonText.append(line);
+                jsonText.append('\n');
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            Toast.makeText(this, getString(R.string.cannot_open_json_file), Toast.LENGTH_SHORT).show();
+        }
+
+        return new JSONObject(String.valueOf(jsonText));
     }
 
     /**

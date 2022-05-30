@@ -166,7 +166,7 @@ public class ReviewActivity extends AppCompatActivity {
     // TODO Improve the HTML file information
     private void createHTML() {
 
-        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // LinkedHashMap is an HashMap that preserve the insertion order
         LinkedHashMap<String, String> data = new LinkedHashMap<>();

@@ -253,8 +253,8 @@ public class TagActivity extends AppCompatActivity {
      */
     private void setVSN() {
 
-        int VSN = 1;
-        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        int VSN = 0;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (preferences.contains("VSN")) {
             VSN = preferences.getInt("VSN", -1);
@@ -332,10 +332,9 @@ public class TagActivity extends AppCompatActivity {
         }
         reviewIntent.putExtra("OCDC", ocdc);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences customPreferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         String tag = preferences.getString("countryCode", "")
             + preferences.getString("serialNumber", "")
-            + "_" + customPreferences.getInt("VSN", 1)
+            + "_" + preferences.getInt("VSN", 1)
             + "_" + ocdc;
         reviewIntent.putExtra("tag", tag);
 

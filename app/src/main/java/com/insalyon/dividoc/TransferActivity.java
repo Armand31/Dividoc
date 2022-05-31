@@ -1,5 +1,6 @@
 package com.insalyon.dividoc;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.insalyon.dividoc.util.FilesPath;
 
@@ -132,17 +134,22 @@ public class TransferActivity extends AppCompatActivity {
             }
         }
 
-        // Generate a password to protect the zip file
-        String password = getPassword(12);
-        ((TextView) findViewById(R.id.password)).setText(password);
-
+        // Setting compression for the zipped file
         ZipParameters zipParameters = new ZipParameters();
         zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
         zipParameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_ULTRA);
-        zipParameters.setEncryptFiles(true);
-        zipParameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
-        zipParameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
-        zipParameters.setPassword(password);
+
+        // Generate a password to protect the zip file, if super user mode is deactivated
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!preferences.getBoolean("super_user_mode", true)) {
+
+            String password = getPassword(12);
+            ((TextView) findViewById(R.id.password)).setText(password);
+            zipParameters.setEncryptFiles(true);
+            zipParameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
+            zipParameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
+            zipParameters.setPassword(password);
+        }
 
         // Creating the zip file
         ZipFile zipFile;

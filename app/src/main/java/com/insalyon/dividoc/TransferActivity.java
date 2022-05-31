@@ -25,6 +25,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class TransferActivity extends AppCompatActivity {
@@ -154,7 +157,7 @@ public class TransferActivity extends AppCompatActivity {
         // Creating the zip file
         ZipFile zipFile;
         try {
-            zipFile = new ZipFile(FilesPath.getExportDirectory() + File.separator + "zipFile.zip");
+            zipFile = new ZipFile(FilesPath.getExportDirectory() + File.separator + "zipFile_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".zip");
             zipFile.addFolder(FilesPath.getCasesFolder(), zipParameters);
 
             // Deletes the cases only if the zipping was successful

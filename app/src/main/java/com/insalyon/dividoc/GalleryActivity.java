@@ -164,9 +164,13 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     @Override
-    // TODO Ensure that there is minimum a photo before finishing
     public void onBackPressed() {
-        this.finish();
+
+        if (getNumberOfPictures() > 0) {
+            this.finish();
+        } else {
+            Toast.makeText(this, getString(R.string.one_photo_minimum), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

@@ -54,6 +54,7 @@
     <string name="cannot_open_json_file">The data could not be loaded</string>
     <string name="cannot_parse_json_file">The JSON data could not be parsed</string>
     <string name="read_before_export">A folder containing all your files will be created and can be exported by: USB, email or bluetooth. If the file remains in your phone for more than %d hours, it will be encrypted and you will have to contact the ICRC to decrypt it. Make sure that the authorities are ready to receive the file. </string>
+    <string name="one_photo_minimum">A case needs at least one photo</string>
 
     <!-- res content description -->
     <string name="return_previous_act">Return to the previous activity</string>

@@ -54,6 +54,7 @@
     <string name="cannot_open_json_file">Les données n\'ont pas pu être chargées</string>
     <string name="cannot_parse_json_file">Les données JSON n\'ont pas pu être analysées</string>
     <string name="read_before_export">Un dossier contenant tous vos fichiers sera créé et pourra être exporté par : USB, email ou bluetooth. Si le fichier reste dans votre téléphone pendant plus de %d heures, il sera crypté et vous devrez contacter le CICR pour le décrypter. Assurez-vous que les autorités sont prêtes à recevoir le fichier. </string>
+    <string name="one_photo_minimum">Un cas doit contenir au moins une photo</string>
 
         <!-- res DeepL content -->
     <string name="return_previous_act">Retour à l\'activité précédente</string>

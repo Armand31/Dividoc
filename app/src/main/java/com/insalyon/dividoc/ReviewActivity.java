@@ -26,7 +26,7 @@ import java.util.LinkedHashMap;
 
 public class ReviewActivity extends AppCompatActivity {
 
-    private File workingCaseDirectory;
+    private File newWorkingCaseDirectory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,9 @@ public class ReviewActivity extends AppCompatActivity {
         saveButton.setOnClickListener(view -> {
             try {
                 saveCase();
+                if (getIntent().getBooleanExtra("newCase", true)) { VSNIncrementation(); }
+                setResult(Activity.RESULT_OK);
+                this.finish();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,16 +105,20 @@ public class ReviewActivity extends AppCompatActivity {
      */
     private void saveCase() throws IOException {
 
-        this.workingCaseDirectory = new File(FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("tag"));
+        // Set new folder name
+        this.newWorkingCaseDirectory = new File(FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("tag"));
 
-        // If we are saving a new case
+        // Get old folder name
+        File oldCaseFolder;
         if (getIntent().getBooleanExtra("newCase", true)) {
+            oldCaseFolder = new File(FilesPath.getNewCaseFolder());
+        } else {
+            oldCaseFolder = new File(FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("oldTag"));
+        }
 
-            // Renaming the new_case folder with the tag if this is a new case
-            File newCaseFolder = new File(FilesPath.getNewCaseFolder());
-            if (!newCaseFolder.renameTo(this.workingCaseDirectory)) {
-                Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-            }
+        // Rename old folder with new folder name
+        if (!oldCaseFolder.renameTo(this.newWorkingCaseDirectory)) {
+            Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
         }
 
         // Get the time and date
@@ -122,9 +129,27 @@ public class ReviewActivity extends AppCompatActivity {
 
         // Format data to html and writing it to a file
         createHTML(time);
+    }
 
-        setResult(Activity.RESULT_OK);
-        this.finish();
+    /**
+     *  Increments the VSN in the shared preferences for the next case
+     * TODO : Persist the VSN after uninstallation of the app
+     * TODO : Manage multiple external storage devices if used ?
+     */
+    private void VSNIncrementation() {
+
+        int VSN = 0;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (preferences.contains("VSN")) {
+            // Getting the VSN if it exists in the shared preferences
+            VSN = preferences.getInt("VSN", -1);
+        }
+
+        // Increments the VSN and set it in the shared preferences
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        preferencesEditor.putInt("VSN", ++VSN);
+        preferencesEditor.apply();
     }
 
     /**
@@ -141,7 +166,7 @@ public class ReviewActivity extends AppCompatActivity {
             jsonData.put("Tag", getIntent().getStringExtra("tag"));
             jsonData.put("CountryCode", preferences.getString("countryCode", "unknown"));
             jsonData.put("SerialNumber", Integer.parseInt(preferences.getString("serialNumber", "unknown")));
-            jsonData.put("VSN", preferences.getInt("VSN", -1));
+            jsonData.put("VSN", getIntent().getIntExtra("VSN", 0));
             jsonData.put("OCDC", getIntent().getStringExtra("OCDC"));
             jsonData.put("Name", getIntent().getStringExtra("name"));
             jsonData.put("Gender", getIntent().getStringExtra("gender"));
@@ -156,7 +181,7 @@ public class ReviewActivity extends AppCompatActivity {
         }
 
         // Create the json file and write data into it
-        File jsonFile = new File(FilesPath.getJsonDataFile(this.workingCaseDirectory.getAbsolutePath()));
+        File jsonFile = new File(FilesPath.getJsonDataFile(this.newWorkingCaseDirectory.getAbsolutePath()));
         try {
             FileOutputStream out = new FileOutputStream(jsonFile);
             out.write(jsonData.toString().getBytes(StandardCharsets.UTF_8));
@@ -213,7 +238,7 @@ public class ReviewActivity extends AppCompatActivity {
         );
 
         // Create the html file and write data into it
-        File htmlFile = new File(FilesPath.getHtmlDataFile(this.workingCaseDirectory.getAbsolutePath()));
+        File htmlFile = new File(FilesPath.getHtmlDataFile(this.newWorkingCaseDirectory.getAbsolutePath()));
         try {
             FileOutputStream out = new FileOutputStream(htmlFile);
             out.write(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));

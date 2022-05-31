@@ -251,7 +251,7 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     *  Get the VSN from shared preferences, increments it and saves it for next use
+     *  Get the VSN from shared preferences
      * TODO : Persist the VSN after uninstallation of the app
      * TODO : Manage multiple external storage devices if used ?
      */
@@ -261,12 +261,14 @@ public class TagActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (preferences.contains("VSN")) {
+            // Getting the VSN if it exists in the shared preferences
             VSN = preferences.getInt("VSN", -1);
+        } else {
+            // If the VSN does not exists, it is set at 0 in the shared preferences
+            SharedPreferences.Editor preferencesEditor = preferences.edit();
+            preferencesEditor.putInt("VSN", ++VSN);
+            preferencesEditor.apply();
         }
-
-        SharedPreferences.Editor preferencesEditor = preferences.edit();
-        preferencesEditor.putInt("VSN", ++VSN);
-        preferencesEditor.apply();
 
         ((TextView) findViewById(R.id.vsn_tag)).setText(String.valueOf(VSN));
     }
@@ -327,38 +329,54 @@ public class TagActivity extends AppCompatActivity {
         reviewIntent.putExtra("age", ((Spinner) findViewById(R.id.age_spinner)).getSelectedItem().toString());
         reviewIntent.putExtra("additional_information", ((TextView) findViewById(R.id.additional_info_input)).getText().toString());
 
-        if (getIntent().getBooleanExtra("newCase", false)) {
+        // OCDC
+        String ocdc;
+        if (((TextView) findViewById(R.id.ocdc_tag)).getText().toString().equals("")) {
+            ocdc = getString(R.string.ocdc_default_value);
+        } else {
+            ocdc = ((TextView) findViewById(R.id.ocdc_tag)).getText().toString();
+        }
+        reviewIntent.putExtra("OCDC", ocdc);
 
-            // Tag (OCDC and tag)
-            String ocdc;
-            if (((TextView) findViewById(R.id.ocdc_tag)).getText().toString().equals("")) {
-                ocdc = getString(R.string.ocdc_default_value);
-            } else {
-                ocdc = ((TextView) findViewById(R.id.ocdc_tag)).getText().toString();
-            }
-            reviewIntent.putExtra("OCDC", ocdc);
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String tag = preferences.getString("countryCode", "")
-                    + preferences.getString("serialNumber", "")
-                    + "_" + preferences.getInt("VSN", 1)
-                    + "_" + ocdc;
-            reviewIntent.putExtra("tag", tag);
+        // VSN and coordinates
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int VSN = 0;
+        if (getIntent().getBooleanExtra("newCase", true)) {
+
+            // VSN
+            VSN = preferences.getInt("VSN", 0);
 
             // Coordinates
             reviewIntent.putExtra("latitude", this.latitude);
             reviewIntent.putExtra("longitude", this.longitude);
+
         } else {
             try {
 
                 JSONObject json = openJSON();
-                reviewIntent.putExtra("tag", json.getString("Tag"));
+
+                // VSN
+                VSN = json.getInt("VSN");
+
+                // Coordinates
                 reviewIntent.putExtra("latitude", json.getString("Latitude"));
                 reviewIntent.putExtra("longitude", json.getString("Longitude"));
+
+                // Old tag (for case editing, in case of folder renaming due to ocdc change)
+                reviewIntent.putExtra("oldTag", json.getString("Tag"));
 
             } catch (JSONException e) {
                 Toast.makeText(this, getString(R.string.cannot_parse_json_file), Toast.LENGTH_SHORT).show();
             }
         }
+        reviewIntent.putExtra("VSN", VSN);
+
+        // Tag (or new tag in case of case editing)
+        String tag = preferences.getString("countryCode", "")
+                + preferences.getString("serialNumber", "")
+                + "_" + VSN
+                + "_" + ocdc;
+        reviewIntent.putExtra("tag", tag);
 
         activityResultLauncher.launch(reviewIntent);
     }

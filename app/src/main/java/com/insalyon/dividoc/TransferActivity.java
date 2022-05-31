@@ -157,12 +157,21 @@ public class TransferActivity extends AppCompatActivity {
         // Creating the zip file
         ZipFile zipFile;
         try {
-            zipFile = new ZipFile(FilesPath.getExportDirectory() + File.separator + "zipFile_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".zip");
-            zipFile.addFolder(FilesPath.getCasesFolder(), zipParameters);
+            String dateAndTime = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            zipFile = new ZipFile(FilesPath.getExportDirectory() + File.separator + "zipFile_" + dateAndTime + ".zip");
 
-            // Deletes the cases only if the zipping was successful
+            // Renaming cases folder with date and time to avoid duplicate during zip extraction
+            String casesFolderNewName = FilesPath.getAppRootFolder() + File.separator + "cases_" + dateAndTime;
+            if (!(new File(FilesPath.getCasesFolder())).renameTo(new File(casesFolderNewName))) {
+                Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
+            }
+
+            // Zipping the cases folder
+            zipFile.addFolder(casesFolderNewName, zipParameters);
+
+            // At this point, deletes the cases only if the zipping was successful
             try {
-                FilesPath.deleteDirectory(new File(FilesPath.getCasesFolder()));
+                FilesPath.deleteDirectory(new File(casesFolderNewName));
             } catch (IOException e) {
                 Toast.makeText(this, "The cases could not be deleted but the zipping was successful", Toast.LENGTH_SHORT).show();
             }

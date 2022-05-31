@@ -1,7 +1,11 @@
 package com.insalyon.dividoc;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,14 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.insalyon.dividoc.util.FilesPath;
 
+import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
-import net.lingala.zip4j.core.ZipFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Objects;
 
 public class TransferActivity extends AppCompatActivity {
 
@@ -34,7 +40,72 @@ public class TransferActivity extends AppCompatActivity {
 
         File[] cases = new File(FilesPath.getCasesFolder()).listFiles();
         if (cases != null && cases.length > 0) {
+
+            // Watermarking and resizing every image of every case
+            for (File _case : cases) {
+                for (File image : Objects.requireNonNull(new File(FilesPath.getCaseImageFolder(_case.getName())).listFiles())) {
+                    resizeAndWatermarkImage(image, _case.getName());
+                }
+            }
+
+            // Zipping cases files into one archive
             zipFiles();
+        }
+    }
+
+    /**
+     * Resizes and watermarks the given image
+     */
+    private void resizeAndWatermarkImage(File image, String watermarkText) {
+
+        // Load the image in immutable form
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inMutable = true; // Set the options of the bitmap to immutable
+        Bitmap source = BitmapFactory.decodeFile(image.getAbsolutePath(), options);
+
+        // Resizing options
+        // TODO : Verify that the image is correctly resized (use real phone)
+        int pictureMaxSize = 1500; //getResources().getInteger(R.integer.PictureMaxSize);
+        int maxDimension = Math.max(source.getHeight(), source.getWidth());
+        if (pictureMaxSize < maxDimension) {
+            float ratio = (float) pictureMaxSize / maxDimension;
+            source = Bitmap.createScaledBitmap(source, (int) (source.getWidth()*ratio), (int) (source.getHeight()*ratio), true);
+        }
+
+        // Watermarking options
+        int h = source.getHeight();
+        int x = 50;
+        int y = h - x;
+        int margin = 20; // margin of the box around the text
+
+        Canvas canvas = new Canvas(source);
+        canvas.drawBitmap(source, 0, 0, null);
+        Paint paint = new Paint();
+        Paint.FontMetrics fm = new Paint.FontMetrics();
+        paint.setColor(Color.WHITE);
+        paint.getFontMetrics(fm);
+        paint.setFakeBoldText(true);
+        paint.setTextSize((float) (h * 0.03));
+        paint.setAlpha(90);
+        canvas.drawRect(x - margin, (float) (y - fm.top - margin - h * 0.03),
+                x + paint.measureText(watermarkText) + margin, y + fm.bottom
+                        + margin, paint);
+        paint.setColor(Color.RED);
+        canvas.drawText(watermarkText, x, y, paint);
+
+        // Deleting the previous image and saving the new one, resized and watermarked
+        try {
+            if (image.exists()) {
+                if (!image.delete()) { Toast.makeText(this, "Could not watermark the image", Toast.LENGTH_SHORT).show(); }
+            }
+
+            FileOutputStream out = new FileOutputStream(image);
+            source.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

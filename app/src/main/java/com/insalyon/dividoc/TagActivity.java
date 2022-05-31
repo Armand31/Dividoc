@@ -64,7 +64,6 @@ public class TagActivity extends AppCompatActivity {
             createImageNewCaseFolder();
             verifyCameraPermission();
             dispatchTakePictureIntent();
-            // TODO : Watermark the images
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
             setVSN();
         } else {
@@ -227,8 +226,8 @@ public class TagActivity extends AppCompatActivity {
      */
     private void dispatchTakePictureIntent() {
 
-        File pictureFile = new File(workingImageDirectory, "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
-        Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", pictureFile);
+        File imageFile = new File(workingImageDirectory, "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
+        Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", imageFile);
 
         /// Callback used to launch camera and trigger action on success and/or failure
         // Documentation here : https://developer.android.com/training/basics/intents/result

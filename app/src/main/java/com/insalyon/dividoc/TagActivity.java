@@ -237,6 +237,11 @@ public class TagActivity extends AppCompatActivity {
                 new ActivityResultContracts.TakePicture(),
                 result -> {
                     if (!result) {
+                        try {
+                            FilesPath.deleteDirectory(new File(FilesPath.getNewCaseFolder()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         this.finish();
                     }
                 }

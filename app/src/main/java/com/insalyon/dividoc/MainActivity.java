@@ -26,6 +26,7 @@ import com.insalyon.dividoc.fragments.FilesFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 
 // TODO : Set the theme as the system default at initialization
@@ -54,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
         // Registration of the callback that will trigger the reload of the view when the locale as changed
         // and the settings activity is closed
         this.activityResultLauncher = registration();
+
+        // Delete the new_case folder if it already exists (due to app closing in camera, tag or review) to ensure correct initialization
+        if (new File(FilesPath.getNewCaseFolder()).exists()) {
+            try {
+                FilesPath.deleteDirectory(new File(FilesPath.getNewCaseFolder()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

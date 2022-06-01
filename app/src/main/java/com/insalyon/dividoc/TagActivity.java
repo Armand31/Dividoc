@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TagActivity extends AppCompatActivity {
 
@@ -287,7 +288,7 @@ public class TagActivity extends AppCompatActivity {
                 .setTitle(getResources().getString(R.string.warning))
                 .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
                     try {
-                        FilesPath.deleteDirectory(new File(workingImageDirectory));
+                        FilesPath.deleteDirectory(new File(Objects.requireNonNull(new File(workingImageDirectory).getParent())));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

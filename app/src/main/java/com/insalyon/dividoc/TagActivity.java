@@ -14,7 +14,9 @@ import android.text.InputFilter;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +29,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
 
 import org.json.JSONException;
@@ -133,7 +134,7 @@ public class TagActivity extends AppCompatActivity {
     private void setButtonListeners(ActivityResultLauncher<Intent> activityResultLauncher) {
 
         // Start the gallery activity
-        FloatingActionButton galleryButton = findViewById(R.id.gallery_button);
+        Button galleryButton = findViewById(R.id.gallery_button);
         galleryButton.setOnClickListener(view -> {
             Intent galleryIntent = new Intent(TagActivity.this, GalleryActivity.class);
             galleryIntent.putExtra("workingImageDirectory", workingImageDirectory);
@@ -141,18 +142,18 @@ public class TagActivity extends AppCompatActivity {
         });
 
         // Start the record activity
-        FloatingActionButton recordButton = findViewById(R.id.record_button);
+        Button recordButton = findViewById(R.id.record_button);
         recordButton.setOnClickListener(view -> {
             Intent galleryIntent = new Intent(TagActivity.this, RecordActivity.class);
             startActivity(galleryIntent);
         });
 
         // Delete the case
-        FloatingActionButton deleteButton = findViewById(R.id.delete_button);
+        ImageButton deleteButton = findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(view -> deleteCase());
 
         // Start the review activity
-        FloatingActionButton saveButton = findViewById(R.id.save_case_button);
+        Button saveButton = findViewById(R.id.save_case_button);
         saveButton.setOnClickListener(view -> startReviewActivity(activityResultLauncher));
     }
 

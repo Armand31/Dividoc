@@ -203,37 +203,43 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/delete_button_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_delete"
+            android:background="@color/purple_500"
             android:clickable="true"
-            android:contentDescription="@string/tag_delete_description"
             android:focusable="true"
-            app:backgroundTint="@color/primary"
-            android:layout_marginEnd="40dp"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            android:layout_margin="5dp"
+            android:breakStrategy="high_quality"
+            app:backgroundTint="@color/purple_500"
+            android:contentDescription="@string/delete_case"
+            style="@style/Widget.AppCompat.TextView" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/edit_button_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/edit"
+            android:drawableLeft="@drawable/edit"
             android:clickable="true"
-            android:contentDescription="@string/edit_button_description"
             android:focusable="true"
-            android:layout_marginEnd="40dp"
-            app:backgroundTint="@color/primary"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
+            android:layout_margin="5dp"
+            android:breakStrategy="high_quality"
+            app:backgroundTint="@color/purple_500" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/save_button_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/save_case"
+            android:drawableRight="@drawable/done"
             android:clickable="true"
-            android:contentDescription="@string/save_button_description"
             android:focusable="true"
-            app:backgroundTint="@color/primary"
-            app:srcCompat="@android:drawable/ic_menu_save" />
+            android:layout_margin="5dp"
+            android:breakStrategy="high_quality"
+            app:backgroundTint="@color/purple_500" />
 
     </LinearLayout>
 

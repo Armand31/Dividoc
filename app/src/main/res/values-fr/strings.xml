@@ -17,6 +17,13 @@
     <string name="return_button">Retour</string>
     <string name="send_button">Envoyer</string>
     <string name="confirm_export">Exportation</string>
+    <string name="save_case">Enregistrer</string>
+    <string name="delete_case">Supprimer</string>
+    <string name="photo_gallery">Galerie photo</string>
+    <string name="record_audio">Enregistrer un audio</string>
+    <string name="take_photo">Prendre une photo</string>
+    <string name="delete_image">Supprimer la photo</string>
+    <string name="edit">Editer</string>
 
     <!-- Messages d'information et d'aide -->
     <string name="tag_title">Veuillez remplir le formulaire d\'identification de la victime</string>.

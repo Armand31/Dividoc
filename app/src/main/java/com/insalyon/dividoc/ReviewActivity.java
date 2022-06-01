@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,7 +13,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
 
 import org.json.JSONException;
@@ -48,18 +49,18 @@ public class ReviewActivity extends AppCompatActivity {
     private void setButtonListeners() {
 
         // Delete case button listener
-        FloatingActionButton deleteButton = findViewById(R.id.delete_button_review);
+        ImageButton deleteButton = findViewById(R.id.delete_button_review);
         deleteButton.setOnClickListener(view -> deleteCase());
 
         // Edit case button listener
-        FloatingActionButton editButton = findViewById(R.id.edit_button_review);
+        Button editButton = findViewById(R.id.edit_button_review);
         editButton.setOnClickListener(view -> {
             setResult(Activity.RESULT_CANCELED);
             this.finish();
         });
 
         // Save case button
-        FloatingActionButton saveButton = findViewById(R.id.save_button_review);
+        Button saveButton = findViewById(R.id.save_button_review);
         saveButton.setOnClickListener(view -> {
             try {
                 saveCase();

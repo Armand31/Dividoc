@@ -46,35 +46,22 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:orientation="horizontal" >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/return_gallery"
-            android:contentDescription="@string/return_previous_act"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/primary"
-            app:fabCustomSize="70dp"
-            android:layout_marginEnd="30dp"
-            app:srcCompat="@drawable/abc_vector_test" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/take_photo_button"
             android:contentDescription="@string/add_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/take_photo"
+            android:drawableLeft="@drawable/add_photo"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/primary"
-            app:fabCustomSize="70dp"
-            android:layout_marginStart="30dp"
-            app:srcCompat="@android:drawable/ic_menu_camera" />
+            android:layout_margin="10dp"
+            app:backgroundTint="@color/purple_500" />
 
     </LinearLayout>
 

@@ -23,6 +23,7 @@
             android:textStyle="bold"
             android:layout_weight="4" />
 
+        <!--
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_help_tag"
             android:layout_width="0dp"
@@ -33,7 +34,7 @@
             app:backgroundTint="@color/primary"
             app:srcCompat="@android:drawable/ic_menu_help"
             android:layout_weight="1" />
-        <!-- android:onClick="showInfoMessage" -->
+            -->
 
     </LinearLayout>
 
@@ -151,33 +152,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/gallery_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/photo_library"
             android:clickable="true"
-            android:contentDescription="@string/tag_gallery_description"
             android:focusable="true"
-            app:backgroundTint="@color/primary"
-            app:fabCustomSize="50dp"
-            android:layout_marginEnd="30dp"
-            app:srcCompat="@android:drawable/ic_menu_gallery" />
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:breakStrategy="high_quality"
+            android:text="@string/photo_gallery"
+            app:backgroundTint="@color/purple_500" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/record_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/record_voice"
             android:clickable="true"
-            android:contentDescription="@string/tag_audio_description"
             android:focusable="true"
-            app:backgroundTint="@color/primary"
-            app:fabCustomSize="50dp"
-            android:layout_marginStart="30dp"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:breakStrategy="high_quality"
+            android:text="@string/record_audio"
+            app:backgroundTint="@color/purple_500" />
 
     </LinearLayout>
 
@@ -185,32 +187,31 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:orientation="horizontal" >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/delete_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/tag_delete_description"
-            app:srcCompat="@android:drawable/ic_menu_delete"
+            android:src="@android:drawable/ic_delete"
+            android:background="@color/purple_500"
             android:clickable="true"
             android:focusable="true"
-            app:fabCustomSize="50dp"
-            android:layout_marginEnd="30dp"
-            app:backgroundTint="@color/primary" />
+            android:layout_margin="5dp"
+            app:backgroundTint="@color/purple_500"
+            android:contentDescription="@string/delete_case"
+            style="@style/Widget.AppCompat.TextView" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/save_case_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/tag_save_description"
-            app:srcCompat="@android:drawable/ic_menu_save"
-            android:clickable="true"
+            android:text="@string/save_case"
+            android:drawableRight="@drawable/done"
             android:focusable="true"
-            app:fabCustomSize="50dp"
-            android:layout_marginStart="30dp"
-            app:backgroundTint="@color/primary" />
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:backgroundTint="@color/purple_500" />
 
     </LinearLayout>
 

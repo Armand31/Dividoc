@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,12 +58,8 @@ public class GalleryActivity extends AppCompatActivity {
      */
     private void setButtonListeners(ActivityResultLauncher<Uri> registerForActivityResult) {
 
-        // Finish the activity when return button is clicked
-        FloatingActionButton backButton = findViewById(R.id.return_gallery);
-        backButton.setOnClickListener(click -> onBackPressed());
-
         // Take picture if the camera button is clicked
-        FloatingActionButton takePictureButton = findViewById(R.id.take_photo_button);
+        Button takePictureButton = findViewById(R.id.take_photo_button);
         takePictureButton.setOnClickListener(click -> {
             // The user can take a photo. It is useless to ask for permission as the user already
             // have accepted the permission to land here

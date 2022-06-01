@@ -4,12 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
@@ -37,12 +37,8 @@ public class DisplayImageActivity extends AppCompatActivity {
      */
     private void setButtonListeners() {
 
-        // Finish the activity when return button is clicked
-        FloatingActionButton backButton = findViewById(R.id.return_gallery);
-        backButton.setOnClickListener(click -> this.finish());
-
         // Take picture if the camera button is clicked
-        FloatingActionButton deletePicture = findViewById(R.id.delete_picture);
+        Button deletePicture = findViewById(R.id.delete_picture);
         deletePicture.setOnClickListener(click -> deletePicture());
     }
 

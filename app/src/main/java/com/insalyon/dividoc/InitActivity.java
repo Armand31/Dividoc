@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,11 +25,14 @@ public class InitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
 
-        countryCode = (EditText) findViewById(R.id.country_code);
-        serialNumber = (EditText) findViewById(R.id.serial_number);
+        // Block the screenshots and video recording
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
+
+        countryCode = findViewById(R.id.country_code);
+        serialNumber = findViewById(R.id.serial_number);
         setTextChangeListeners();
 
-        start = (Button) findViewById(R.id.start);
+        start = findViewById(R.id.start);
         start.setEnabled(false);
         start.setOnClickListener(view -> confirmSerialNumber());
     }

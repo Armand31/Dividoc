@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 public class ReviewActivity extends AppCompatActivity {
 
@@ -63,9 +64,9 @@ public class ReviewActivity extends AppCompatActivity {
         Button saveButton = findViewById(R.id.save_button_review);
         saveButton.setOnClickListener(view -> {
             try {
-                saveCase();
-                if (getIntent().getBooleanExtra("newCase", true)) { VSNIncrementation(); }
-                setResult(Activity.RESULT_OK);
+                saveCase(); // Save the data in files
+                if (getIntent().getBooleanExtra("newCase", true)) { VSNIncrementation(); } // Increments the VSN
+                setResult(Activity.RESULT_OK); // Say to the parent activity to also finish
                 this.finish();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -94,10 +95,11 @@ public class ReviewActivity extends AppCompatActivity {
                 .setTitle(getResources().getString(R.string.warning))
                 .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
                     try {
-                        FilesPath.deleteDirectory(new File(getIntent().getStringExtra("workingImageDirectory")));
+                        FilesPath.deleteDirectory(new File(Objects.requireNonNull(new File(getIntent().getStringExtra("workingImageDirectory")).getParent())));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    setResult(Activity.RESULT_OK); // Say to the parent activity to also finish
                     finish();
                 })
                 .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {

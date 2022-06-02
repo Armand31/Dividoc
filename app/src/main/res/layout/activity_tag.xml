@@ -10,18 +10,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center" >
 
         <TextView
             android:id="@+id/tag_title"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tag_title"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_weight="4" />
+            android:gravity="center"
+            android:textStyle="bold" />
 
         <!--
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -159,27 +158,29 @@
             android:id="@+id/gallery_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/photo_library"
             android:clickable="true"
             android:focusable="true"
             android:layout_weight="1"
             android:layout_margin="5dp"
+            android:textSize="11sp"
             android:breakStrategy="high_quality"
             android:text="@string/photo_gallery"
-            app:backgroundTint="@color/purple_500" />
+            app:icon="@drawable/photo_library"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
         <Button
             android:id="@+id/record_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/record_voice"
             android:clickable="true"
             android:focusable="true"
             android:layout_weight="1"
             android:layout_margin="5dp"
+            android:textSize="11sp"
             android:breakStrategy="high_quality"
             android:text="@string/record_audio"
-            app:backgroundTint="@color/purple_500" />
+            app:icon="@drawable/record_voice"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
     </LinearLayout>
 
@@ -189,29 +190,30 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <ImageButton
+        <Button
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_delete"
-            android:background="@color/purple_500"
             android:clickable="true"
             android:focusable="true"
             android:layout_margin="5dp"
-            app:backgroundTint="@color/purple_500"
-            android:contentDescription="@string/delete_case"
-            style="@style/Widget.AppCompat.TextView" />
+            android:minWidth="0dp"
+            app:icon="@drawable/delete_trash"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
         <Button
             android:id="@+id/save_case_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save_case"
-            android:drawableRight="@drawable/done"
             android:focusable="true"
-            android:layout_weight="1"
             android:layout_margin="5dp"
-            app:backgroundTint="@color/purple_500" />
+            android:textSize="11sp"
+            app:icon="@drawable/done"
+            app:iconGravity="textEnd"
+            style="@style/Widget.MaterialComponents.Button.Icon" />
 
     </LinearLayout>
 

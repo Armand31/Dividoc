@@ -2,14 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="20dp">
 
-    <LinearLayout
+    <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/choose_fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        app:singleSelection="true"
+        app:checkedButton="@+id/select_cases_files_button">
 
         <Button
             android:id="@+id/select_cases_files_button"
@@ -19,7 +22,7 @@
             android:focusable="true"
             android:layout_weight="1"
             android:text="@string/select_cases_files"
-            style="?android:attr/buttonBarButtonStyle"  />
+            style="?attr/materialButtonOutlinedStyle"  />
 
         <Button
             android:id="@+id/select_cases_archives_button"
@@ -29,9 +32,9 @@
             android:focusable="true"
             android:layout_weight="1"
             android:text="@string/select_cases_archives"
-            style="?android:attr/buttonBarButtonStyle" />
+            style="?attr/materialButtonOutlinedStyle" />
 
-    </LinearLayout>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <FrameLayout
         android:id="@+id/fragments_frame_layout"
@@ -45,35 +48,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true" >
 
         <Button
             android:id="@+id/export_file_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:drawableLeft="@drawable/create_new_folder"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/export_file_button"
-            android:backgroundTint="@color/purple_500"
-            android:textColor="@color/white"
             android:layout_weight="1"
-            android:layout_margin="10dp"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:layout_margin="5dp"
+            android:textSize="11sp"
+            app:icon="@drawable/create_new_folder"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
         <Button
             android:id="@+id/add_new_case"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:drawableLeft="@drawable/add"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/add_case_button"
-            android:backgroundTint="@color/purple_500"
-            android:textColor="@color/white"
             android:layout_weight="1"
-            android:layout_margin="10dp"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:layout_margin="5dp"
+            android:textSize="11sp"
+            app:icon="@drawable/add"
+            style="@style/Widget.MaterialComponents.Button.Icon" />
 
     </LinearLayout>
 

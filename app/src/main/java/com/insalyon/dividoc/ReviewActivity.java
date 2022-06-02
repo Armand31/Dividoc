@@ -49,7 +49,7 @@ public class ReviewActivity extends AppCompatActivity {
     private void setButtonListeners() {
 
         // Delete case button listener
-        ImageButton deleteButton = findViewById(R.id.delete_button_review);
+        Button deleteButton = findViewById(R.id.delete_button_review);
         deleteButton.setOnClickListener(view -> deleteCase());
 
         // Edit case button listener

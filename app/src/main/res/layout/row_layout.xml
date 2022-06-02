@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/list_fragment_text_view"
@@ -12,15 +12,32 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="4"
         android:textSize="20sp"
-        android:padding="6dp" />
+        android:gravity="center_vertical" />
 
-    <ImageButton
+    <Button
         android:id="@+id/edit_case_button"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/edit"
-        android:contentDescription="@string/edit_case_description"
-        android:background="@color/purple_500"
-        android:layout_weight="1" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="5dp"
+        android:minWidth="0dp"
+        app:icon="@drawable/edit"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        style="@style/Widget.MaterialComponents.Button" />
+
+    <Button
+        android:id="@+id/delete_case_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="5dp"
+        android:minWidth="0dp"
+        app:icon="@drawable/delete_trash"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        style="@style/Widget.MaterialComponents.Button" />
 
 </LinearLayout>

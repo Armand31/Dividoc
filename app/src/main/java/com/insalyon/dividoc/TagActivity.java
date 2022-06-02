@@ -150,7 +150,7 @@ public class TagActivity extends AppCompatActivity {
         });
 
         // Delete the case
-        ImageButton deleteButton = findViewById(R.id.delete_button);
+        Button deleteButton = findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(view -> deleteCase());
 
         // Start the review activity

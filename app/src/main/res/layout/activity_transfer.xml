@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:text="@string/return_button"
         android:gravity="center"
-        android:layout_margin="30dp"/>
+        android:layout_margin="5dp" />
 
     <!--
     <Button

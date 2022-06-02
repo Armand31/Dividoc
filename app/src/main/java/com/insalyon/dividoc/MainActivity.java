@@ -95,15 +95,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void switchBetweenFilesAndArchives(View view) {
 
-        Button currentCases = findViewById(R.id.select_cases_files_button);
-        Button archiveCases = findViewById(R.id.select_cases_archives_button);
-
+        // https://material.io/components/buttons/android#toggle-button
         if (view == findViewById(R.id.select_cases_files_button)) {
 
             FilesFragment filesFragment = new FilesFragment();
-            currentCases.setBackgroundColor(getColor(R.color.purple_500));
-            currentCases.setTextColor(getColor(R.color.white));
-            archiveCases.setBackgroundColor(getColor(R.color.white));
             // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
             FragmentManager frag_man = getSupportFragmentManager();
             FragmentTransaction frag_trans = frag_man.beginTransaction();

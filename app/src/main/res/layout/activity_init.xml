@@ -55,7 +55,9 @@
         android:text="@string/start"
         android:layout_gravity="center"
         android:layout_margin="20dp"
+        android:textSize="11sp"
         android:enabled="false"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        style="@style/Widget.MaterialComponents.Button.Icon" />
 
 </LinearLayout>

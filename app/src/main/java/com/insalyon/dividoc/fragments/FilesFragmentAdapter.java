@@ -7,6 +7,7 @@ package com.insalyon.dividoc.fragments;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -82,7 +83,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mTextView;
-        public final ImageButton mButton;
+        public final Button mButton;
         public File mItem;
 
         public ViewHolder(View itemView) {

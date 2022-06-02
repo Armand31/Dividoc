@@ -18,14 +18,14 @@ import java.util.List;
 
 import com.insalyon.dividoc.R;
 
-public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdapter.ViewHolder> {
+public class ArchivesFragmentAdapter extends RecyclerView.Adapter<ArchivesFragmentAdapter.ViewHolder> {
 
-    private final List<File> casesList;
+    private final List<File> archivesList;
     private ItemClickListener mClickListener;
 
-    public FilesFragmentAdapter(List<File> casesList) {
+    public ArchivesFragmentAdapter(List<File> archivesList) {
 
-        this.casesList = casesList;
+        this.archivesList = archivesList;
     }
 
     /**
@@ -38,7 +38,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_cases, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_archives, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,17 +52,17 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.mItem = casesList.get(position);
-        holder.mTextView.setText(casesList.get(position).getName());
+        holder.mItem = archivesList.get(position);
+        holder.mTextView.setText(archivesList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return this.casesList.size();
+        return this.archivesList.size();
     }
 
     File getItem(int id) {
-        return casesList.get(id);
+        return archivesList.get(id);
     }
 
     void setClickListener(ItemClickListener itemClickListener) {
@@ -82,14 +82,14 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mTextView;
-        public final Button mButton;
+        public final Button seeInfo;
         public File mItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.list_fragment_text_view);
-            mButton = itemView.findViewById(R.id.edit_case_button);
-            mButton.setOnClickListener(this);
+            seeInfo = itemView.findViewById(R.id.view_file_info);
+            seeInfo.setOnClickListener(this);
         }
 
         @Override

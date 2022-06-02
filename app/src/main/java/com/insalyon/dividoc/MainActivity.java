@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,6 +22,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.insalyon.dividoc.fragments.ArchivesFragment;
 import com.insalyon.dividoc.fragments.FilesFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialization
         setButtonListeners();
-        switchBetweenFilesAndArchives(findViewById(R.id.select_cases_files_button));
+        switchBetweenFilesAndArchives();
+        firstFragmentsLoad();
 
         // If this is the first time the user is using the app, he has to input his serial number via the InitActivity
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,35 +93,52 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Allows switching between files and archives menu in the main activity
-     * Triggered by callback (see onClick field in id/select_cases_files_button in activity_main.xml)
      */
-    public void switchBetweenFilesAndArchives(View view) {
+    public void switchBetweenFilesAndArchives() {
 
-        // https://material.io/components/buttons/android#toggle-button
-        if (view == findViewById(R.id.select_cases_files_button)) {
+        MaterialButtonToggleGroup toggleGroup = findViewById(R.id.choose_fragment_layout);
+        toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            /*
+            You have to check the checkedId value but also the isChecked value. The same listener is called
+            when you check a button but also when you uncheck a button.
+            It means that if you click the button1 the listener is called with isChecked=true and checkedId=1.
+            Then if you click the button2 the listener is called twice. Once with isChecked=false and checkedId=1,
+            once with isChecked=true and checkedId=2.
+            */
+            if (isChecked) {
+                if (checkedId == R.id.select_cases_files_button) {
 
-            FilesFragment filesFragment = new FilesFragment();
-            // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
-            FragmentManager frag_man = getSupportFragmentManager();
-            FragmentTransaction frag_trans = frag_man.beginTransaction();
-            frag_trans.replace(R.id.fragments_frame_layout, filesFragment);
-            frag_trans.commit();
-        }
+                    FilesFragment filesFragment = new FilesFragment();
+                    // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
+                    FragmentManager frag_man = getSupportFragmentManager();
+                    FragmentTransaction frag_trans = frag_man.beginTransaction();
+                    frag_trans.replace(R.id.fragments_frame_layout, filesFragment);
+                    frag_trans.commit();
 
-        /*
-        if (view == findViewById(R.id.select_cases_archives_button)) {
+                } else if (checkedId == R.id.select_cases_archives_button) {
 
-            ArchivesFragment archivesFragment;
-            archivesFragment = new ArchivesFragment();
-            currentCases.setBackgroundColor(getColor(R.color.Grey));
-            archiveCases.setBackgroundColor(getColor(R.color.colorPrimaryDark));
+                    ArchivesFragment archivesFragment = new ArchivesFragment();
+                    // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
+                    FragmentManager frag_man = getSupportFragmentManager();
+                    FragmentTransaction frag_trans = frag_man.beginTransaction();
+                    frag_trans.replace(R.id.fragments_frame_layout, archivesFragment);
+                    frag_trans.commit();
+                }
+            }
+        });
+    }
 
-            FragmentManager frag_man = getSupportFragmentManager();
-            FragmentTransaction frag_trans = frag_man.beginTransaction();
-            frag_trans.replace(R.id.fragments_frame_layout, archivesFragment);
-            frag_trans.commit();
-        }
-        */
+    /**
+     * Loads the fragment view at startup of the application
+     */
+    private void firstFragmentsLoad() {
+
+        FilesFragment filesFragment = new FilesFragment();
+        // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
+        FragmentManager frag_man = getSupportFragmentManager();
+        FragmentTransaction frag_trans = frag_man.beginTransaction();
+        frag_trans.replace(R.id.fragments_frame_layout, filesFragment);
+        frag_trans.commit();
     }
 
     /**
@@ -220,12 +239,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Reloads the cases list in the menu
+     * Reloads the cases list or the zip files in the menu
      */
     @Override
     public void onResume() {
 
         super.onResume();
-        switchBetweenFilesAndArchives(findViewById(R.id.select_cases_files_button));
+
+        MaterialButtonToggleGroup toggleGroup = findViewById(R.id.choose_fragment_layout);
+
+        if (toggleGroup.getCheckedButtonId() == R.id.select_cases_files_button) {
+
+            FilesFragment filesFragment = new FilesFragment();
+            // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
+            FragmentManager frag_man = getSupportFragmentManager();
+            FragmentTransaction frag_trans = frag_man.beginTransaction();
+            frag_trans.replace(R.id.fragments_frame_layout, filesFragment);
+            frag_trans.commit();
+
+        } else {
+
+            ArchivesFragment archivesFragment = new ArchivesFragment();
+            // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
+            FragmentManager frag_man = getSupportFragmentManager();
+            FragmentTransaction frag_trans = frag_man.beginTransaction();
+            frag_trans.replace(R.id.fragments_frame_layout, archivesFragment);
+            frag_trans.commit();
+        }
     }
 }

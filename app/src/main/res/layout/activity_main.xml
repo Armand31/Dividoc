@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:singleSelection="true"
-        app:checkedButton="@+id/select_cases_files_button">
+        app:checkedButton="@+id/select_cases_files_button"
+        app:selectionRequired="true" >
 
         <Button
             android:id="@+id/select_cases_files_button"
@@ -61,6 +62,7 @@
             android:layout_margin="5dp"
             android:textSize="11sp"
             app:icon="@drawable/create_new_folder"
+            app:iconGravity="textStart"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
         <Button
@@ -74,6 +76,7 @@
             android:layout_margin="5dp"
             android:textSize="11sp"
             app:icon="@drawable/add"
+            app:iconGravity="textStart"
             style="@style/Widget.MaterialComponents.Button.Icon" />
 
     </LinearLayout>

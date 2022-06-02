@@ -166,6 +166,7 @@
             android:breakStrategy="high_quality"
             android:text="@string/photo_gallery"
             app:icon="@drawable/photo_library"
+            app:iconGravity="textStart"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
         <Button
@@ -180,6 +181,7 @@
             android:breakStrategy="high_quality"
             android:text="@string/record_audio"
             app:icon="@drawable/record_voice"
+            app:iconGravity="textStart"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
     </LinearLayout>

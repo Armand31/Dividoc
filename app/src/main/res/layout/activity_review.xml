@@ -223,6 +223,7 @@
             android:textSize="11sp"
             android:breakStrategy="high_quality"
             app:icon="@drawable/edit"
+            app:iconGravity="textStart"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
         <Button

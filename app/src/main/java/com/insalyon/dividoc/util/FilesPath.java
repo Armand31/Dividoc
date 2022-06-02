@@ -38,9 +38,7 @@ public class FilesPath extends AppCompatActivity {
 
     public static String getCaseImageFolder(String caseString) { return getCasesFolder() + File.separator + caseString + File.separator + "images"; }
 
-    public static String getExportDirectory() {
-        System.out.println("Export directory : " + exportDirectory);
-        return exportDirectory; }
+    public static String getExportDirectory() { return exportDirectory; }
 
     /**
      * Deletes file or a directory recursively

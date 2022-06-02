@@ -8,6 +8,7 @@
         android:maxSdkVersion="28"/>
     <!-- TODO Permission for writing external storage when SDK version > 28 https://developer.android.com/about/versions/11/privacy/storage-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature android:name="android.hardware.CAMERA" />
 

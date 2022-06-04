@@ -1,11 +1,13 @@
 package com.insalyon.dividoc.util;
 
 import android.os.Environment;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.FieldPosition;
 import java.util.Objects;
 
 public class FilesPath extends AppCompatActivity {
@@ -37,20 +39,22 @@ public class FilesPath extends AppCompatActivity {
 
     public static String getCaseImageFolder(String caseString) {
 
-        if (new File(Objects.requireNonNull(new File(caseString).getParent())).getAbsolutePath().equals(getCasesFolder())) {
-            return caseString + File.separator + "images";
-        } else {
+        if (new File(caseString).getParent() == null) {
             return getCasesFolder() + File.separator + caseString + File.separator + "images";
+        } else if (new File(Objects.requireNonNull(new File(caseString).getParent())).getAbsolutePath().equals(getCasesFolder())) {
+            return caseString + File.separator + "images";
         }
+        return getCasesFolder() + File.separator + caseString + File.separator + "images";
     }
 
     public static String getCaseAudioFolder(String caseString) {
 
-        if (new File(Objects.requireNonNull(new File(caseString).getParent())).getAbsolutePath().equals(getCasesFolder())) {
-            return caseString + File.separator + "audios";
-        } else {
+        if (new File(caseString).getParent() == null) {
             return getCasesFolder() + File.separator + caseString + File.separator + "audios";
+        } else if (new File(Objects.requireNonNull(new File(caseString).getParent())).getAbsolutePath().equals(getCasesFolder())) {
+            return caseString + File.separator + "audios";
         }
+        return getCasesFolder() + File.separator + caseString + File.separator + "audios";
     }
 
     public static String getExportDirectory() { return exportDirectory; }

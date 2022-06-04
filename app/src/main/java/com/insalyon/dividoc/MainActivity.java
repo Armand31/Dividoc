@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onResume();
 
+        // TODO : Find a better reload process of the fragment
         MaterialButtonToggleGroup toggleGroup = findViewById(R.id.choose_fragment_layout);
 
         if (toggleGroup.getCheckedButtonId() == R.id.select_cases_files_button) {

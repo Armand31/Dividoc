@@ -75,7 +75,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
 
         Intent editIntent = new Intent(DiviContext.getAppContext(), TagActivity.class);
         editIntent.putExtra("newCase", false);
-        editIntent.putExtra("workingDirectory", adapter.getItem(position).getName());
+        editIntent.putExtra("workingDirectory", FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()));
         startActivity(editIntent);
     }
 }

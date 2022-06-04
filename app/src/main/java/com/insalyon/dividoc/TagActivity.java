@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,11 +40,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 public class TagActivity extends AppCompatActivity {
 
-    private String workingImageDirectory;
+    private String workingDirectory;
     private double latitude = 0.0, longitude = 0.0;
 
     @Override
@@ -65,7 +63,7 @@ public class TagActivity extends AppCompatActivity {
         // If this is a new case
         if (getIntent().getBooleanExtra("newCase", false))
         {
-            this.workingImageDirectory = FilesPath.getNewCaseImageFolder();
+            this.workingDirectory = FilesPath.getNewCaseFolder();
             getCaseLocation();
             createImageNewCaseFolder();
             verifyCameraPermission();
@@ -73,7 +71,7 @@ public class TagActivity extends AppCompatActivity {
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
             setVSN();
         } else {
-            this.workingImageDirectory = FilesPath.getCaseImageFolder(getIntent().getStringExtra("workingDirectory"));
+            this.workingDirectory = getIntent().getStringExtra("workingDirectory");
             fetchData();
         }
     }
@@ -137,16 +135,17 @@ public class TagActivity extends AppCompatActivity {
         // Start the gallery activity
         Button galleryButton = findViewById(R.id.gallery_button);
         galleryButton.setOnClickListener(view -> {
-            Intent galleryIntent = new Intent(TagActivity.this, GalleryActivity.class);
-            galleryIntent.putExtra("workingImageDirectory", workingImageDirectory);
-            startActivity(galleryIntent);
+            Intent photoGalleryIntent = new Intent(TagActivity.this, PhotoGalleryActivity.class);
+            photoGalleryIntent.putExtra("workingImageDirectory", FilesPath.getCaseImageFolder(this.workingDirectory));
+            startActivity(photoGalleryIntent);
         });
 
         // Start the record activity
         Button recordButton = findViewById(R.id.record_button);
         recordButton.setOnClickListener(view -> {
-            Intent galleryIntent = new Intent(TagActivity.this, RecordActivity.class);
-            startActivity(galleryIntent);
+            Intent audioGalleryIntent = new Intent(TagActivity.this, AudioGalleryActivity.class);
+            audioGalleryIntent.putExtra("workingAudioDirectory", FilesPath.getCaseAudioFolder(workingDirectory));
+            startActivity(audioGalleryIntent);
         });
 
         // Delete the case
@@ -197,7 +196,7 @@ public class TagActivity extends AppCompatActivity {
      */
     private void createImageNewCaseFolder() {
 
-        File workingImageDirectoryFileObject = new File(workingImageDirectory);
+        File workingImageDirectoryFileObject = new File(FilesPath.getCaseImageFolder(workingDirectory));
         if (!workingImageDirectoryFileObject.exists()) {
             if (!workingImageDirectoryFileObject.mkdirs()) {
                 (Toast.makeText(this, getString(R.string.cannot_create_pictures_dir), Toast.LENGTH_SHORT)).show();
@@ -232,7 +231,7 @@ public class TagActivity extends AppCompatActivity {
      */
     private void dispatchTakePictureIntent() {
 
-        File imageFile = new File(workingImageDirectory, "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
+        File imageFile = new File(FilesPath.getCaseImageFolder(workingDirectory), "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
         Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", imageFile);
 
         /// Callback used to launch camera and trigger action on success and/or failure
@@ -288,7 +287,7 @@ public class TagActivity extends AppCompatActivity {
                 .setTitle(getResources().getString(R.string.warning))
                 .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
                     try {
-                        FilesPath.deleteDirectory(new File(Objects.requireNonNull(new File(workingImageDirectory).getParent())));
+                        FilesPath.deleteDirectory(new File(workingDirectory));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -326,7 +325,7 @@ public class TagActivity extends AppCompatActivity {
 
         // Control information
         reviewIntent.putExtra("newCase", getIntent().getBooleanExtra("newCase", false));
-        reviewIntent.putExtra("workingImageDirectory", this.workingImageDirectory);
+        reviewIntent.putExtra("workingDirectory", workingDirectory);
 
         // Inputted information
         reviewIntent.putExtra("name", ((EditText) findViewById(R.id.name_input)).getText().toString());
@@ -430,8 +429,7 @@ public class TagActivity extends AppCompatActivity {
      */
     private JSONObject openJSON() throws JSONException {
 
-        String caseFolder = FilesPath.getCasesFolder() + File.separator + getIntent().getStringExtra("workingDirectory");
-        File jsonFile = new File(FilesPath.getJsonDataFile(caseFolder));
+        File jsonFile = new File(FilesPath.getJsonDataFile(this.workingDirectory));
 
         // Reading the JSON file
         StringBuilder jsonText = new StringBuilder();

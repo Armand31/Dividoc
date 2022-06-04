@@ -27,22 +27,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 // TODO : Watermark the saved images
-public class GalleryActivity extends AppCompatActivity {
+public class PhotoGalleryActivity extends AppCompatActivity {
 
     private String workingImageDirectory;
     private final int MAX_PHOTOS_ALLOWED = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery);
+        setContentView(R.layout.activity_photo_gallery);
 
         // Block the screenshots and video recording
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
@@ -219,7 +218,7 @@ public class GalleryActivity extends AppCompatActivity {
             Bitmap bmp = BitmapFactory.decodeFile(fileList[i].getAbsolutePath());
             imageView.setImageBitmap(bmp);
             imageView.setOnClickListener(v -> {
-                Intent intent = new Intent(GalleryActivity.this, DisplayImageActivity.class);
+                Intent intent = new Intent(PhotoGalleryActivity.this, DisplayImageActivity.class);
                 intent.putExtra("picturePath", fileList[i].getAbsolutePath());
                 startActivity(intent);
             });

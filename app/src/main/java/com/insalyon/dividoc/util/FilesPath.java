@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class FilesPath extends AppCompatActivity {
 
@@ -14,8 +15,6 @@ public class FilesPath extends AppCompatActivity {
     private static final String casesFolder = getAppRootFolder() + File.separator + "cases";
 
     private static final String newCaseFolder = getCasesFolder() + File.separator + "new_case";
-
-    private static final String newCaseImageFolder = getNewCaseFolder() + File.separator + "images";
 
     private static final String jsonDataFile = "data.json";
 
@@ -30,13 +29,29 @@ public class FilesPath extends AppCompatActivity {
 
     public static String getNewCaseFolder() { return newCaseFolder; }
 
-    public static String getNewCaseImageFolder() { return newCaseImageFolder; }
+    public static String getCaseAbsolutePath(String _case) { return getCasesFolder() + File.separator + _case; }
 
     public static String getJsonDataFile(String baseFolder) { return baseFolder + File.separator + jsonDataFile; }
 
     public static String getHtmlDataFile(String baseFolder) { return baseFolder + File.separator + htmlDataFile; }
 
-    public static String getCaseImageFolder(String caseString) { return getCasesFolder() + File.separator + caseString + File.separator + "images"; }
+    public static String getCaseImageFolder(String caseString) {
+
+        if (new File(Objects.requireNonNull(new File(caseString).getParent())).getAbsolutePath().equals(getCasesFolder())) {
+            return caseString + File.separator + "images";
+        } else {
+            return getCasesFolder() + File.separator + caseString + File.separator + "images";
+        }
+    }
+
+    public static String getCaseAudioFolder(String caseString) {
+
+        if (new File(Objects.requireNonNull(new File(caseString).getParent())).getAbsolutePath().equals(getCasesFolder())) {
+            return caseString + File.separator + "audios";
+        } else {
+            return getCasesFolder() + File.separator + caseString + File.separator + "audios";
+        }
+    }
 
     public static String getExportDirectory() { return exportDirectory; }
 

@@ -30,7 +30,7 @@
             android:focusable="true"
             android:layout_margin="5dp"
             android:textSize="11sp"
-            app:icon="@drawable/add_photo"
+            app:icon="@drawable/delete_trash"
             style="@style/Widget.MaterialComponents.Button.Icon" />
 
     </LinearLayout>

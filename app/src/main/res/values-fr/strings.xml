@@ -45,6 +45,7 @@
     <string name="ocdc" translatable="false">OCDC</string>
     <string name="password_label">Mot de passe du répertoire</string>
     <string name="zip_path_label">Chemin du dossier zip</string>
+    <string name="recording">Enregistrement…</string>
 
     <!-- Avertissements -->
     <string name="warning">Avertissement</string>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="20dp">
+
+    <FrameLayout
+        android:id="@+id/audio_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/recording_state" />
+
+    <LinearLayout
+        android:id="@+id/recording_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_group_audio_gallery"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+            <!--
+            android:format="M:SS"-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_group_audio_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/record_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_margin="5dp"
+            android:textSize="11sp"
+            android:breakStrategy="high_quality"
+            android:text="@string/record_audio"
+            app:icon="@drawable/record_voice"
+            app:iconGravity="textStart"
+            style="@style/Widget.MaterialComponents.Button.Icon" />
+
+    </LinearLayout>
+
+</RelativeLayout>

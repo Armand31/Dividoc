@@ -1,33 +1,27 @@
 package com.insalyon.dividoc.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.insalyon.dividoc.DecryptionActivity;
+import com.insalyon.dividoc.MainActivity;
+import com.insalyon.dividoc.R;
+import com.insalyon.dividoc.util.DiviContext;
+import com.insalyon.dividoc.util.FilesPath;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import com.insalyon.dividoc.DecryptionActivity;
-import com.insalyon.dividoc.MainActivity;
-import com.insalyon.dividoc.R;
-import com.insalyon.dividoc.TagActivity;
-import com.insalyon.dividoc.TransferActivity;
-import com.insalyon.dividoc.util.DiviContext;
-import com.insalyon.dividoc.util.FilesPath;
 
 /**
  * Fragment class : https://developer.android.com/guide/fragments

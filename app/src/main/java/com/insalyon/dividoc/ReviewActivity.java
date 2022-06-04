@@ -95,7 +95,7 @@ public class ReviewActivity extends AppCompatActivity {
                 .setTitle(getResources().getString(R.string.warning))
                 .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
                     try {
-                        FilesPath.deleteDirectory(new File(Objects.requireNonNull(new File(getIntent().getStringExtra("workingImageDirectory")).getParent())));
+                        FilesPath.deleteDirectory(new File(getIntent().getStringExtra("workingDirectory")));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

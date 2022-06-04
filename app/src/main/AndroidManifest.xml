@@ -9,6 +9,7 @@
     <!-- TODO Permission for writing external storage when SDK version > 28 https://developer.android.com/about/versions/11/privacy/storage-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature android:name="android.hardware.CAMERA" />
 
@@ -33,9 +34,6 @@
             android:name=".ReviewActivity"
             android:exported="false" />
         <activity
-            android:name=".RecordActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -46,13 +44,14 @@
         </activity>
         <activity android:name=".TagActivity" />
         <activity android:name=".InitActivity" />
-        <activity android:name=".GalleryActivity" />
+        <activity android:name=".PhotoGalleryActivity" />
         <activity android:name=".DisplayImageActivity" />
         <activity android:name=".TransferActivity" />
         <activity android:name=".SettingsActivity"
             android:configChanges="layoutDirection|locale" />
         <!-- https://stackoverflow.com/questions/18725396/onconfigurationchange-not-called-after-changing-locale -->
         <activity android:name=".DecryptionActivity" />
+        <activity android:name=".AudioGalleryActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

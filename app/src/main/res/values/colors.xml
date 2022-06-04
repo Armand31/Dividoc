@@ -9,4 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#FF018786</color>
     <color name="warning">#F33</color>
+    <color name="red_light">#FF3333</color>
+    <color name="red_FF">#F00</color>
+    <color name="red_BF">#BF0413</color>
+    <color name="red_73">#73030D</color>
+    <color name="red_8C">#8C041D</color>
+    <color name="orange_light">#F2A30F</color>
+    <color name="orange_dark">#F26716</color>
 </resources>

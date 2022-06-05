@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,8 +67,9 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
         if (audioArray != null) {
             audioList.addAll(Arrays.asList(audioArray));
 
+            // Comparator is used to sort cases, in alphabetical order here (getName() method)
             // noinspection ComparatorCombinators
-            Collections.sort(audioList, (f1, f2) -> f1.getName().compareTo(f2.getName()));
+            //Collections.sort(audioList, (f1, f2) -> f1.getName().compareTo(f2.getName()));
         }
 
         return audioList;

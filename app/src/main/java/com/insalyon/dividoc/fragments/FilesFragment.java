@@ -61,7 +61,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
 
             // Comparator is used to sort cases, in alphabetical order here (getName() method)
             // noinspection ComparatorCombinators
-            Collections.sort(casesList, (f1, f2) -> f1.getName().compareTo(f2.getName()));
+            //Collections.sort(casesList, (f1, f2) -> f1.getName().compareTo(f2.getName()));
         }
 
         return casesList;

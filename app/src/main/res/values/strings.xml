@@ -46,6 +46,13 @@
     <string name="password_label">Directory password</string>
     <string name="zip_path_label">Path to zip folder</string>
     <string name="recording">Recording…</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="unknown">Unknown</string>
+    <string name="adult">Adult</string>
+    <string name="teenager">Teenager</string>
+    <string name="kid">Kid</string>
+    <string name="baby">Baby</string>
 
     <!-- Warnings -->
     <string name="warning">Warning</string>
@@ -98,32 +105,6 @@
         <item>pt</item>
     </string-array>
     <!-- Language code cannot got '-' & must be 2 small case letter only -->
-
-    <!-- Spinners -->
-    <string-array name="gender">
-        <item><b>Sex</b></item>
-        <item>Man</item>
-        <item>Woman</item>
-        <item>Unknown</item>
-    </string-array>
-
-    <string name="man">Man</string>
-    <string name="woman">Woman</string>
-    <string name="unknown">Unknown</string>
-
-    <string-array name="age">
-        <item><b>Age range</b></item>
-        <item>Adult</item>
-        <item>Teenager</item>
-        <item>Kid</item>
-        <item>Baby</item>
-        <item>Unknown</item>
-    </string-array>
-
-    <string name="adult">Adult</string>
-    <string name="teenager">Teenager</string>
-    <string name="kid">Kid</string>
-    <string name="baby">Baby</string>
 
     <!-- Other -->
     <string name="ocdc_default_value" translatable="false">0</string>

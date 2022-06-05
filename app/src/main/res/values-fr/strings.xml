@@ -46,6 +46,13 @@
     <string name="password_label">Mot de passe du répertoire</string>
     <string name="zip_path_label">Chemin du dossier zip</string>
     <string name="recording">Enregistrement…</string>
+    <string name="man">Homme</string>
+    <string name="woman">Femme</string>
+    <string name="unknown">Inconnu</string>
+    <string name="adult">Adulte</string>
+    <string name="teenager">Adolescent</string>
+    <string name="kid">Enfant</string>
+    <string name="baby">Bébé</string>
 
     <!-- Avertissements -->
     <string name="warning">Avertissement</string>
@@ -85,32 +92,6 @@
     <string name="super_user_mode_info">Désactive la protection par mot de passe des fichiers zip</string>
     <string name="lang">Langue</string>
     <string name="lang_info">Changer la langue de l\'application</string>
-
-        <!-- Spinners -->
-    <string-array name="gender">
-        <item><b>Sex</b></item>
-        <item>Man</item>
-        <item>Woman</item>
-        <item>Unknown</item>
-    </string-array>
-
-    <string name="man">Homme</string>
-    <string name="woman">Femme</string>
-    <string name="unknown">Inconnu</string>
-
-    <string-array name="age">
-        <item><b>Age range</b></item>
-        <item>Adult</item>
-        <item>Teenager</item>
-        <item>Kid</item>
-        <item>Baby</item>
-        <item>Inconnu</item>
-    </string-array>
-
-    <string name="adult">Adulte</string>
-    <string name="teenager">Adolescent</string>
-    <string name="kid">Enfant</string>
-    <string name="baby">Bébé</string>
 
         <!-- Autres -->
     <string name="ocdc_default_value" translatable="false">0</string>

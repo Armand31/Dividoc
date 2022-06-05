@@ -20,7 +20,6 @@ import com.insalyon.dividoc.util.FilesPath;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -62,7 +61,8 @@ public class ArchivesFragment extends Fragment implements ArchivesFragmentAdapte
             archivesList.addAll(Arrays.asList(archivesArray));
 
             // Comparator is used to sort cases, in alphabetical order here (getName() method)
-            Collections.sort(archivesList, (f1, f2) -> f2.getName().compareTo(f1.getName()));
+            // noinspection ComparatorCombinators
+            //Collections.sort(archivesList, (f1, f2) -> f2.getName().compareTo(f1.getName()));
         }
 
         return archivesList;

@@ -39,6 +39,7 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
 
     private AudioFragmentAdapter adapter;
     private String workingAudioDirectory;
+    private MediaPlayer mediaPlayer;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -77,8 +78,28 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
 
     public void onItemClick(int position) {
 
+        Button record;
+
+        // Stop other audio file if one is already playing
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+
+            int numberOfAudio = adapter.getItemCount();
+            for (int i = 0 ; i < numberOfAudio ; i++) {
+                // Change button play to pause
+                record = adapter.getPlayButton(i);
+                record.setCompoundDrawablesWithIntrinsicBounds(R.drawable.play, 0, 0, 0);
+            }
+        }
+
+        /*
+         Play the audio file that was clicked
+         */
+
         // Play the audio file
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer = new MediaPlayer();
         String filePath = this.workingAudioDirectory + File.separator + this.adapter.getItem(position).getName();
         try {
             mediaPlayer.setDataSource(filePath);
@@ -93,7 +114,6 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaMetadataRetriever.setDataSource(DiviContext.getAppContext(), uri);
         int duration = Integer.parseInt(mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
-        System.out.println("Duration : " + duration);
 
         // Change the text view
         /*
@@ -160,7 +180,7 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
         };*/
 
         // Change button play to pause
-        Button record = adapter.getPlayButton(position);
+        record = adapter.getPlayButton(position);
         record.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pause, 0, 0, 0);
 
         // Execute code after <duration> milliseconds

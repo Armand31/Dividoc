@@ -31,7 +31,7 @@
 
     <!-- Étiquettes et conseils -->
     <string name="name">Nom</string>
-    <string name="gender">Gender</string>
+    <string name="gender">Sexe</string>
     <string name="age">Age</string>
     <string name="location">Location</string>
     <string name="additional_information">Informations complémentaires</string>
@@ -94,6 +94,10 @@
         <item>Unknown</item>
     </string-array>
 
+    <string name="man">Homme</string>
+    <string name="woman">Femme</string>
+    <string name="unknown">Inconnu</string>
+
     <string-array name="age">
         <item><b>Age range</b></item>
         <item>Adult</item>
@@ -102,6 +106,11 @@
         <item>Baby</item>
         <item>Inconnu</item>
     </string-array>
+
+    <string name="adult">Adulte</string>
+    <string name="teenager">Adolescent</string>
+    <string name="kid">Enfant</string>
+    <string name="baby">Bébé</string>
 
         <!-- Autres -->
     <string name="ocdc_default_value" translatable="false">0</string>

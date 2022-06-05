@@ -76,6 +76,7 @@ public class InitActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 start.setEnabled(countryCode.getText().toString().length() == 2 && serialNumber.getText().toString().length() == 3);
+                serialNumber.clearFocus();
             }
         });
     }

@@ -14,9 +14,9 @@ import android.text.InputFilter;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.insalyon.dividoc.util.FilesPath;
 
 import org.json.JSONException;
@@ -38,8 +39,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TagActivity extends AppCompatActivity {
 
@@ -55,7 +58,7 @@ public class TagActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
 
         // Initialization
-        defineSpinners();
+        defineLists();
         loadTagFields();
         setOCDCFilter();
         setButtonListeners(registration());
@@ -77,21 +80,45 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     * Define age and gender spinner for form completion
+     * Define age and gender lists for form completion
      */
-    private void defineSpinners() {
+    private void defineLists() {
 
         // Gender spinner
-        Spinner gender_spinner = findViewById(R.id.gender_spinner);
-        ArrayAdapter<CharSequence> gender_adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
-        gender_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gender_spinner.setAdapter(gender_adapter);
+        AutoCompleteTextView gender = findViewById(R.id.gender_list);
+        ArrayAdapter<String> gender_adapter = new ArrayAdapter<>(this, R.layout.list_item_gender, getGenderList());
+        gender.setAdapter(gender_adapter);
 
         // Age Spinner
-        Spinner age_spinner = findViewById(R.id.age_spinner);
-        ArrayAdapter<CharSequence> age_adapter = ArrayAdapter.createFromResource(this, R.array.age, android.R.layout.simple_spinner_item);
-        age_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        age_spinner.setAdapter(age_adapter);
+        AutoCompleteTextView age = findViewById(R.id.age_list);
+        ArrayAdapter<String> age_adapter = new ArrayAdapter<>(this, R.layout.list_item_age, getAgeList());
+        age.setAdapter(age_adapter);
+    }
+
+    /**
+     * Get the gender list
+     * @return the gender list in ArrayList<String> object
+     */
+    private ArrayList<String> getGenderList() {
+        ArrayList<String> genderList = new ArrayList<>();
+        genderList.add(getString(R.string.man));
+        genderList.add(getString(R.string.woman));
+        genderList.add(getString(R.string.unknown));
+        return genderList;
+    }
+
+    /**
+     * Get the gender list
+     * @return the gender list in ArrayList<String> object
+     */
+    private ArrayList<String> getAgeList() {
+        ArrayList<String> ageList = new ArrayList<>();
+        ageList.add(getString(R.string.adult));
+        ageList.add(getString(R.string.teenager));
+        ageList.add(getString(R.string.kid));
+        ageList.add(getString(R.string.baby));
+        ageList.add(getString(R.string.unknown));
+        return ageList;
     }
 
     /**
@@ -328,10 +355,10 @@ public class TagActivity extends AppCompatActivity {
         reviewIntent.putExtra("workingDirectory", workingDirectory);
 
         // Inputted information
-        reviewIntent.putExtra("name", ((EditText) findViewById(R.id.name_input)).getText().toString());
-        reviewIntent.putExtra("gender", ((Spinner) findViewById(R.id.gender_spinner)).getSelectedItem().toString());
+        reviewIntent.putExtra("name", Objects.requireNonNull(((TextInputEditText) findViewById(R.id.name_input)).getText()).toString());
+        reviewIntent.putExtra("gender", ((AutoCompleteTextView) findViewById(R.id.gender_list)).getText().toString());
         reviewIntent.putExtra("manual_location", ((TextView) findViewById(R.id.location_input)).getText().toString());
-        reviewIntent.putExtra("age", ((Spinner) findViewById(R.id.age_spinner)).getSelectedItem().toString());
+        reviewIntent.putExtra("age", ((AutoCompleteTextView) findViewById(R.id.age_list)).getText().toString());
         reviewIntent.putExtra("additional_information", ((TextView) findViewById(R.id.additional_info_input)).getText().toString());
 
         // OCDC
@@ -395,28 +422,18 @@ public class TagActivity extends AppCompatActivity {
             JSONObject json = openJSON();
 
             // Inputs feeding
-            ((EditText) findViewById(R.id.name_input)).setText(json.getString("Name"));
+            ((TextInputEditText) findViewById(R.id.name_input)).setText(json.getString("Name"));
             ((EditText) findViewById(R.id.location_input)).setText(json.getString("HandwrittenLocation"));
             ((EditText) findViewById(R.id.additional_info_input)).setText(json.getString("AdditionalInformation"));
             ((EditText) findViewById(R.id.ocdc_tag)).setText(json.getString("OCDC"));
             ((TextView) findViewById(R.id.vsn_tag)).setText(json.getString("VSN"));
 
             // Spinners inputs feeding
-            String compareValue = json.getString("Age");
-            Spinner mSpinner = findViewById(R.id.age_spinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.age, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mSpinner.setAdapter(adapter);
-            int spinnerPosition = adapter.getPosition(compareValue);
-            mSpinner.setSelection(spinnerPosition);
+            AutoCompleteTextView ageTextView = findViewById(R.id.age_list);
+            ageTextView.setText(json.getString("Age"), false);
 
-            compareValue = json.getString("Gender");
-            mSpinner = findViewById(R.id.gender_spinner);
-            adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mSpinner.setAdapter(adapter);
-            spinnerPosition = adapter.getPosition(compareValue);
-            mSpinner.setSelection(spinnerPosition);
+            AutoCompleteTextView genderTextView = findViewById(R.id.gender_list);
+            genderTextView.setText(json.getString("Gender"), false);
 
         } catch (JSONException e) {
             Toast.makeText(this, getString(R.string.cannot_parse_json_file), Toast.LENGTH_SHORT).show();

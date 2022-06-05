@@ -37,9 +37,10 @@
     <string name="additional_information">Informations complémentaires</string>
     <string name="tag" translatable="false">Tag</string>
     <string name="dot_separator" translatable="false">.</string>
-    <string name="input_serial_number">Veuillez saisir le numéro de série de votre téléphone</string>.
-    <string name="country_code_hint">AA</string>
-    <string name="serial_number_hint" translatable="false">000</string>
+    <string name="input_serial_number">Veuillez saisir le numéro de série de votre téléphone</string>
+    <string name="country_code_hint">Code pays</string>
+    <string name="country_code_allowed" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="serial_number_hint">Numéro de série</string>
     <string name="delete_label">Delete</string>
     <string name="expiration_label">Date d\'expiration du répertoire</string>
     <string name="ocdc" translatable="false">OCDC</string>

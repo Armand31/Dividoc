@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".InitActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_margin="20dp" >
 
     <TextView
         android:id="@+id/textView"
@@ -20,32 +21,44 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_margin="20dp" >
+        android:baselineAligned="false">
 
-        <EditText
-            android:id="@+id/country_code"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:hint="@string/country_code_hint"
             android:layout_weight="1"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:textAllCaps="true"
-            android:autofillHints="AA"
-            android:hint="@string/country_code_hint" />
+            android:layout_marginEnd="5dp" >
 
-        <EditText
-            android:id="@+id/serial_number"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/country_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:maxLength="2"
+                android:digits="@string/country_code_allowed"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:hint="@string/serial_number_hint"
             android:layout_weight="1"
-            android:autofillHints="000"
-            android:inputType="number"
-            android:maxLength="3"
-            android:hint="@string/serial_number_hint" />
+            android:layout_marginStart="5dp" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/serial_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textAllCaps="true"
+                android:maxLength="3" />
+
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <Button

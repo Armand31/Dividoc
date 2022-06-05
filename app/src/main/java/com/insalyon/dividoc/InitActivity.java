@@ -7,17 +7,20 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
+
 public class InitActivity extends AppCompatActivity {
 
-    private EditText countryCode;
-    private EditText serialNumber;
+    private TextInputEditText countryCode;
+    private TextInputEditText serialNumber;
     private Button start;
 
     @Override
@@ -51,7 +54,8 @@ public class InitActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (countryCode.getText().toString().length() == 2) {
+                if (Objects.requireNonNull(countryCode.getText()).length() == 2) {
+                    // TODO : Make the focus to work again
                     countryCode.clearFocus();
                     serialNumber.requestFocus();
                 }
@@ -59,7 +63,7 @@ public class InitActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                start.setEnabled(countryCode.getText().toString().length() == 2 && serialNumber.getText().toString().length() == 3);
+                start.setEnabled(Objects.requireNonNull(countryCode.getText()).length() == 2 && Objects.requireNonNull(serialNumber.getText()).toString().length() == 3);
             }
         });
 
@@ -75,8 +79,10 @@ public class InitActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                start.setEnabled(countryCode.getText().toString().length() == 2 && serialNumber.getText().toString().length() == 3);
-                serialNumber.clearFocus();
+                if (Objects.requireNonNull(countryCode.getText()).toString().length() == 2 && Objects.requireNonNull(serialNumber.getText()).toString().length() == 3) {
+                    start.setEnabled(true);
+                    serialNumber.clearFocus();
+                }
             }
         });
     }
@@ -90,14 +96,14 @@ public class InitActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(getResources().getString(R.string.warning));
-        builder.setMessage(String.format(getResources().getString(R.string.input_verification), countryCode.getText().toString() + " " + serialNumber.getText().toString()));
+        builder.setMessage(String.format(getResources().getString(R.string.input_verification), Objects.requireNonNull(countryCode.getText()) + " " + Objects.requireNonNull(serialNumber.getText())));
 
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
             SharedPreferences defaultPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor defaultPreferencesEditor = defaultPreferences.edit();
             defaultPreferencesEditor.putBoolean("FirstStart", false);
-            defaultPreferencesEditor.putString("countryCode", countryCode.getText().toString());
+            defaultPreferencesEditor.putString("countryCode", countryCode.getText().toString().toUpperCase());
             defaultPreferencesEditor.putString("serialNumber", serialNumber.getText().toString());
             defaultPreferencesEditor.apply();
 

@@ -38,8 +38,9 @@
     <string name="tag" translatable="false">Tag</string>
     <string name="dot_separator" translatable="false">.</string>
     <string name="input_serial_number">Please enter your phone\'s serial number</string>
-    <string name="country_code_hint">AA</string>
-    <string name="serial_number_hint" translatable="false">000</string>
+    <string name="country_code_hint">Contry code</string>
+    <string name="country_code_allowed" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="serial_number_hint">Serial number</string>
     <string name="delete_label">Delete</string>
     <string name="expiration_label">Directory\'s expiration date</string>
     <string name="ocdc" translatable="false">OCDC</string>

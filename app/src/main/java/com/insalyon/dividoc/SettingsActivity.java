@@ -55,7 +55,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(DiviContext.getAppContext());
         boolean darkMode = sharedPreferences.getBoolean("dark_mode", false);
-        if (darkMode) {
+        if (!sharedPreferences.contains("FirstStart") || !sharedPreferences.contains("dark_mode")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if (darkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -66,16 +68,16 @@ public class SettingsActivity extends AppCompatActivity {
      * Changes the language
      * Supported locales : https://stackoverflow.com/questions/7973023/what-is-the-list-of-supported-languages-locales-on-android
      */
-    public void setLang() {
+    public static void setLang() {
 
         // Getting the selected language
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(DiviContext.getAppContext());
         String lang = sharedPreferences.getString("lang", "en");
 
         // Changes the application's configuration
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
-        Resources resources = this.getResources();
+        Resources resources = DiviContext.getAppContext().getResources();
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());

@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.color.MaterialColors;
 import com.insalyon.dividoc.fragments.AudioFragment;
+import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class AudioGalleryActivity extends AppCompatActivity {
         record.setOnClickListener(view -> {
             if (!isRecording) {
                 this.isRecording = true;
-                createAudioDirectory();
+                FilesPath.createDirectory(workingAudioDirectory, getString(R.string.cannot_create_pictures_dir));
                 modifyUI();
                 startRecording();
             } else {
@@ -81,20 +82,6 @@ public class AudioGalleryActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.audio_frame_layout, audioFragment);
         fragmentTransaction.commit();
-    }
-
-    /**
-     * Creates the audio directory in new_case directory
-     * TODO : Code factorization with com.insalyon.dividoc.TagActivity#createImageNewCaseFolder()
-     */
-    private void createAudioDirectory() {
-
-        File workingImageDirectoryFileObject = new File(workingAudioDirectory);
-        if (!workingImageDirectoryFileObject.exists()) {
-            if (!workingImageDirectoryFileObject.mkdirs()) {
-                (Toast.makeText(this, getString(R.string.cannot_create_pictures_dir), Toast.LENGTH_SHORT)).show();
-            }
-        }
     }
 
     /**

@@ -32,7 +32,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-// TODO : Watermark the saved images
+
 public class PhotoGalleryActivity extends AppCompatActivity {
 
     private String workingImageDirectory;

@@ -3,8 +3,6 @@ package com.insalyon.dividoc;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,10 +27,7 @@ import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
-// TODO : Set the theme as the system default at initialization
-// TODO : Delete new_case at startup if it exist
 public class MainActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Block the screenshots and video recording
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         // Initialization
         setButtonListeners();
@@ -58,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, InitActivity.class));
         }
 
-        // Registration of the callback that will trigger the reload of the view when the locale as changed
+        // Registration of the callback that will trigger the reload of the view when the locale has changed
         // and the settings activity is closed
         this.activityResultLauncher = registration();
 
@@ -197,26 +192,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void applyPreferences() {
         SettingsActivity.setTheme();
-        setLang();
-    }
-
-    /**
-     * Sets the lang
-     * TODO : Factorize code with com.insalyon.dividoc.SettingsActivity#setLang()
-     */
-    private void setLang() {
-
-        // Getting the selected language
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String lang = sharedPreferences.getString("lang", "en");
-
-        // Changes the application's configuration
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Resources resources = this.getResources();
-        Configuration config = resources.getConfiguration();
-        config.setLocale(locale);
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        SettingsActivity.setLang();
     }
 
     /**

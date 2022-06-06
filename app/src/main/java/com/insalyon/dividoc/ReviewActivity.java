@@ -140,8 +140,6 @@ public class ReviewActivity extends AppCompatActivity {
 
     /**
      *  Increments the VSN in the shared preferences for the next case
-     * TODO : Persist the VSN after uninstallation of the app
-     * TODO : Manage multiple external storage devices if used ?
      */
     private void VSNIncrementation() {
 

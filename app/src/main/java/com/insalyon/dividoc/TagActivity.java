@@ -68,7 +68,7 @@ public class TagActivity extends AppCompatActivity {
         {
             this.workingDirectory = FilesPath.getNewCaseFolder();
             getCaseLocation();
-            createImageNewCaseFolder();
+            FilesPath.createDirectory(FilesPath.getCaseImageFolder(workingDirectory), getString(R.string.cannot_create_pictures_dir));
             verifyCameraPermission();
             dispatchTakePictureIntent();
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
@@ -216,19 +216,6 @@ public class TagActivity extends AppCompatActivity {
             }
         });
         */
-    }
-
-    /**
-     * Creates the image directory in new_case directory
-     */
-    private void createImageNewCaseFolder() {
-
-        File workingImageDirectoryFileObject = new File(FilesPath.getCaseImageFolder(workingDirectory));
-        if (!workingImageDirectoryFileObject.exists()) {
-            if (!workingImageDirectoryFileObject.mkdirs()) {
-                (Toast.makeText(this, getString(R.string.cannot_create_pictures_dir), Toast.LENGTH_SHORT)).show();
-            }
-        }
     }
 
     /**

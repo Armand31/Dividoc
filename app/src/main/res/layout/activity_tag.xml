@@ -8,39 +8,41 @@
     android:gravity="center"
     android:layout_margin="20dp" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
-
-        <TextView
-            android:id="@+id/tag_title"
+    <!--
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tag_title"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:textStyle="bold" />
+            android:gravity="center" >
 
-        <!--
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_help_tag"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:contentDescription="@string/tag_help"
-            android:focusable="true"
-            app:backgroundTint="@color/primary"
-            app:srcCompat="@android:drawable/ic_menu_help"
-            android:layout_weight="1" />
-            -->
+            <TextView
+                android:id="@+id/tag_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tag_title"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_help_tag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:contentDescription="@string/tag_help"
+                android:focusable="true"
+                app:backgroundTint="@color/primary"
+                app:srcCompat="@android:drawable/ic_menu_help"
+                android:layout_weight="1" />
+
 
     </LinearLayout>
+    -->
 
+    <!-- TODO Responsive view -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/gender"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" >
@@ -49,6 +51,7 @@
             android:id="@+id/gender_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="20dp"
             android:hint="@string/gender"
             android:inputType="none" />
 
@@ -57,7 +60,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/age"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"  >
@@ -66,6 +68,7 @@
             android:id="@+id/age_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="20dp"
             android:hint="@string/age"
             android:inputType="none" />
 
@@ -82,7 +85,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxHeight="50dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +101,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/location_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxHeight="50dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +118,7 @@
             android:id="@+id/additional_info_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="100dp"
             android:inputType="textMultiLine" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +197,8 @@
                 android:id="@+id/ocdc_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:maxHeight="40dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

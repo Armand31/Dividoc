@@ -2,8 +2,11 @@ package com.insalyon.dividoc.util;
 
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.insalyon.dividoc.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +61,21 @@ public class FilesPath extends AppCompatActivity {
     }
 
     public static String getExportDirectory() { return exportDirectory; }
+
+    /**
+     * Create a new directory
+     * @param dir the directory path to be created
+     * @param errorMessage the error message if the directory could not be created
+     */
+    public static void createDirectory(String dir, String errorMessage) {
+
+        File workingImageDirectoryFileObject = new File(dir);
+        if (!workingImageDirectoryFileObject.exists()) {
+            if (!workingImageDirectoryFileObject.mkdirs()) {
+                (Toast.makeText(DiviContext.getAppContext(), errorMessage, Toast.LENGTH_SHORT)).show();
+            }
+        }
+    }
 
     /**
      * Deletes file or a directory recursively

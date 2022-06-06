@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -207,8 +208,10 @@ public class PhotoGalleryActivity extends AppCompatActivity {
             ImageView imageView;
             if (view == null) {
                 imageView = new ImageView(this.context);
-                // TODO Set dynamic width and height
-                imageView.setLayoutParams(new GridView.LayoutParams(400, 400));
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int width = displayMetrics.widthPixels;
+                imageView.setLayoutParams(new GridView.LayoutParams(width/3, width/3));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             } else {
                 imageView = (ImageView) view;

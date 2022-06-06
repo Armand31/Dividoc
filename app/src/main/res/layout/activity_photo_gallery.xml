@@ -41,9 +41,7 @@
         android:gravity="center"
         android:numColumns="auto_fit"
         android:layout_weight="4"
-        android:verticalSpacing="15dp"
-        android:padding="15dp"
-        android:clipToPadding="false" />
+        android:verticalSpacing="15dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"

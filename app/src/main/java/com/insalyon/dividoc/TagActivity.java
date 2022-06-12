@@ -1,12 +1,15 @@
 package com.insalyon.dividoc;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,13 +25,14 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
 import org.json.JSONException;
@@ -47,6 +51,8 @@ import java.util.Objects;
 public class TagActivity extends AppCompatActivity {
 
     private String workingDirectory;
+    private ActivityResultLauncher<Uri> dispatchTakePictureIntentLauncher;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
     private double latitude = 0.0, longitude = 0.0;
 
     @Override
@@ -57,26 +63,77 @@ public class TagActivity extends AppCompatActivity {
         // Block the screenshots and video recording
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
 
+        // TODO : Manage layout screen rotation with View Model : https://developer.android.com/topic/libraries/architecture/viewmodel
+
         // Initialization
+        callbacksRegistration();
         defineLists();
         loadTagFields();
         setOCDCFilter();
-        setButtonListeners(registration());
+        setButtonListeners();
 
         // If this is a new case
         if (getIntent().getBooleanExtra("newCase", false))
         {
             this.workingDirectory = FilesPath.getNewCaseFolder();
-            getCaseLocation();
-            FilesPath.createDirectory(FilesPath.getCaseImageFolder(workingDirectory), getString(R.string.cannot_create_pictures_dir));
-            verifyCameraPermission();
-            dispatchTakePictureIntent();
+
+            // Verify location permission and get the case location if the permission is granted
+            verifyPermission(Manifest.permission.ACCESS_FINE_LOCATION, getResources().getString(R.string.provide_location), this::getCaseLocation, () -> {});
+
+            // Verify storage permission to ensure correct execution of the code
+            verifyPermission(Manifest.permission.READ_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
+            verifyPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
+
+            // Verify camera permission and open the camera activity if the permission is granted
+            verifyPermission(Manifest.permission.CAMERA, getResources().getString(R.string.provide_camera), this::dispatchTakePictureIntent, () -> {
+                FilesPath.deleteDirectory(workingDirectory);
+                this.finish();
+            });
+
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
             setVSN();
         } else {
             this.workingDirectory = getIntent().getStringExtra("workingDirectory");
             fetchData();
         }
+    }
+
+    /**
+     * Register callbacks that will be triggered to get a result from an activity
+     * These callbacks must be declared before the activity is started otherwise
+     * an error is triggered and the activity is crashing
+     * See https://stackoverflow.com/questions/64476827/how-to-resolve-the-error-lifecycleowners-must-call-register-before-they-are-sta
+     */
+    private void callbacksRegistration() {
+
+        // Callback triggered for the launching of the camera activity and the implementation of the code we want on success / failure
+        this.dispatchTakePictureIntentLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicture(),
+                result -> {
+                    if (!result) {
+                        try {
+                            // Deleting the previously generated case if the camera activity is finished and no photo was taken
+                            FilesPath.deleteDirectory(new File(FilesPath.getNewCaseFolder()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            // And finishing the tag activity as we force the user to take a picture to register a case
+                            this.finish();
+                        }
+                    }
+                }
+        );
+
+        // If the case is saved or deleted from the review activity (child of tag activity) , the result set will be RESULT_OK, so this callback will be triggered
+        // and this activity will also finish due to this.finish() function
+        this.activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() != Activity.RESULT_CANCELED) {
+                        this.finish();
+                    }
+                }
+        );
     }
 
     /**
@@ -157,7 +214,7 @@ public class TagActivity extends AppCompatActivity {
     /**
      * Set listeners for the buttons, launching different activities
      */
-    private void setButtonListeners(ActivityResultLauncher<Intent> activityResultLauncher) {
+    private void setButtonListeners() {
 
         // Start the gallery activity
         Button galleryButton = findViewById(R.id.gallery_button);
@@ -181,24 +238,75 @@ public class TagActivity extends AppCompatActivity {
 
         // Start the review activity
         Button saveButton = findViewById(R.id.save_case_button);
-        saveButton.setOnClickListener(view -> startReviewActivity(activityResultLauncher));
+        saveButton.setOnClickListener(view -> startReviewActivity());
     }
 
     /**
-     * Gets the location of the body
+     * Verifies the state of the given permission
+     * @param permission the permission to verify
+     * @param messageBody the message to display to let the user understand why he needs to give the permission
+     * @param toPerformOnSuccess the action to perform if the permission was granted
+     * @param toPerformOnFailure the action to perform if the permission was not granted
+     * TODO : Factorize code using https://developer.android.com/training/basics/intents/result#separate
      */
+    public void verifyPermission(String permission, String messageBody, Runnable toPerformOnSuccess, Runnable toPerformOnFailure) {
+
+        ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                toPerformOnSuccess.run();
+            } else {
+                toPerformOnFailure.run();
+            }
+        });
+
+        if (ActivityCompat.checkSelfPermission(AppContext.getAppContext(), permission) == PackageManager.PERMISSION_GRANTED) {
+            // Get case location if the permission was granted
+            toPerformOnSuccess.run();
+
+        } else if (this.shouldShowRequestPermissionRationale(permission)) {
+            // Explain to the user why the user needs to allow the permission and ask him if he wants to grant the permission
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+            builder.setTitle(getResources().getString(R.string.to_help_us))
+                    .setMessage(messageBody)
+                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> requestPermissionLauncher.launch(permission)));
+            //.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> toPerformOnFailure.run()));
+            builder.create().show();
+
+        } else {
+            // If the permission was not granted
+            toPerformOnFailure.run();
+        }
+    }
+
+    /**
+     * Get the location
+     */
+    @SuppressLint("MissingPermission")
+    // TODO : Ensure that location is active in the app
     private void getCaseLocation() {
 
-        // Verify location permission
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        // Get the location if the permission was granted
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 50, location -> {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 50, new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
         });
 
         /*
@@ -219,31 +327,12 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     * Verifies if the camera permission is granted. If it is not, the function is asking for permission
-     */
-    private void verifyCameraPermission() {
-
-        // Register the permissions callback, which handles the user's response to the
-        // system permissions dialog. Save the return value, an instance of
-        // ActivityResultLauncher, as an instance variable.
-        ActivityResultLauncher<String> requestPermissionLauncher =
-                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                    if (!isGranted) {
-                        this.finish();
-                    }
-                });
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
-            Toast.makeText(this, "You need to provide camera permission from your phone settings", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
      * Opens camera and saves the photo at the specified URI upon success
+     * TODO : Better camera handling ? Check https://developer.android.com/training/camerax/choose-camera-library
      */
     private void dispatchTakePictureIntent() {
+
+        FilesPath.createDirectory(FilesPath.getCaseImageFolder(workingDirectory), getString(R.string.cannot_create_pictures_dir));
 
         File imageFile = new File(FilesPath.getCaseImageFolder(workingDirectory), "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".jpg");
         Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", imageFile);
@@ -252,6 +341,7 @@ public class TagActivity extends AppCompatActivity {
         // Documentation here : https://developer.android.com/training/basics/intents/result
         // StackOverflow here : https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
         // About TakePicture() : https://stackoverflow.com/questions/61941959/activityresultcontracts-takepicture
+        /*
         ActivityResultLauncher<Uri> dispatchTakePictureIntentLauncher = registerForActivityResult(
                 new ActivityResultContracts.TakePicture(),
                 result -> {
@@ -260,13 +350,14 @@ public class TagActivity extends AppCompatActivity {
                             FilesPath.deleteDirectory(new File(FilesPath.getNewCaseFolder()));
                         } catch (IOException e) {
                             e.printStackTrace();
+                        } finally {
+                            this.finish();
                         }
-                        this.finish();
                     }
                 }
-        );
+        );*/
 
-        dispatchTakePictureIntentLauncher.launch(photoUri);
+        this.dispatchTakePictureIntentLauncher.launch(photoUri);
     }
 
     /**
@@ -293,7 +384,7 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     * Deletes the generated case
+     * Displays an alert dialog to the user to confirm the deletion of the case. The case folder is deleted upon accept
      */
     private void deleteCase() {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(TagActivity.this);
@@ -312,28 +403,9 @@ public class TagActivity extends AppCompatActivity {
     }
 
     /**
-     * Callback that will finish this tag activity when the review activity (which is a child of tag activity) will end
-     * The return variable must be declared before the activity is started otherwise
-     * an error is triggered and the activity is crashing
-     * See https://stackoverflow.com/questions/64476827/how-to-resolve-the-error-lifecycleowners-must-call-register-before-they-are-sta
-     * @return the activity result launcher
-     */
-    private ActivityResultLauncher<Intent> registration() {
-
-        return registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() != Activity.RESULT_CANCELED) {
-                    this.finish();
-                }
-            }
-        );
-    }
-
-    /**
      * Starts the review activity and pass the info to it
      */
-    private void startReviewActivity(ActivityResultLauncher<Intent> activityResultLauncher) {
+    private void startReviewActivity() {
 
         Intent reviewIntent = new Intent(TagActivity.this, ReviewActivity.class);
 
@@ -397,7 +469,7 @@ public class TagActivity extends AppCompatActivity {
                 + "_" + ocdc;
         reviewIntent.putExtra("tag", tag);
 
-        activityResultLauncher.launch(reviewIntent);
+        this.activityResultLauncher.launch(reviewIntent);
     }
 
     /**

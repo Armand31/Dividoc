@@ -28,6 +28,11 @@
     <!-- Messages d'information et d'aide -->
     <string name="tag_title">Veuillez remplir le formulaire d\'identification de la victime</string>.
     <string name="max_photos_gallery">Maximum %d photos</string>
+    <string name="to_help_us">Pour nous aider</string>
+    <string name="provide_file_access">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En donnant la possibilité de lire et écrire les fichiers dans le téléphone, ce travail d\'identification sera grandement facilité</string>
+    <string name="provide_camera">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En prenant une photo du corps, ce travail d\'identification sera grandement facilité</string>
+    <string name="provide_location">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En donnant la localisation de l\'endroit où a été trouvé le corps, ce travail d\'identification sera grandement facilité</string>
+    <string name="provide_audio">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En enregistrant des fichiers audios, ce travail d\'identification sera grandement facilité</string>
 
     <!-- Étiquettes et conseils -->
     <string name="name">Nom</string>

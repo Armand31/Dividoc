@@ -1,21 +1,17 @@
 package com.insalyon.dividoc.util;
 
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.insalyon.dividoc.R;
-
 import java.io.File;
 import java.io.IOException;
-import java.text.FieldPosition;
 import java.util.Objects;
 
 public class FilesPath extends AppCompatActivity {
 
-    private static final String appRootFolder = DiviContext.getAppContext().getFilesDir().getAbsolutePath();
+    private static final String appRootFolder = AppContext.getAppContext().getFilesDir().getAbsolutePath();
 
     private static final String casesFolder = getAppRootFolder() + File.separator + "cases";
 
@@ -26,7 +22,7 @@ public class FilesPath extends AppCompatActivity {
     private static final String htmlDataFile = "index.html";
 
     // Download directory / App name folder
-    private static final String exportDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + DiviContext.getAppContext().getString(DiviContext.getAppContext().getApplicationInfo().labelRes);
+    private static final String exportDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + AppContext.getAppContext().getString(AppContext.getAppContext().getApplicationInfo().labelRes);
 
     public static String getAppRootFolder() { return appRootFolder; }
 
@@ -72,7 +68,7 @@ public class FilesPath extends AppCompatActivity {
         File workingImageDirectoryFileObject = new File(dir);
         if (!workingImageDirectoryFileObject.exists()) {
             if (!workingImageDirectoryFileObject.mkdirs()) {
-                (Toast.makeText(DiviContext.getAppContext(), errorMessage, Toast.LENGTH_SHORT)).show();
+                (Toast.makeText(AppContext.getAppContext(), errorMessage, Toast.LENGTH_SHORT)).show();
             }
         }
     }
@@ -80,7 +76,32 @@ public class FilesPath extends AppCompatActivity {
     /**
      * Deletes file or a directory recursively
      * The delete() method from File Class can delete a directory only if it's empty, that's why we need the deleteDirectory method
-     * @param file the directory we want to delete
+     * @param path the string directory we want to delete
+     */
+    public static void deleteDirectory(String path) {
+
+        try {
+            File file = new File(path);
+            if (file.isDirectory()) {
+                File[] entries = file.listFiles();
+                if (entries != null) {
+                    for (File entry : entries) {
+                        deleteDirectory(entry);
+                    }
+                }
+            }
+            if (!file.delete()) {
+                throw new IOException("Failed to delete " + file);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deletes file or a directory recursively
+     * The delete() method from File Class can delete a directory only if it's empty, that's why we need the deleteDirectory method
+     * @param file the File object directory we want to delete
      */
     public static void deleteDirectory(File file) throws IOException {
 

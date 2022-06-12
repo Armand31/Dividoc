@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/icon_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dividoc"
-        android:name="com.insalyon.dividoc.util.DiviContext"
+        android:name="com.insalyon.dividoc.util.AppContext"
         android:requestLegacyExternalStorage="true">
 
         <!-- Recommended for Android 9 (API level 28) and lower. -->

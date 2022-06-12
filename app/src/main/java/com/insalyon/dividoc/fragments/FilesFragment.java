@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.insalyon.dividoc.R;
 import com.insalyon.dividoc.TagActivity;
-import com.insalyon.dividoc.util.DiviContext;
+import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,7 +72,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
      */
     public void onItemClick(int position) {
 
-        Intent editIntent = new Intent(DiviContext.getAppContext(), TagActivity.class);
+        Intent editIntent = new Intent(AppContext.getAppContext(), TagActivity.class);
         editIntent.putExtra("newCase", false);
         editIntent.putExtra("workingDirectory", FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()));
         startActivity(editIntent);

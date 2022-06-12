@@ -1,11 +1,13 @@
 package com.insalyon.dividoc.fragments;
 
+import android.content.res.Resources;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.insalyon.dividoc.MainActivity;
 import com.insalyon.dividoc.R;
-import com.insalyon.dividoc.util.DiviContext;
+import com.insalyon.dividoc.util.AppContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,13 +108,13 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (IOException e) {
-            Toast.makeText(DiviContext.getAppContext(), "Audio file could not be played", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AppContext.getAppContext(), "Audio file could not be played", Toast.LENGTH_SHORT).show();
         }
 
         // Get audio file duration
         Uri uri = Uri.parse(filePath);
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-        mediaMetadataRetriever.setDataSource(DiviContext.getAppContext(), uri);
+        mediaMetadataRetriever.setDataSource(AppContext.getAppContext(), uri);
         int duration = Integer.parseInt(mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
 
         // Change the text view
@@ -180,6 +182,7 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
         };*/
 
         // Change button play to pause
+        // TODO : Ensure oclorOnPrimary on button tint
         record = adapter.getPlayButton(position);
         record.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pause, 0, 0, 0);
 

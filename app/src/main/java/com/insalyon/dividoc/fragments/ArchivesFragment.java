@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.insalyon.dividoc.DecryptionActivity;
 import com.insalyon.dividoc.MainActivity;
 import com.insalyon.dividoc.R;
-import com.insalyon.dividoc.util.DiviContext;
+import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
@@ -100,7 +100,7 @@ public class ArchivesFragment extends Fragment implements ArchivesFragmentAdapte
         }
         */
 
-        Intent decryptionActivity = new Intent(DiviContext.getAppContext(), DecryptionActivity.class);
+        Intent decryptionActivity = new Intent(AppContext.getAppContext(), DecryptionActivity.class);
         startActivity(decryptionActivity);
     }
 }

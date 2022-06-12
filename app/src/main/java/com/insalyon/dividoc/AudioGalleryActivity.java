@@ -11,12 +11,15 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.color.MaterialColors;
 import com.insalyon.dividoc.fragments.AudioFragment;
+import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
@@ -44,6 +47,9 @@ public class AudioGalleryActivity extends AppCompatActivity {
         this.workingAudioDirectory = getIntent().getStringExtra("workingAudioDirectory");
         setButtonListeners();
         loadFragment();
+
+        // Verify audio recording permission
+        verifyPermission(Manifest.permission.RECORD_AUDIO, getResources().getString(R.string.provide_audio), () -> {}, this::finish);
     }
 
     /**
@@ -82,6 +88,43 @@ public class AudioGalleryActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.audio_frame_layout, audioFragment);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Verifies the state of the given permission
+     * @param permission the permission to verify
+     * @param messageBody the message to display to let the user understand why he needs to give the permission
+     * @param toPerformOnSuccess the action to perform if the permission was granted
+     * @param toPerformOnFailure the action to perform if the permission was not granted
+     * TODO : Factorize code using https://developer.android.com/training/basics/intents/result#separate
+     */
+    public void verifyPermission(String permission, String messageBody, Runnable toPerformOnSuccess, Runnable toPerformOnFailure) {
+
+        ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                toPerformOnSuccess.run();
+            } else {
+                toPerformOnFailure.run();
+            }
+        });
+
+        if (ActivityCompat.checkSelfPermission(AppContext.getAppContext(), permission) == PackageManager.PERMISSION_GRANTED) {
+            // Get case location if the permission was granted
+            toPerformOnSuccess.run();
+
+        } else if (shouldShowRequestPermissionRationale(permission)) {
+            // Explain to the user why the user needs to allow the permission and ask him if he wants to grant the permission
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+            builder.setTitle(getResources().getString(R.string.to_help_us))
+                    .setMessage(messageBody)
+                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> requestPermissionLauncher.launch(permission)));
+            //.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> toPerformOnFailure.run()));
+            builder.create().show();
+
+        } else {
+            // If the permission was not granted
+            toPerformOnFailure.run();
+        }
     }
 
     /**

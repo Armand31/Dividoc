@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         // Block the screenshots and video recording
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
+        // TODO : Layout Animation : https://developer.android.com/training/animation/overview
+        // TODO : Security best practices : https://developer.android.com/topic/security/data
+
         // Initialization
         setButtonListeners();
         switchBetweenFilesAndArchives();

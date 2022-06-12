@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
 import com.insalyon.dividoc.fragments.SettingsFragment;
-import com.insalyon.dividoc.util.DiviContext;
+import com.insalyon.dividoc.util.AppContext;
 
 import java.util.Locale;
 
@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
      */
     public static void setTheme() {
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(DiviContext.getAppContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
         boolean darkMode = sharedPreferences.getBoolean("dark_mode", false);
         if (!sharedPreferences.contains("FirstStart") || !sharedPreferences.contains("dark_mode")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
@@ -71,13 +71,13 @@ public class SettingsActivity extends AppCompatActivity {
     public static void setLang() {
 
         // Getting the selected language
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(DiviContext.getAppContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
         String lang = sharedPreferences.getString("lang", "en");
 
         // Changes the application's configuration
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
-        Resources resources = DiviContext.getAppContext().getResources();
+        Resources resources = AppContext.getAppContext().getResources();
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());

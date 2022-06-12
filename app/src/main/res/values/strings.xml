@@ -28,6 +28,11 @@
     <!-- Informational and help messages -->
     <string name="tag_title">Please complete the victim\'s identification form</string>
     <string name="max_photos_gallery">Maximum %d photos</string>
+    <string name="to_help_us">To help us</string>
+    <string name="provide_file_access">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By giving read and write access to files, this identification work will be greatly facilitated</string>
+    <string name="provide_camera">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By taking a picture of the body, this identification work will be greatly facilitated</string>
+    <string name="provide_location">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By giving the location of where the body was found, this identification work will be greatly facilitated</string>
+    <string name="provide_audio">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By giving the permission to record audio, this identification work will be greatly facilitated</string>
 
     <!-- Labels and hints -->
     <string name="name">Name</string>

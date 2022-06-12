@@ -1,13 +1,11 @@
 package com.insalyon.dividoc.fragments;
 
-import android.content.res.Resources;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -194,5 +192,12 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
             Button record1 = adapter.getPlayButton(position);
             record1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.play, 0, 0, 0);
         }, duration);
+    }
+
+    public void stopAudio() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
     }
 }

@@ -9,7 +9,6 @@ import android.os.SystemClock;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -31,6 +30,7 @@ import java.util.Locale;
 public class AudioGalleryActivity extends AppCompatActivity {
 
     private String workingAudioDirectory;
+    private AudioFragment audioFragment;
     private MediaRecorder recorder;
     private boolean isRecording = false;
 
@@ -83,7 +83,7 @@ public class AudioGalleryActivity extends AppCompatActivity {
         // Passing workingAudioDirectory as an argument to the fragment
         Bundle bundle = new Bundle();
         bundle.putString("workingAudioDirectory", this.workingAudioDirectory);
-        AudioFragment audioFragment = new AudioFragment();
+        this.audioFragment = new AudioFragment();
         audioFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.audio_frame_layout, audioFragment);
@@ -194,5 +194,11 @@ public class AudioGalleryActivity extends AppCompatActivity {
 
         // Reverting button's background color
         record.setBackgroundColor(MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.MAGENTA));
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.audioFragment.stopAudio();
+        super.onBackPressed();
     }
 }

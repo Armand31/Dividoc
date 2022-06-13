@@ -25,6 +25,7 @@
         android:baselineAligned="false">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/country_code_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/country_code_hint"
@@ -36,14 +37,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapCharacters"
-                android:textAllCaps="true"
-                android:maxLength="2"
-                android:digits="@string/country_code_allowed"
-                />
+                android:textAllCaps="true" />
+                <!-- android:maxLength="2"
+                android:digits="@string/country_code_allowed" -->
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/serial_number_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/serial_number_hint"

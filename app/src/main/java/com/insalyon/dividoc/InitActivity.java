@@ -1,11 +1,14 @@
 package com.insalyon.dividoc;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -29,11 +33,12 @@ public class InitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_init);
 
         // Block the screenshots and video recording
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         countryCode = findViewById(R.id.country_code);
         serialNumber = findViewById(R.id.serial_number);
         setTextChangeListeners();
+        setFilters();
 
         start = findViewById(R.id.start);
         start.setEnabled(false);
@@ -41,8 +46,7 @@ public class InitActivity extends AppCompatActivity {
     }
 
     /**
-     * Set text change listeners to enable the button and give the focus if the country code and
-     * the serial number are correct
+     * Set text change listeners to enable the button and give the focus to the different input fields
      */
     private void setTextChangeListeners() {
 
@@ -54,16 +58,18 @@ public class InitActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                start.setEnabled(Objects.requireNonNull(countryCode.getText()).length() == 2 && Objects.requireNonNull(serialNumber.getText()).toString().length() == 3);
+
                 if (Objects.requireNonNull(countryCode.getText()).length() == 2) {
                     // TODO : Make the focus to work again
                     countryCode.clearFocus();
                     serialNumber.requestFocus();
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                start.setEnabled(Objects.requireNonNull(countryCode.getText()).length() == 2 && Objects.requireNonNull(serialNumber.getText()).toString().length() == 3);
             }
         });
 
@@ -81,10 +87,58 @@ public class InitActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (Objects.requireNonNull(countryCode.getText()).toString().length() == 2 && Objects.requireNonNull(serialNumber.getText()).toString().length() == 3) {
                     start.setEnabled(true);
+
+                    // Hides virtual keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
                     serialNumber.clearFocus();
                 }
             }
         });
+    }
+
+    /**
+     * Set text filters to ensure that the serial code is valid
+     */
+    private void setFilters() {
+
+        // Country code filter
+        InputFilter countryCodeInputFilter = (source, start, end, dest, destStart, destEnd) -> {
+            for (int i = start ; i < end ; i++) {
+                if (!Character.isLetter(source.charAt(i))) {
+                    ((TextInputLayout) findViewById(R.id.country_code_layout)).setErrorEnabled(true);
+                    ((TextInputLayout) findViewById(R.id.country_code_layout)).setError(getString(R.string.country_code_allowed_error_message));
+                    return "";
+                }
+                else if (!getString(R.string.country_code_allowed).contains(String.valueOf(source.charAt(i)))) {
+                    ((TextInputLayout) findViewById(R.id.country_code_layout)).setErrorEnabled(true);
+                    ((TextInputLayout) findViewById(R.id.country_code_layout)).setError(getString(R.string.country_code_allowed_error_message));
+                    return dest;
+                }
+            }
+            return null;
+        };
+        countryCode.setFilters(new InputFilter[] { countryCodeInputFilter });
+
+        // Serial number filter
+        InputFilter serialNumberInputFilter = (source, start, end, dest, destStart, destEnd) -> {
+            for (int i = start ; i < end ; i++) {
+                if (!Character.isLetter(source.charAt(i))) {
+                    ((TextInputLayout) findViewById(R.id.serial_number_layout)).setErrorEnabled(true);
+                    ((TextInputLayout) findViewById(R.id.serial_number_layout)).setError(getString(R.string.serial_number_allowed_error_message));
+                    return "";
+                }
+                else if (!getString(R.string.country_code_allowed).contains(String.valueOf(source.charAt(i)))) {
+                    ((TextInputLayout) findViewById(R.id.serial_number_layout)).setErrorEnabled(true);
+                    ((TextInputLayout) findViewById(R.id.serial_number_layout)).setError(getString(R.string.serial_number_allowed_error_message));
+                    return dest;
+                }
+            }
+            return null;
+        };
+        countryCode.setFilters(new InputFilter[] { serialNumberInputFilter });
+
     }
 
     /**
@@ -121,7 +175,6 @@ public class InitActivity extends AppCompatActivity {
 
     /**
      * Ask the user for permissions and quit
-     * TODO : Better handling of permission requests as in com.insalyon.dividoc.TagActivity#verifyCameraPermission()
      */
     public void askForPermissions() {
 

@@ -42,7 +42,7 @@
     <string name="additional_information">Addition information</string>
     <string name="tag" translatable="false">Tag</string>
     <string name="dot_separator" translatable="false">.</string>
-    <string name="input_serial_number">Please enter your phone\'s serial number</string>
+    <string name="input_serial_number">Please enter your phone\'s country code and serial number</string>
     <string name="country_code_hint">Contry code</string>
     <string name="country_code_allowed" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="serial_number_hint">Serial number</string>
@@ -77,6 +77,8 @@
     <string name="cannot_parse_json_file">The JSON data could not be parsed</string>
     <string name="read_before_export">A folder containing all your files will be created and can be exported by: USB, email or bluetooth. If the file remains in your phone for more than %d hours, it will be encrypted and you will have to contact the ICRC to decrypt it. Make sure that the authorities are ready to receive the file. </string>
     <string name="one_photo_minimum">A case needs at least one photo</string>
+    <string name="country_code_allowed_error_message">Only basic letters are allowed</string>
+    <string name="serial_number_allowed_error_message">Only numbers are allowed</string>
 
     <!-- res content description -->
     <string name="return_previous_act">Return to the previous activity</string>

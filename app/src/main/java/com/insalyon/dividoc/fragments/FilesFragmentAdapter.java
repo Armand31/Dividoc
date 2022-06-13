@@ -73,7 +73,8 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
      * Interface for an item click listener
      */
     public interface ItemClickListener {
-        void onItemClick(int position);
+        void editCase(int position);
+        void deleteCase(int position);
     }
 
     /**
@@ -82,21 +83,33 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mTextView;
-        public final Button mButton;
+        public final Button editCaseButton, deleteCaseButton;
         public File mItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.list_fragment_text_view);
-            mButton = itemView.findViewById(R.id.edit_case_button);
-            mButton.setOnClickListener(this);
+            editCaseButton = itemView.findViewById(R.id.edit_case_button);
+            editCaseButton.setOnClickListener(this::onClickEditCase);
+            deleteCaseButton = itemView.findViewById(R.id.delete_case_button);
+            deleteCaseButton.setOnClickListener(this::onClickDeleteCase);
+        }
+
+        public void onClickEditCase(View view) {
+            if (mClickListener != null) {
+                mClickListener.editCase(getAdapterPosition());
+            }
+        }
+
+        public void onClickDeleteCase(View view) {
+            if (mClickListener != null) {
+                mClickListener.deleteCase(getAdapterPosition());
+            }
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) {
-                mClickListener.onItemClick(getAdapterPosition());
-            }
+
         }
     }
 }

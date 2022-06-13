@@ -216,35 +216,4 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
-    /**
-     * Reloads the cases list or the zip files in the menu
-     */
-    @Override
-    public void onResume() {
-
-        super.onResume();
-
-        // TODO : Find a better reload process of the fragment
-        MaterialButtonToggleGroup toggleGroup = findViewById(R.id.choose_fragment_layout);
-
-        if (toggleGroup.getCheckedButtonId() == R.id.select_cases_files_button) {
-
-            FilesFragment filesFragment = new FilesFragment();
-            // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
-            FragmentManager frag_man = getSupportFragmentManager();
-            FragmentTransaction frag_trans = frag_man.beginTransaction();
-            frag_trans.replace(R.id.fragments_frame_layout, filesFragment);
-            frag_trans.commit();
-
-        } else {
-
-            ArchivesFragment archivesFragment = new ArchivesFragment();
-            // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
-            FragmentManager frag_man = getSupportFragmentManager();
-            FragmentTransaction frag_trans = frag_man.beginTransaction();
-            frag_trans.replace(R.id.fragments_frame_layout, archivesFragment);
-            frag_trans.commit();
-        }
-    }
 }

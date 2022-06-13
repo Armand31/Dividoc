@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.insalyon.dividoc.MainActivity;
 import com.insalyon.dividoc.R;
 import com.insalyon.dividoc.util.AppContext;
+import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,19 +41,32 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
     private AudioFragmentAdapter adapter;
     private String workingAudioDirectory;
     private MediaPlayer mediaPlayer;
+    private List<File> audioList;
+    private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         assert this.getArguments() != null;
         workingAudioDirectory = this.getArguments().getString("workingAudioDirectory");
-        List<File> audioList = getAudioList(this.workingAudioDirectory);
+        audioList = getAudioList(this.workingAudioDirectory);
 
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.audio_fragment, container, false);
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.audio_fragment, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
         adapter = new AudioFragmentAdapter(audioList);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         return recyclerView;
+    }
+
+    /**
+     * Reloads the view
+     */
+    public void onResume() {
+        audioList = getAudioList(this.workingAudioDirectory);
+        adapter = new AudioFragmentAdapter(audioList);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+        super.onResume();
     }
 
     /**
@@ -76,7 +90,11 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
         return audioList;
     }
 
-    public void onItemClick(int position) {
+    /**
+     * Start the selected audio file
+     * @param position of the item on the list
+     */
+    public void startAudio(int position) {
 
         Button record;
 
@@ -199,5 +217,21 @@ public class AudioFragment extends Fragment implements AudioFragmentAdapter.Item
             mediaPlayer.stop();
             mediaPlayer.release();
         }
+    }
+
+    /**
+     * Deletes the selected audio
+     * @param position of the item on the list
+     */
+    public void deleteAudio(int position) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
+        builder.setMessage(getResources().getString(R.string.delete_audio_warning))
+                .setTitle(getResources().getString(R.string.warning))
+                .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
+                    FilesPath.deleteDirectory(this.workingAudioDirectory + File.separator + adapter.getItem(position).getName());
+                    this.onResume();
+                })
+                .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {})
+                .show();
     }
 }

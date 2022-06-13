@@ -66,10 +66,11 @@
     <string name="invalid_ocdc">L\'OCDC n\'accepte que les lettres, les chiffres et les tirets</string>
     <string name="cancel_changes">Les modifications ne seront pas enregistrées.</string> Voulez-vous continuer ?
     <string name="cannot_create_picture_file">Erreur : Le fichier image n\'a pas pu être créé</string>
-    <string name="cannot_create_pictures_dir">Erreur : Le répertoire images\' ne peut pas être créé</string>
-    <string name="cannot_access_pictures_dir">Erreur : Le répertoire images\' ne peut être accédé</string>
+    <string name="cannot_create_pictures_dir">Erreur : Le répertoire images ne peut pas être créé</string>
+    <string name="cannot_access_pictures_dir">Erreur : Le répertoire images ne peut être accédé</string>
     <string name="delete_picture_warning">Une fois qu\'une photo est supprimée, elle ne peut pas être récupérée. Voulez-vous continuer ?</string>
     <string name="delete_case_label">Une fois qu\'un cas est supprimé, il ne peut pas être récupéré. Voulez-vous continuer ?</string>
+    <string name="delete_audio_warning">Une fois qu\'un fichier audio est supprimé, il ne peut pas être récupéré. Voulez-vous continuer ?</string>
     <string name="cannot_create_case_dir">Erreur : Le répertoire pour stocker le cas ne peut pas être créé</string>
     <string name="cannot_save_pictures">Erreur : Les images ne peuvent pas être sauvegardées</string>
     <string name="cannot_open_json_file">Les données n\'ont pas pu être chargées</string>

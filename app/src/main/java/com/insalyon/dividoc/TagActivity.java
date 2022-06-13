@@ -82,7 +82,7 @@ public class TagActivity extends AppCompatActivity {
 
             // Verify storage permission to ensure correct execution of the code
             verifyPermission(Manifest.permission.READ_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
-            verifyPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
+            //verifyPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
 
             // Verify camera permission and open the camera activity if the permission is granted
             verifyPermission(Manifest.permission.CAMERA, getResources().getString(R.string.provide_camera), this::dispatchTakePictureIntent, () -> {
@@ -385,6 +385,7 @@ public class TagActivity extends AppCompatActivity {
 
     /**
      * Displays an alert dialog to the user to confirm the deletion of the case. The case folder is deleted upon accept
+     * TODO : Factorize code with the other delete functions (in ReviewActivity, MainActivity, AudioGalleryActivity...)
      */
     private void deleteCase() {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(TagActivity.this);

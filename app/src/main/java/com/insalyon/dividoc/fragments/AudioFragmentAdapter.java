@@ -53,7 +53,7 @@ public class AudioFragmentAdapter extends RecyclerView.Adapter<AudioFragmentAdap
 
         holder.mItem = audioList.get(position);
         holder.mTextView.setText(audioList.get(position).getName());
-        playButton.add(holder.play);
+        playButton.add(holder.playButton);
     }
 
     @Override
@@ -78,7 +78,8 @@ public class AudioFragmentAdapter extends RecyclerView.Adapter<AudioFragmentAdap
      * Interface for an item click listener
      */
     public interface ItemClickListener {
-        void onItemClick(int position);
+        void startAudio(int position);
+        void deleteAudio(int position);
     }
 
     /**
@@ -87,21 +88,33 @@ public class AudioFragmentAdapter extends RecyclerView.Adapter<AudioFragmentAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mTextView;
-        public final Button play;
+        public final Button playButton, deleteButton;
         public File mItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.list_audio_text_view);
-            play = itemView.findViewById(R.id.play_audio);
-            play.setOnClickListener(this);
+            playButton = itemView.findViewById(R.id.play_audio);
+            playButton.setOnClickListener(this::onClickPlayAudio);
+            deleteButton = itemView.findViewById(R.id.delete_audio_button);
+            deleteButton.setOnClickListener(this::onClickDeleteAudio);
+        }
+
+        public void onClickPlayAudio(View view) {
+            if (mClickListener != null) {
+                mClickListener.startAudio(getAdapterPosition());
+            }
+        }
+
+        public void onClickDeleteAudio(View view) {
+            if (mClickListener != null) {
+                mClickListener.deleteAudio(getAdapterPosition());
+            }
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) {
-                mClickListener.onItemClick(getAdapterPosition());
-            }
+
         }
     }
 }

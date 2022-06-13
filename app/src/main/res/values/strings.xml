@@ -70,6 +70,7 @@
     <string name="cannot_access_pictures_dir">Error : The images\' directory cannot be accessed</string>
     <string name="delete_picture_warning">Once a photo is deleted, it can\'t be recovered. Do you want to continue ?</string>
     <string name="delete_case_label">Once a case is deleted, it can\'t be recovered. Do you want to continue ?</string>
+    <string name="delete_audio_warning">Once an audio file is deleted, it can\'t be recovered. Do you want to continue ?</string>
     <string name="cannot_create_case_dir">Error : The directory to store the case cannot be created</string>
     <string name="cannot_save_pictures">Error : The pictures cannot be saved</string>
     <string name="cannot_open_json_file">The data could not be loaded</string>

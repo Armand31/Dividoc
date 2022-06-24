@@ -36,7 +36,7 @@ import java.util.Locale;
 public class PhotoGalleryActivity extends AppCompatActivity {
 
     private String workingImageDirectory;
-    private final int MAX_PHOTOS_ALLOWED = 3;
+    private final int MAX_PHOTOS_ALLOWED = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,9 +97,6 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         // About TakePicture() : https://stackoverflow.com/questions/61941959/activityresultcontracts-takepicture
         return registerForActivityResult(
                 new ActivityResultContracts.TakePicture(), isSuccess -> {
-                    if (!isSuccess) {
-                        this.finish();
-                    }
                 }
         );
     }

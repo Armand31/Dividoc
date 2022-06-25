@@ -2,6 +2,7 @@ package com.insalyon.dividoc;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -40,9 +41,8 @@ public class SettingsActivity extends AppCompatActivity {
             if (key.equals("dark_mode")) {
                 setTheme();
             } else if (key.equals("lang")) {
-                setLang();
-                this.recreate();
-                //loadView(); // Reloads the view after language change
+                setLang(this);
+                this.recreate(); // Reloads the fragment view
             }
         };
 
@@ -70,18 +70,17 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * Changes the language
      * Supported locales : https://stackoverflow.com/questions/7973023/what-is-the-list-of-supported-languages-locales-on-android
-     * Cannot be factorized with com.insalyon.dividoc.MainActivity#setLang() due to context (even by using AppContext)
      */
     @SuppressLint("ObsoleteSdkInt")
-    public void setLang() {
+    public static void setLang(Context context) {
 
         // Getting the selected language
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String lang = sharedPreferences.getString("lang", "en");
 
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
-        Resources resources = this.getResources();
+        Resources resources = context.getResources();
         Configuration config = resources.getConfiguration();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -98,7 +97,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         // Returns as result_ok in order to reload the main activity's view
         setResult(Activity.RESULT_OK);
         super.onBackPressed();

@@ -1,9 +1,11 @@
 package com.insalyon.dividoc;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -25,11 +27,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);// Setting the settings fragment as a view
 
         // Block the screenshots and video recording
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.settings_container, new SettingsFragment())
+                .replace(R.id.settings_container, new SettingsFragment(), "Your_Fragment_TAG")
                 .commit();
 
         // Listener that launch different functions according to the preference that changed
@@ -55,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
         boolean darkMode = sharedPreferences.getBoolean("dark_mode", false);
+
         if (!sharedPreferences.contains("FirstStart") || !sharedPreferences.contains("dark_mode")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         } else if (darkMode) {
@@ -67,19 +70,29 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * Changes the language
      * Supported locales : https://stackoverflow.com/questions/7973023/what-is-the-list-of-supported-languages-locales-on-android
+     * Cannot be factorized with com.insalyon.dividoc.MainActivity#setLang() due to context (even by using AppContext)
      */
-    public static void setLang() {
+    @SuppressLint("ObsoleteSdkInt")
+    public void setLang() {
 
         // Getting the selected language
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String lang = sharedPreferences.getString("lang", "en");
 
-        // Changes the application's configuration
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
-        Resources resources = AppContext.getAppContext().getResources();
+        Resources resources = this.getResources();
         Configuration config = resources.getConfiguration();
-        config.setLocale(locale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(locale);
+            config.setLayoutDirection(locale);
+        } else {
+            config.locale = locale;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                config.setLayoutDirection(locale);
+            }
+        }
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
@@ -91,8 +104,3 @@ public class SettingsActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 }
-
-
-
-
-

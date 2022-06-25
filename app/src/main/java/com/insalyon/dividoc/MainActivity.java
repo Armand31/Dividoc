@@ -1,8 +1,12 @@
 package com.insalyon.dividoc;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +31,7 @@ import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -191,11 +196,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Apply the preferences if they were changed from the defaults
+     * Apply the preferences at startup if they were changed from the defaults
      */
     private void applyPreferences() {
         SettingsActivity.setTheme();
-        SettingsActivity.setLang();
+        setLang();
+    }
+
+    /**
+     * Changes the language
+     * Supported locales : https://stackoverflow.com/questions/7973023/what-is-the-list-of-supported-languages-locales-on-android
+     * Cannot be factorized with com.insalyon.dividoc.SettingsActivity#setLang() due to context (even by using AppContext)
+     */
+    @SuppressLint("ObsoleteSdkInt")
+    public void setLang() {
+
+        // Getting the selected language
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String lang = sharedPreferences.getString("lang", "en");
+
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Resources resources = this.getResources();
+        Configuration config = resources.getConfiguration();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(locale);
+            config.setLayoutDirection(locale);
+        } else {
+            config.locale = locale;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                config.setLayoutDirection(locale);
+            }
+        }
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
     /**

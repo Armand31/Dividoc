@@ -86,7 +86,7 @@
     <string name="country_code_allowed_error_message">Seulement les lettres basiques sont autorisés</string>
     <string name="serial_number_allowed_error_message">Seulement les nombres sont autorisés</string>
 
-        <!-- res DeepL content -->
+    <!-- res content -->
     <string name="return_previous_act">Retour à l\'activité précédente</string>
     <string name="add_picture">Ajouter une image à l\'affaire</string>
     <string name="image_description">Une image de l\'affaire</string>
@@ -102,9 +102,9 @@
 
     <!-- Settings strings -->
     <string name="dark_mode">Thème sombre</string>
-    <string name="dark_mode_info">Active le thème sombre</string>
+    <string name="dark_mode_info">Activer le thème sombre</string>
     <string name="super_user_mode">Mode super utilisateur</string>
-    <string name="super_user_mode_info">Désactive la protection par mot de passe des fichiers zip</string>
+    <string name="super_user_mode_info">Désactiver la protection par mot de passe des fichiers zip</string>
     <string name="lang">Langue</string>
     <string name="lang_info">Changer la langue de l\'application</string>
 

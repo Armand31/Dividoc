@@ -114,12 +114,12 @@
         <item>Português</item>
     </string-array>
     <string-array name="language_array_values">
+        <!-- Language code cannot got '-' & must be 2 small case letter only -->
         <item>en</item>
         <item>fr</item>
         <item>es</item>
         <item>pt</item>
     </string-array>
-    <!-- Language code cannot got '-' & must be 2 small case letter only -->
 
     <!-- Other -->
     <string name="ocdc_default_value" translatable="false">0</string>

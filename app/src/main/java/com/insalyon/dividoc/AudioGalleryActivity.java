@@ -1,9 +1,11 @@
 package com.insalyon.dividoc;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.WindowManager;
@@ -49,7 +51,7 @@ public class AudioGalleryActivity extends AppCompatActivity {
         loadFragment();
 
         // Verify audio recording permission
-        verifyPermission(Manifest.permission.RECORD_AUDIO, getResources().getString(R.string.provide_audio), () -> {}, this::finish);
+        verifyPermission(Manifest.permission.RECORD_AUDIO, getResources().getString(R.string.provide_audio), () -> {}, this::finish, getString(R.string.revoked_audio));
     }
 
     /**
@@ -96,9 +98,9 @@ public class AudioGalleryActivity extends AppCompatActivity {
      * @param messageBody the message to display to let the user understand why he needs to give the permission
      * @param toPerformOnSuccess the action to perform if the permission was granted
      * @param toPerformOnFailure the action to perform if the permission was not granted
-     * TODO : Factorize code using https://developer.android.com/training/basics/intents/result#separate
+     * TODO : Factorize code, maybe using https://developer.android.com/training/basics/intents/result#separate
      */
-    public void verifyPermission(String permission, String messageBody, Runnable toPerformOnSuccess, Runnable toPerformOnFailure) {
+    public void verifyPermission(String permission, String messageBody, Runnable toPerformOnSuccess, Runnable toPerformOnFailure, String permissionRevoked) {
 
         ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
             if (isGranted) {
@@ -109,7 +111,6 @@ public class AudioGalleryActivity extends AppCompatActivity {
         });
 
         if (ActivityCompat.checkSelfPermission(AppContext.getAppContext(), permission) == PackageManager.PERMISSION_GRANTED) {
-            // Get case location if the permission was granted
             toPerformOnSuccess.run();
 
         } else if (shouldShowRequestPermissionRationale(permission)) {
@@ -117,19 +118,32 @@ public class AudioGalleryActivity extends AppCompatActivity {
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
             builder.setTitle(getResources().getString(R.string.to_help_us))
                     .setMessage(messageBody)
-                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> requestPermissionLauncher.launch(permission)));
-            //.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> toPerformOnFailure.run()));
+                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> requestPermissionLauncher.launch(permission)))
+                    .setOnCancelListener(dialogInterface -> requestPermissionLauncher.launch(permission)) // If the return button is clicked
+                    .setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> toPerformOnFailure.run()));
             builder.create().show();
 
         } else {
-            // If the permission was not granted
-            toPerformOnFailure.run();
+            // If the permission was not granted, create a dialog to say that the permission was revoked
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+            builder.setTitle(getResources().getString(R.string.permission_revoked))
+                    .setMessage(permissionRevoked)
+                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> {
+                        // Opens the settings of the app (through System Settings) to grant the revoked permission
+                        Intent appSettings = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        appSettings.addCategory(Intent.CATEGORY_DEFAULT);
+                        appSettings.setData(Uri.parse("package:" + getPackageName()));
+                        startActivity(appSettings); // There is no information about when the exits, that's why we then run toPerformOnFailure : https://developer.android.com/reference/android/app/Activity#startActivity(android.content.Intent,%20android.os.Bundle)
+                        toPerformOnFailure.run();
+                    }))
+                    .setNegativeButton(getResources().getString(android.R.string.cancel), ((dialogInterface, i) -> toPerformOnFailure.run()))
+                    .setOnCancelListener(dialogInterface -> toPerformOnFailure.run()); // If the return button is clicked
+            builder.create().show();
         }
     }
 
     /**
      * Starts the recording of the audio and save the stream in the specified file
-     * TODO : Handle permission
      */
     private void startRecording() {
 

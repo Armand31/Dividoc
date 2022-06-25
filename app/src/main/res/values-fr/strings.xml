@@ -19,7 +19,8 @@
     <string name="confirm_export">Exportation</string>
     <string name="save_case">Enregistrer</string>
     <string name="delete_case">Supprimer</string>
-    <string name="photo_gallery">Galerie photo</string>
+    <string name="photo_gallery">Photos</string>
+    <string name="audios">Audios</string>
     <string name="record_audio">Enregistrer un audio</string>
     <string name="take_photo">Prendre une photo</string>
     <string name="delete_image">Supprimer la photo</string>
@@ -33,6 +34,11 @@
     <string name="provide_camera">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En prenant une photo du corps, ce travail d\'identification sera grandement facilité</string>
     <string name="provide_location">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En donnant la localisation de l\'endroit où a été trouvé le corps, ce travail d\'identification sera grandement facilité</string>
     <string name="provide_audio">Afin d\'aider la Croix Rouge à identifier les victimes, il est recommandé de donner le plus d\'informations possibles. En enregistrant des fichiers audios, ce travail d\'identification sera grandement facilité</string>
+    <string name="permission_revoked">Permission révoquée</string>
+    <string name="revoked_file_access">La permission d\'accès aux fichiers a été révoqué. Afin d\'utiliser l\'application, vous devez autoriser cette permission dans les paramètres de votre téléphone</string>
+    <string name="revoked_camera">La permission d\'accès à la camera a été révoqué. Afin d\'utiliser l\'application, vous devez autoriser cette permission dans les paramètres de votre téléphone</string>
+    <string name="revoked_location">La permission d\'accès à la localisation a été révoqué. Afin d\'aider la Croix Rouge dans son travail d\'identification des victimes, il est préférable d\'autoriser cette permission dans les paramètres de votre téléphone</string>
+    <string name="revoked_audio">La permission d\'accès au microphone a été révoquée. Afin d\'aider la Croix Rouge dans son travail d\'identification des victimes, il est préférable d\'autoriser cette permission dans les paramètres de votre téléphone</string>
 
     <!-- Étiquettes et conseils -->
     <string name="name">Nom</string>

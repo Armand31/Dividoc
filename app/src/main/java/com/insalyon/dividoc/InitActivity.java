@@ -66,7 +66,6 @@ public class InitActivity extends AppCompatActivity {
                 start.setEnabled(Objects.requireNonNull(countryCode.getText()).length() == 2 && Objects.requireNonNull(serialNumber.getText()).toString().length() == 3);
 
                 if (Objects.requireNonNull(countryCode.getText()).length() == 2) {
-                    // TODO : Make the focus to work again
                     countryCode.clearFocus();
                     serialNumber.requestFocus();
                 }

@@ -3,6 +3,7 @@ package com.insalyon.dividoc.util;
 import android.os.Environment;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
@@ -78,21 +79,11 @@ public class FilesPath extends AppCompatActivity {
      * The delete() method from File Class can delete a directory only if it's empty, that's why we need the deleteDirectory method
      * @param path the string directory we want to delete
      */
-    public static void deleteDirectory(String path) {
+    public static void deleteDirectory(@NonNull String path) {
 
         try {
             File file = new File(path);
-            if (file.isDirectory()) {
-                File[] entries = file.listFiles();
-                if (entries != null) {
-                    for (File entry : entries) {
-                        deleteDirectory(entry);
-                    }
-                }
-            }
-            if (!file.delete()) {
-                throw new IOException("Failed to delete " + file);
-            }
+            deleteDirectory(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,16 +94,14 @@ public class FilesPath extends AppCompatActivity {
      * The delete() method from File Class can delete a directory only if it's empty, that's why we need the deleteDirectory method
      * @param file the File object directory we want to delete
      */
-    public static void deleteDirectory(File file) throws IOException {
+    public static void deleteDirectory(@NonNull File file) throws IOException {
 
         if (file.isDirectory()) {
-            File[] entries = file.listFiles();
-            if (entries != null) {
-                for (File entry : entries) {
-                    deleteDirectory(entry);
-                }
+            for (File child : Objects.requireNonNull(file.listFiles())) {
+                    deleteDirectory(child);
             }
         }
+
         if (!file.delete()) {
             throw new IOException("Failed to delete " + file);
         }

@@ -19,8 +19,9 @@
     <string name="confirm_export">Export</string>
     <string name="save_case">Save</string>
     <string name="delete_case">Delete</string>
-    <string name="photo_gallery">Photo gallery</string>
-    <string name="record_audio">Record audio</string>
+    <string name="photo_gallery">Photos</string>
+    <string name="audios">Audios</string>
+    <string name="record_audio">Record an audio</string>
     <string name="take_photo">Take a photo</string>
     <string name="delete_image">Delete the photo</string>
     <string name="edit">Edit</string>
@@ -33,6 +34,11 @@
     <string name="provide_camera">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By taking a picture of the body, this identification work will be greatly facilitated</string>
     <string name="provide_location">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By giving the location of where the body was found, this identification work will be greatly facilitated</string>
     <string name="provide_audio">In order to help the Red Cross to identify the victims, it is recommended to give as much information as possible. By giving the permission to record audio, this identification work will be greatly facilitated</string>
+    <string name="permission_revoked">Permission revoked</string>
+    <string name="revoked_file_access">The file access permission was revoked. In order to use the application, you need to provide the permission from your phone settings</string>
+    <string name="revoked_camera">The camera permission was revoked. In order to use the application, you need to provide the permission from your phone settings</string>
+    <string name="revoked_location">The location permission was revoked. In order to help the Red Cross to identify the victims, you should provide the permission from your phone settings</string>
+    <string name="revoked_audio">The microphone permission was revoked. In order to help the Red Cross to identify the victims, you should provide the permission from your phone settings</string>
 
     <!-- Labels and hints -->
     <string name="name">Name</string>

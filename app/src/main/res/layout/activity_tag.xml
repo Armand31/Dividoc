@@ -233,7 +233,7 @@
             android:layout_margin="5dp"
             android:textSize="11sp"
             android:breakStrategy="high_quality"
-            android:text="@string/record_audio"
+            android:text="@string/audios"
             app:icon="@drawable/record_voice"
             app:iconGravity="textStart"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />

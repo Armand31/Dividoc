@@ -50,9 +50,11 @@ import java.util.Objects;
 
 public class TagActivity extends AppCompatActivity {
 
+    private static final int permissionsRequested = 3;
     private String workingDirectory;
     private ActivityResultLauncher<Uri> dispatchTakePictureIntentLauncher;
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private androidx.appcompat.app.AlertDialog[] alertDialog; // Used to keep track of the alert dialogs to dismiss them when a permission is rejected (see com.insalyon.dividoc.TagActivity.onDestroy)
     private double latitude = 0.0, longitude = 0.0;
 
     @Override
@@ -66,6 +68,7 @@ public class TagActivity extends AppCompatActivity {
         // TODO : Manage layout screen rotation with View Model : https://developer.android.com/topic/libraries/architecture/viewmodel
 
         // Initialization
+        alertDialog = new androidx.appcompat.app.AlertDialog[permissionsRequested];
         callbacksRegistration();
         defineLists();
         loadTagFields();
@@ -78,17 +81,20 @@ public class TagActivity extends AppCompatActivity {
             this.workingDirectory = FilesPath.getNewCaseFolder();
 
             // Verify location permission and get the case location if the permission is granted
-            verifyPermission(Manifest.permission.ACCESS_FINE_LOCATION, getResources().getString(R.string.provide_location), this::getCaseLocation, () -> {});
-
-            // Verify storage permission to ensure correct execution of the code
-            verifyPermission(Manifest.permission.READ_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
-            //verifyPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
+            verifyPermission(Manifest.permission.ACCESS_FINE_LOCATION, getResources().getString(R.string.provide_location), this::getCaseLocation, () -> {}, 0, getString(R.string.revoked_location));
 
             // Verify camera permission and open the camera activity if the permission is granted
             verifyPermission(Manifest.permission.CAMERA, getResources().getString(R.string.provide_camera), this::dispatchTakePictureIntent, () -> {
-                FilesPath.deleteDirectory(workingDirectory);
+                FilesPath.deleteDirectory(this.workingDirectory);
                 this.finish();
-            });
+            }, 1, getString(R.string.revoked_camera));
+
+            // Verify storage permission to ensure correct execution of the code
+            verifyPermission(Manifest.permission.READ_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, () -> {
+                FilesPath.deleteDirectory(this.workingDirectory);
+                this.finish();
+            }, 2, getString(R.string.revoked_file_access));
+            //verifyPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, this::finish);
 
             // TODO : Implement verifyReadAndWriteExternalStorage() when persistent VSN is done (if done using storage)
             setVSN();
@@ -249,7 +255,7 @@ public class TagActivity extends AppCompatActivity {
      * @param toPerformOnFailure the action to perform if the permission was not granted
      * TODO : Factorize code using https://developer.android.com/training/basics/intents/result#separate
      */
-    public void verifyPermission(String permission, String messageBody, Runnable toPerformOnSuccess, Runnable toPerformOnFailure) {
+    public void verifyPermission(String permission, String messageBody, Runnable toPerformOnSuccess, Runnable toPerformOnFailure, int dialogIndex, String permissionRevoked) {
 
         ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
             if (isGranted) {
@@ -260,7 +266,6 @@ public class TagActivity extends AppCompatActivity {
         });
 
         if (ActivityCompat.checkSelfPermission(AppContext.getAppContext(), permission) == PackageManager.PERMISSION_GRANTED) {
-            // Get case location if the permission was granted
             toPerformOnSuccess.run();
 
         } else if (this.shouldShowRequestPermissionRationale(permission)) {
@@ -268,13 +273,27 @@ public class TagActivity extends AppCompatActivity {
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
             builder.setTitle(getResources().getString(R.string.to_help_us))
                     .setMessage(messageBody)
-                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> requestPermissionLauncher.launch(permission)));
-            //.setNegativeButton(android.R.string.cancel, ((dialogInterface, i) -> toPerformOnFailure.run()));
-            builder.create().show();
+                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> requestPermissionLauncher.launch(permission)))
+                    .setOnCancelListener(dialogInterface -> requestPermissionLauncher.launch(permission)); // If the return button is clicked
+            alertDialog[dialogIndex] = builder.create();
+            alertDialog[dialogIndex].show();
 
         } else {
-            // If the permission was not granted
-            toPerformOnFailure.run();
+            // If the permission was not granted, create a dialog to say that the permission was revoked
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+            builder.setTitle(getResources().getString(R.string.permission_revoked))
+                    .setMessage(permissionRevoked)
+                    .setPositiveButton(getResources().getString(android.R.string.ok), ((dialogInterface, i) -> {
+                        // Opens the settings of the app (through System Settings) to grant the revoked permission
+                        Intent appSettings = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        appSettings.addCategory(Intent.CATEGORY_DEFAULT);
+                        appSettings.setData(Uri.parse("package:" + getPackageName()));
+                        startActivity(appSettings); // There is no information about when the exits, that's why we then run toPerformOnFailure : https://developer.android.com/reference/android/app/Activity#startActivity(android.content.Intent,%20android.os.Bundle)
+                        toPerformOnFailure.run();
+                    }))
+                    .setNegativeButton(getResources().getString(android.R.string.cancel), ((dialogInterface, i) -> toPerformOnFailure.run()))
+                    .setOnCancelListener(dialogInterface -> toPerformOnFailure.run()); // If the return button is clicked
+            builder.create().show();
         }
     }
 
@@ -555,5 +574,18 @@ public class TagActivity extends AppCompatActivity {
         builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> { });
 
         builder.create().show();
+    }
+
+    /**
+     * Dismissing all alert dialogs generated during the permissions verification (as they are all created because
+     * ActivityResultLauncher is asynchronous)
+     */
+    public void onDestroy() {
+        super.onDestroy();
+        for (int i = 0; i < permissionsRequested; i++) {
+            if (alertDialog[i] != null) {
+                alertDialog[i].dismiss();
+            }
+        }
     }
 }

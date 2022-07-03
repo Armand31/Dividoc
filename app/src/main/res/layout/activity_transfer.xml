@@ -25,6 +25,32 @@
         android:layout_weight="1" >
 
         <TextView
+            android:id="@+id/pathTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/zip_path_label"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/pathView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1" >
+
+        <TextView
             android:id="@+id/ExpirationTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,6 +84,7 @@
             android:text="@string/password_label"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:gravity="center" />
 
         <TextView
@@ -65,51 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:gravity="center" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_weight="1" >
-
-        <TextView
-            android:id="@+id/pathTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/zip_path_label"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/pathView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/return_transfer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/return_button"
-        android:gravity="center"
-        android:layout_margin="5dp" />
-
-    <!--
-    <Button
-        android:id="@+id/send_to_server"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/send_button" />
-    -->
 
 </LinearLayout>

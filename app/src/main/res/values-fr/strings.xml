@@ -65,6 +65,7 @@
     <string name="teenager">Adolescent</string>
     <string name="kid">Enfant</string>
     <string name="baby">Bébé</string>
+    <string name="no_password">Mode super utilisateur activé. Aucun mot de passe n\'est requis.</string>
 
     <!-- Avertissements -->
     <string name="warning">Avertissement</string>

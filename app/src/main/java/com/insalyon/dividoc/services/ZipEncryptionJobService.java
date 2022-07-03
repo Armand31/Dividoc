@@ -3,7 +3,6 @@ package com.insalyon.dividoc.services;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.Build;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -56,7 +55,7 @@ public class ZipEncryptionJobService extends JobService {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, AESKey);
 
-            encryptZip(oldZipPathWithoutExtension, zipPathWithoutExtension, cipher, AESKey);
+            encryptZip(oldZipPathWithoutExtension, zipPathWithoutExtension, cipher);
             assert AESKey != null;
             encryptKeyAndIV(zipPathWithoutExtension, AESKey, cipher.getIV());
 
@@ -78,13 +77,7 @@ public class ZipEncryptionJobService extends JobService {
     /**
      * Encrypt the zip file using AES algorithm
      */
-    private static void encryptZip(String oldZipPathWithoutExtension, String zipPathWithoutExtension, Cipher cipher, SecretKey secretKey) throws GeneralSecurityException, IOException {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            assert secretKey != null;
-            Log.d("Encryption", "AES key : " + bytesToHex(secretKey.getEncoded()));//Integer.toHexString(Integer.parseInt(Base64.getEncoder().encodeToString(secretKey.getEncoded()))));
-            Log.d("Encryption", "AES IV : " + bytesToHex(cipher.getIV()));//Integer.toHexString(Integer.parseInt(Base64.getEncoder().encodeToString(cipher.getIV()))));
-        }
+    private static void encryptZip(String oldZipPathWithoutExtension, String zipPathWithoutExtension, Cipher cipher) throws GeneralSecurityException, IOException {
 
         // Input file
         File input = new File(oldZipPathWithoutExtension + ".zip");

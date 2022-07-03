@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.insalyon.dividoc.services.ZipEncryptionJobService;
+import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
 import net.lingala.zip4j.core.ZipFile;
@@ -30,18 +30,23 @@ import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
 public class TransferActivity extends AppCompatActivity {
 
+    private static final int PASSWORD_LENGTH = 12;
     private static final int ENC_TIME = 24 * 60 * 60 * 1000; // Hours * Minutes * Seconds * Milliseconds
+    private static String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,6 @@ public class TransferActivity extends AppCompatActivity {
 
         //Initialization
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setButtonListeners();
 
         File[] cases = new File(FilesPath.getCasesFolder()).listFiles();
         if (cases != null && cases.length > 0) {
@@ -71,16 +75,10 @@ public class TransferActivity extends AppCompatActivity {
 
             // Encrypt generated zip after X time
             encryptZipFile(zipPathWithoutExtension);
+
+            // Set the information on the view
+            setInformation(zipPathWithoutExtension);
         }
-    }
-
-    /**
-     * Set button listeners
-     */
-    private void setButtonListeners() {
-
-        Button returnButton = findViewById(R.id.return_transfer);
-        returnButton.setOnClickListener(view -> this.finish());
     }
 
     /**
@@ -162,12 +160,14 @@ public class TransferActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!preferences.getBoolean("super_user_mode", true)) {
 
-            String password = getPassword(12);
+            password = getPassword(PASSWORD_LENGTH);
             ((TextView) findViewById(R.id.password)).setText(password);
             zipParameters.setEncryptFiles(true);
             zipParameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
             zipParameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
             zipParameters.setPassword(password);
+        } else {
+            password = getString(R.string.no_password);
         }
 
         // Creating the zip file (empty)
@@ -218,7 +218,6 @@ public class TransferActivity extends AppCompatActivity {
             password.append(chars.charAt(index));
         }
 
-        System.out.println("Password : " + password);
         return password.toString();
     }
 
@@ -262,6 +261,23 @@ public class TransferActivity extends AppCompatActivity {
         // Create a job the be executed
         JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(jobInfo);
+    }
+
+    /**
+     * Set the information on the view
+     */
+    private void setInformation(String zipPathWithoutExtension) {
+
+        // Encrypted date
+        String dateAndTime = new SimpleDateFormat("MM dd yyyy - HH:mm", Locale.getDefault()).format(new Date(new Date().getTime() + ENC_TIME));
+        ((TextView) findViewById(R.id.timeout)).setText(dateAndTime);
+
+        // Password
+        ((TextView) findViewById(R.id.password)).setText(password);
+
+        // Path
+        String path = "Downloads > " + AppContext.getAppContext().getString(AppContext.getAppContext().getApplicationInfo().labelRes) + " > " + zipPathWithoutExtension.substring(zipPathWithoutExtension.lastIndexOf(File.separator) + 1) + ".zip";
+        ((TextView) findViewById(R.id.pathView)).setText(path);
     }
 
     @Override

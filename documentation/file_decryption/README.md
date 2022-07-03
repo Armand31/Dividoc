@@ -12,7 +12,7 @@ openssl rsautl -decrypt -in <zipFileName>.key -inkey <RSAPrivateKey>.pem
 
 You will be prompted for a password. You can find this password in the RSA_passphrase.txt file.
 
-The same command is needed for the initialization vector, which is named <zipFileName>_IV.txt :
+The same command is needed for the initialization vector, which is named \<zipFileName\>_IV.txt :
 
 ```console
 openssl rsautl -decrypt -in <zipFileName>_IV.txt -inkey <RSAPrivateKey>.pem

@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -69,6 +70,7 @@ public class TagActivity extends AppCompatActivity {
 
         // Initialization
         alertDialog = new androidx.appcompat.app.AlertDialog[permissionsRequested];
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         callbacksRegistration();
         defineLists();
         loadTagFields();
@@ -544,6 +546,15 @@ public class TagActivity extends AppCompatActivity {
         }
 
         return new JSONObject(String.valueOf(jsonText));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

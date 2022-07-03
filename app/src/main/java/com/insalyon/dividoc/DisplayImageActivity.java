@@ -3,10 +3,12 @@ package com.insalyon.dividoc;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +16,7 @@ import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class DisplayImageActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class DisplayImageActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
 
         // Initialization
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setButtonListeners();
         setImage();
     }
@@ -70,5 +74,14 @@ public class DisplayImageActivity extends AppCompatActivity {
                     this.finish();
                 })
                 .setNegativeButton(android.R.string.cancel, (dialog, id) -> {}).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

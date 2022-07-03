@@ -8,8 +8,8 @@
     <string name="settings">Settings</string>
 
     <!-- Boutons -->
-    <string name="add_case_button">Ajouter un nouveau cas</string>
-    <string name="export_file_button">Exporter des fichiers</string>
+    <string name="add_case_button">Nouveau cas</string>
+    <string name="export_file_button">Exporter</string>
     <string name="select_cases_files">Fichiers</string>
     <string name="select_cases_archives">Archives</string>
     <string name="start">Démarrage</string>

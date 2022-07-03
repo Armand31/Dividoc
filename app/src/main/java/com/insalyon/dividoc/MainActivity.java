@@ -1,12 +1,8 @@
 package com.insalyon.dividoc;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +27,6 @@ import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 

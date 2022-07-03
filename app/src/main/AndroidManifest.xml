@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature android:name="android.hardware.CAMERA" />
 
@@ -28,6 +29,10 @@
         <service
             android:name=".services.NavigationService"
             android:foregroundServiceType="location" >
+        </service>
+        <service
+            android:name=".services.ZipEncryptionJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
         </service>
 
         <activity
@@ -48,7 +53,7 @@
         <activity android:name=".DisplayImageActivity" />
         <activity android:name=".TransferActivity" />
         <activity android:name=".SettingsActivity"
-            android:configChanges="layoutDirection|locale" />
+            android:configChanges="locale" />
         <!-- https://stackoverflow.com/questions/18725396/onconfigurationchange-not-called-after-changing-locale -->
         <activity android:name=".DecryptionActivity" />
         <activity android:name=".AudioGalleryActivity" />

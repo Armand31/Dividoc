@@ -54,7 +54,6 @@
                 android:id="@+id/gender_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="20dp"
                 android:hint="@string/gender"
                 android:inputType="none" />
 
@@ -71,7 +70,6 @@
                 android:id="@+id/age_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="20dp"
                 android:hint="@string/age"
                 android:inputType="none" />
 
@@ -246,7 +244,8 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginBottom="50dp" >
 
             <Button
                 android:id="@+id/delete_button"

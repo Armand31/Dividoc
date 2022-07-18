@@ -135,11 +135,10 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
 
         // Color animation
-        Integer colorFrom = ContextCompat.getColor(this, R.color.primary);
+        Integer colorFrom = ContextCompat.getColor(this, R.color.warning);
         Integer colorTo = ContextCompat.getColor(this, R.color.warning);
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
         colorAnimation.addUpdateListener(valueAnimator -> maxPhotoInfo.setTextColor((Integer) valueAnimator.getAnimatedValue()));
-        animation.setBackgroundColor(ContextCompat.getColor(this, R.color.primary));
 
         // Stop animation after 2000 milliseconds
         Handler handler = new Handler();

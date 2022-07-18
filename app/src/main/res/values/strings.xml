@@ -39,6 +39,10 @@
     <string name="revoked_camera">The camera permission was revoked. In order to use the application, you need to provide the permission from your phone settings</string>
     <string name="revoked_location">The location permission was revoked. In order to help the Red Cross to identify the victims, you should provide the permission from your phone settings</string>
     <string name="revoked_audio">The microphone permission was revoked. In order to help the Red Cross to identify the victims, you should provide the permission from your phone settings</string>
+    <string name="terms_of_service"> Programmers, editors and distributors of this application shall not be liable for any claim arising
+        from the use made of the software. Before using the application, it is the USER RESPONSABILITY to verify with the competent authorities
+        that all collected or processed informations by the application fulfils the obligations defined by applicable law. Any non-compliance
+        with those conditions excludes you from getting the application. </string>
 
     <!-- Labels and hints -->
     <string name="name">Name</string>
@@ -111,15 +115,11 @@
     <string-array name="language_array">
         <item>English</item>
         <item>Français</item>
-        <item>Español</item>
-        <item>Português</item>
     </string-array>
     <string-array name="language_array_values">
         <!-- Language code cannot got '-' & must be 2 small case letter only -->
         <item>en</item>
         <item>fr</item>
-        <item>es</item>
-        <item>pt</item>
     </string-array>
 
     <!-- Other -->

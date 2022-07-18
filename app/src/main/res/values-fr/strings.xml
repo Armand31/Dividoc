@@ -39,6 +39,7 @@
     <string name="revoked_camera">La permission d\'accès à la camera a été révoqué. Afin d\'utiliser l\'application, vous devez autoriser cette permission dans les paramètres de votre téléphone</string>
     <string name="revoked_location">La permission d\'accès à la localisation a été révoqué. Afin d\'aider la Croix Rouge dans son travail d\'identification des victimes, il est préférable d\'autoriser cette permission dans les paramètres de votre téléphone</string>
     <string name="revoked_audio">La permission d\'accès au microphone a été révoquée. Afin d\'aider la Croix Rouge dans son travail d\'identification des victimes, il est préférable d\'autoriser cette permission dans les paramètres de votre téléphone</string>
+    <string name="terms_of_service">Les programmeurs, éditeurs et distributeurs de cette application ne pourront être tenus responsables d\'aucune réclamation de l\’utilisation du logiciel. Avant d\'utiliser l\'application, il appartient à l\'UTILISATEUR de vérifier auprès des autorités compétentes que toutes les informations collectées ou traitées par l\'application remplissent les obligations définies par la loi applicable. Toute non-conformité avec ces conditions vous empêchent d\'obtenir l\'application.</string>
 
     <!-- Étiquettes et conseils -->
     <string name="name">Nom</string>

@@ -42,7 +42,7 @@ public class InitActivity extends AppCompatActivity {
 
         start = findViewById(R.id.start);
         start.setEnabled(false);
-        start.setOnClickListener(view -> confirmSerialNumber());
+        start.setOnClickListener(view -> showTermsOfService());
     }
 
     /**
@@ -159,11 +159,33 @@ public class InitActivity extends AppCompatActivity {
             defaultPreferencesEditor.putString("countryCode", countryCode.getText().toString().toUpperCase());
             defaultPreferencesEditor.putString("serialNumber", serialNumber.getText().toString());
             defaultPreferencesEditor.apply();
-
             askForPermissions();
         });
 
         builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+        });
+
+        // Cancel button (do nothing, only quit the dialog)
+        AlertDialog dialog = builder.create();
+        // Show dialog
+        dialog.show();
+    }
+
+    /**
+     * Shows the terms of service of the application
+     */
+    public void showTermsOfService() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle(getResources().getString(R.string.warning));
+        builder.setMessage(getResources().getString(R.string.terms_of_service));
+
+        builder.setPositiveButton(android.R.string.yes, (dialog, which) -> confirmSerialNumber());
+
+        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            // Back to home screen (phone)
+            moveTaskToBack(true);
         });
 
         // Cancel button (do nothing, only quit the dialog)

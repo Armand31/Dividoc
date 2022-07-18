@@ -1,98 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:layout_margin="20dp" >
 
-    <TextView
-        android:id="@+id/review_title"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/review"
         android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
+        android:orientation="vertical"
+        android:layout_margin="20dp" >
 
         <TextView
-            android:id="@+id/name_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/review_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginStart="30dp"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:baselineAligned="false">
+            android:text="@string/review"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            tools:ignore="NestedWeights">
-
-            <TextView
-                android:id="@+id/gender_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gender"
-                android:textStyle="bold"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_marginStart="30dp"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/age_title"
+                android:id="@+id/name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/age"
+                android:text="@string/name"
                 android:textStyle="bold"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/age"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -101,143 +49,202 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                tools:ignore="NestedWeights">
 
+                <TextView
+                    android:id="@+id/gender_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginStart="30dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/age_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/age"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginStart="30dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/location_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginStart="30dp"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/additional_info_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/additional_information"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_weight="2"
+                tools:ignore="NestedWeights" />
+
+            <TextView
+                android:id="@+id/additional_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginStart="30dp"
+                android:textSize="18sp"
+                android:layout_weight="4"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tag_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tag"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginStart="30dp"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <!--
         <TextView
-            android:id="@+id/location_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/location"
+            android:id="@+id/geoloc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_marginStart="30dp"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/additional_info_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/additional_information"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_weight="2"
-            tools:ignore="NestedWeights" />
-
-        <TextView
-            android:id="@+id/additional_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginStart="30dp"
-            android:textSize="18sp"
-            android:layout_weight="4"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tag_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tag"
-            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textColor="@color/primary"
             android:textSize="18sp" />
+        -->
 
-        <TextView
-            android:id="@+id/tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginStart="30dp"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <!--
-    <TextView
-        android:id="@+id/geoloc_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textStyle="bold"
-        android:layout_weight="1"
-        android:textColor="@color/primary"
-        android:textSize="18sp" />
-    -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/delete_button_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_margin="5dp"
-            android:minWidth="0dp"
-            app:icon="@drawable/delete_trash"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
-
-        <Button
-            android:id="@+id/edit_button_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_margin="5dp"
-            android:textSize="11sp"
-            android:breakStrategy="high_quality"
-            app:icon="@drawable/edit"
-            app:iconGravity="textStart"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
-
-        <Button
-            android:id="@+id/save_button_review"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save_case"
-            android:focusable="true"
-            android:layout_margin="5dp"
-            android:textSize="11sp"
-            app:icon="@drawable/done"
-            app:iconGravity="textEnd"
-            style="@style/Widget.MaterialComponents.Button.Icon" />
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/delete_button_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_margin="5dp"
+                android:minWidth="0dp"
+                app:icon="@drawable/delete_trash"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            <Button
+                android:id="@+id/edit_button_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_margin="5dp"
+                android:textSize="11sp"
+                android:breakStrategy="high_quality"
+                app:icon="@drawable/edit"
+                app:iconGravity="textStart"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            <Button
+                android:id="@+id/save_button_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save_case"
+                android:focusable="true"
+                android:layout_margin="5dp"
+                android:textSize="11sp"
+                app:icon="@drawable/done"
+                app:iconGravity="textEnd"
+                style="@style/Widget.MaterialComponents.Button.Icon" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

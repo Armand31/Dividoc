@@ -163,7 +163,7 @@ public class PhotoGalleryActivity extends AppCompatActivity {
     }
 
     /**
-     * Reloads the pictures' grid
+     * Reloads the pictures' grid and re-activates the "take a photo" button if max was reached and a photo was deleted
      */
     @Override
     public void onResume() {
@@ -171,6 +171,9 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         super.onResume();
 
         ((GridView) findViewById(R.id.grid_view)).setAdapter(new ImageAdapter(this));
+        if (getNumberOfPictures() < MAX_PHOTOS_ALLOWED) {
+            findViewById(R.id.take_photo_button).setEnabled(true);
+        }
     }
 
     @Override

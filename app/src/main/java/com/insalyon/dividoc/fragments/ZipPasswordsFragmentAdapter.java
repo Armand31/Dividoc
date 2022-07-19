@@ -1,14 +1,5 @@
 package com.insalyon.dividoc.fragments;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.insalyon.dividoc.R;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ZipPasswordsFragmentAdapter extends RecyclerView.Adapter<ZipPasswordsFragmentAdapter.ViewHolder> {
 

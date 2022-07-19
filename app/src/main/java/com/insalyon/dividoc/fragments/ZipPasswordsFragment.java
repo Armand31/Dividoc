@@ -19,8 +19,6 @@ import com.insalyon.dividoc.util.AppContext;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Fragment class : https://developer.android.com/guide/fragments

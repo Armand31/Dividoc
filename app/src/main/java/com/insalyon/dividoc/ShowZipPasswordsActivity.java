@@ -1,7 +1,5 @@
 package com.insalyon.dividoc;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -10,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.insalyon.dividoc.fragments.AudioFragment;
 import com.insalyon.dividoc.fragments.ZipPasswordsFragment;
 
 import java.util.Objects;

@@ -59,6 +59,8 @@ public class FilesPath extends AppCompatActivity {
 
     public static String getExportDirectory() { return exportDirectory; }
 
+    public static String getZipPathFromName(String zipName) { return  exportDirectory + File.separator + zipName; }
+
     /**
      * Create a new directory
      * @param dir the directory path to be created

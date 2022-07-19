@@ -43,7 +43,6 @@ public class TransferActivity extends AppCompatActivity {
 
     private static final int PASSWORD_LENGTH = 12;
     private static final int ENC_TIME = 24 * 60 * 60 * 1000; // Hours * Minutes * Seconds * Milliseconds
-    private static String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,24 +55,32 @@ public class TransferActivity extends AppCompatActivity {
 
         //Initialization
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        String zipPathWithoutExtension = null;
 
-        File[] cases = new File(FilesPath.getCasesFolder()).listFiles();
-        if (cases != null && cases.length > 0) {
+        if (getIntent().getBooleanExtra("displayInfoOnly", false)) {
+            zipPathWithoutExtension = getIntent().getStringExtra("zipPathWithoutExtension");
+        } else {
 
-            // Watermarking and resizing every image of every case
-            for (File _case : cases) {
-                for (File image : Objects.requireNonNull(new File(FilesPath.getCaseImageFolder(_case.getName())).listFiles())) {
-                    resizeAndWatermarkImage(image, _case.getName());
+            File[] cases = new File(FilesPath.getCasesFolder()).listFiles();
+            if (cases != null && cases.length > 0) {
+
+                // Watermarking and resizing every image of every case
+                for (File _case : cases) {
+                    for (File image : Objects.requireNonNull(new File(FilesPath.getCaseImageFolder(_case.getName())).listFiles())) {
+                        resizeAndWatermarkImage(image, _case.getName());
+                    }
                 }
+
+                // Zipping cases files into one archive
+                zipPathWithoutExtension = zipFiles();
+
+                // Encrypt generated zip after X time
+                encryptZipFile(zipPathWithoutExtension);
             }
+        }
 
-            // Zipping cases files into one archive
-            String zipPathWithoutExtension = zipFiles();
-
-            // Encrypt generated zip after X time
-            encryptZipFile(zipPathWithoutExtension);
-
-            // Set the information on the view
+        // Set the information on the view
+        if (zipPathWithoutExtension != null) {
             setInformation(zipPathWithoutExtension);
         }
     }
@@ -153,8 +160,9 @@ public class TransferActivity extends AppCompatActivity {
         zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
         zipParameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_ULTRA);
 
-        // Generate a password to protect the zip file, if super user mode is deactivated
+        // Generate a password to protect the zip file, if super user mode is deactivated and saving it
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String password;
         if (!preferences.getBoolean("super_user_mode", true)) {
 
             password = getPassword(PASSWORD_LENGTH);
@@ -188,6 +196,13 @@ public class TransferActivity extends AppCompatActivity {
             if(!(new File(casesFolderNewName)).renameTo(new File(FilesPath.getCasesFolder()))) {}
             this.finish();
         }
+
+        // Saving the password and the expiration date in a custom shared preferences file, used to display information on the zip file
+        SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zipInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = zipInfoSharedPrefs.edit();
+        editor.putString(zipPathWithoutExtension + "_password", password);
+        editor.putString(zipPathWithoutExtension + "_expiration_date", new SimpleDateFormat("MM dd yyyy - HH:mm", Locale.getDefault()).format(new Date(new Date().getTime() + ENC_TIME)));
+        editor.apply();
 
         // At this point, deletes the cases only if the zipping was successful
         try {
@@ -265,12 +280,13 @@ public class TransferActivity extends AppCompatActivity {
      */
     private void setInformation(String zipPathWithoutExtension) {
 
+        SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zipInfo", Context.MODE_PRIVATE);
+
         // Encrypted date
-        String dateAndTime = new SimpleDateFormat("MM dd yyyy - HH:mm", Locale.getDefault()).format(new Date(new Date().getTime() + ENC_TIME));
-        ((TextView) findViewById(R.id.timeout)).setText(dateAndTime);
+        ((TextView) findViewById(R.id.timeout)).setText(zipInfoSharedPrefs.getString(zipPathWithoutExtension + "_expiration_date", "Error"));
 
         // Password
-        ((TextView) findViewById(R.id.password)).setText(password);
+        ((TextView) findViewById(R.id.password)).setText(zipInfoSharedPrefs.getString(zipPathWithoutExtension + "_password", "Error"));
 
         // Path
         String path = "Downloads > " + AppContext.getAppContext().getString(AppContext.getAppContext().getApplicationInfo().labelRes) + " > " + zipPathWithoutExtension.substring(zipPathWithoutExtension.lastIndexOf(File.separator) + 1) + ".zip";

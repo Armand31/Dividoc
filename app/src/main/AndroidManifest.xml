@@ -55,7 +55,6 @@
         <activity android:name=".SettingsActivity"
             android:configChanges="locale" />
         <!-- https://stackoverflow.com/questions/18725396/onconfigurationchange-not-called-after-changing-locale -->
-        <activity android:name=".DecryptionActivity" />
         <activity android:name=".AudioGalleryActivity" />
 
         <provider

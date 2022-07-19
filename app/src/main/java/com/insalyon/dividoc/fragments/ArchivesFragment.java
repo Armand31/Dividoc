@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.insalyon.dividoc.DecryptionActivity;
 import com.insalyon.dividoc.MainActivity;
 import com.insalyon.dividoc.R;
+import com.insalyon.dividoc.TransferActivity;
 import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
@@ -61,7 +61,7 @@ public class ArchivesFragment extends Fragment implements ArchivesFragmentAdapte
             archivesList.addAll(Arrays.asList(archivesArray));
 
             // Comparator is used to sort cases, in alphabetical order here (getName() method)
-            // noinspection ComparatorCombinators
+            // noinspection Comparator
             //Collections.sort(archivesList, (f1, f2) -> f2.getName().compareTo(f1.getName()));
         }
 
@@ -74,33 +74,9 @@ public class ArchivesFragment extends Fragment implements ArchivesFragmentAdapte
      */
     public void onItemClick(int position) {
 
-        /*
-        File exportDirectory = new File(FilesPath.getExportDirectory());
-        String path = adapter.getItem(position).getAbsolutePath();
-        String extension = path.substring(path.lastIndexOf("."));
-        path = path.replaceFirst("[.][^.]+$", "");
-        String FileName = path.replace(exportDirectory.getAbsolutePath() + File.separator, "");
-
-        switch (extension) {
-            case (".zip"):
-                Intent activity = new Intent(DiviContext.getAppContext(), TransferActivity.class);
-                activity.putExtra("toZip", false);
-                activity.putExtra("zipName",FileName );
-                startActivity(activity);
-                break;
-             case (".enc"):
-                Intent intent = new Intent(this.context, DecryptionActivity.class);
-                Log.i(MainActivity.DEBUG_PREFIX,"Name : "+adapter.getItem(position).getName());
-                intent.putExtra("FileName", adapter.getItem(position).getName());
-                startActivity(intent);
-                break;
-            default :
-                Toast.makeText(DiviContext.getAppContext(), "bruh", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        */
-
-        Intent decryptionActivity = new Intent(AppContext.getAppContext(), DecryptionActivity.class);
-        startActivity(decryptionActivity);
+        Intent transferActivity = new Intent(AppContext.getAppContext(), TransferActivity.class);
+        transferActivity.putExtra("displayInfoOnly", true);
+        transferActivity.putExtra("zipPathWithoutExtension", FilesPath.getZipPathFromName(adapter.getItem(position).getName()).replaceFirst("[.][^.]+$", ""));
+        startActivity(transferActivity);
     }
 }

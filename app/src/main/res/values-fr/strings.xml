@@ -109,6 +109,7 @@
     <string name="super_user_mode_info">Désactiver la protection par mot de passe des fichiers zip</string>
     <string name="lang">Langue</string>
     <string name="lang_info">Changer la langue de l\'application</string>
+    <string name="show_zip_passwords">Afficher les mots de passe des fichiers zip</string>
 
         <!-- Autres -->
     <string name="ocdc_default_value" translatable="false">0</string>

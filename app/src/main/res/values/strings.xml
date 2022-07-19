@@ -121,6 +121,7 @@
         <item>en</item>
         <item>fr</item>
     </string-array>
+    <string name="show_zip_passwords">Show zip passwords</string>
 
     <!-- Other -->
     <string name="ocdc_default_value" translatable="false">0</string>

@@ -56,6 +56,7 @@
             android:configChanges="locale" />
         <!-- https://stackoverflow.com/questions/18725396/onconfigurationchange-not-called-after-changing-locale -->
         <activity android:name=".AudioGalleryActivity" />
+        <activity android:name=".ShowZipPasswordsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

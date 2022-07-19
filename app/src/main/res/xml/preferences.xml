@@ -1,5 +1,5 @@
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
         app:key="dark_mode"
@@ -19,5 +19,14 @@
         app:summary="@string/lang_info"
         app:entries="@array/language_array"
         app:entryValues="@array/language_array_values" />
+
+    <Preference
+        app:key="show_zip_passwords"
+        app:title="@string/show_zip_passwords" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.insalyon.dividoc"
+            android:targetClass="com.insalyon.dividoc.ShowZipPasswordsActivity" />
+    </Preference>
 
 </PreferenceScreen>

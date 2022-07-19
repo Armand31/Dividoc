@@ -3,6 +3,7 @@ package com.insalyon.dividoc;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,11 +45,17 @@ public class SettingsActivity extends AppCompatActivity {
         // Listener that launch different functions according to the preference that changed
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences1, key) -> {
-            if (key.equals("dark_mode")) {
-                setTheme();
-            } else if (key.equals("lang")) {
-                setLang(this);
-                this.recreate(); // Reloads the fragment view
+            switch (key) {
+                case "dark_mode":
+                    setTheme();
+                    break;
+                case "lang":
+                    setLang(this);
+                    this.recreate(); // Reloads the fragment view
+                    break;
+                case "show_zip_passwords":
+                    showZipPasswords();
+                    break;
             }
         };
 
@@ -98,6 +106,15 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
+
+    /**
+     * Opens an the showPasswordsActivity
+     */
+    private void showZipPasswords() {
+
+        Intent showZipPasswords = new Intent(this, ShowZipPasswordsActivity.class);
+        startActivity(showZipPasswords);
     }
 
     @Override

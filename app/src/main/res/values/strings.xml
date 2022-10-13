@@ -115,11 +115,13 @@
     <string-array name="language_array">
         <item>English</item>
         <item>Français</item>
+        <item>Español</item>
     </string-array>
     <string-array name="language_array_values">
         <!-- Language code cannot got '-' & must be 2 small case letter only -->
         <item>en</item>
         <item>fr</item>
+        <item>es</item>
     </string-array>
     <string name="show_zip_passwords">Show zip passwords</string>
 

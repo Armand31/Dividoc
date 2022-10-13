@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">Dividoc</string>
+
+    <!-- Activities titles -->
+    <string name="gallery">Galeria de fotos</string>
+    <string name="review">Por favor verifique que la informacion es correcta</string>
+    <string name="transfer">Transferir</string>
+    <string name="settings">Ajustes</string>
+
+    <!-- Buttons -->
+    <string name="add_case_button">Nuevo caso</string>
+    <string name="export_file_button">Exportar</string>
+    <string name="select_cases_files">Fichero</string>
+    <string name="select_cases_archives">Archivos</string>
+    <string name="start">Iniciar</string>
+    <string name="discard_changes">Descartar cambios</string>
+    <string name="return_button">Volver</string>
+    <string name="send_button">Enviar</string>
+    <string name="confirm_export">Exportar</string>
+    <string name="save_case">Guardar</string>
+    <string name="delete_case">Borrar</string>
+    <string name="photo_gallery">Fotos</string>
+    <string name="audios">Audios</string>
+    <string name="record_audio">Grabar un audio</string>
+    <string name="take_photo">Tomar foto</string>
+    <string name="delete_image">Borrar foto</string>
+    <string name="edit">Editar</string>
+
+    <!-- Informational and help messages -->
+    <string name="tag_title">Por favor completar el formulario de identificacion de la victima</string>
+    <string name="max_photos_gallery">Numero máximo de fotos</string>
+    <string name="to_help_us">Para ayudarnos</string>
+    <string name="provide_file_access">Para ayudar en el proceso de identificacion de la victima se recomienda introducir la mayor cantidad de informacion posible</string>
+    <string name="provide_camera">Para ayudar en el proceso de identificacion de la victima se recomienda introducir la mayor cantidad de informacion posible. Al tomar fotos del cuerpo, se facilitara el proceso de identificacion</string>
+    <string name="provide_location">Para ayudar en el proceso de identificacion de la victima se recomienda introducir la mayor cantidad de informacion posible. Al proveer la ubicación del cuerpo, se facilitara el proceso de identificacion</string>
+    <string name="provide_audio">Para ayudar en el proceso de identificacion de la victima se recomienda introducir la mayor cantidad de informacion posible. Al otorgar el permiso para grabar un audio, se facilitara el proceso de identificacion</string>
+    <string name="permission_revoked">Permiso revocado</string>
+    <string name="revoked_file_access">El permiso para acceder el fichero ha sido revocado.Para usar la aplicacion debe activar el permiso en los ajustes del telefono</string>
+    <string name="revoked_camera">El perniso para acceder la cámara ha sido revocado. Para usar la aplicacion debe activar el permiso en los ajustes del telefono</string>
+    <string name="revoked_location"> El permiso para acceder a la ubicación ha sido revocado. The location permission was revoked. Para usar la aplicacion debe activar el permiso en los ajustes del telefono</string>
+    <string name="revoked_audio">El permiso para usar el microfono ha sido revocado. Para usar la aplicacion debe activar el permiso en los ajustes del telefono</string>
+    <string name="terms_of_service"> Los programadores, editores y distribuidores de esta aplicación no serán responsables de ninguna reclamación derivada del uso que se haga del software. Antes de utilizar la aplicación, es responsabilidad del USUARIO verificar con las autoridades competentesque toda la información recogida o tratada por la aplicación cumple con las obligaciones definidas por la legislación aplicable. Cualquier incumplimientode dichas condiciones le excluye de la obtención de la aplicación.</string>
+
+    <!-- Labels and hints -->
+    <string name="name">Nombre</string>
+    <string name="gender">Sexo</string>
+    <string name="age">Edad</string>
+    <string name="location">Ubicación</string>
+    <string name="additional_information">Informacion adicional</string>
+    <string name="tag" translatable="false">Etiqueta</string>
+    <string name="dot_separator" translatable="false">.</string>
+    <string name="input_serial_number">Por favor ingrese el codigo de país y el numero de serie de su telefono</string>
+    <string name="country_code_hint">Codigo del país</string>
+    <string name="country_code_allowed" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="serial_number_hint">Numero de serie</string>
+    <string name="delete_label">Borrar</string>
+    <string name="expiration_label">Fecha de expiracion del directorio</string>
+    <string name="ocdc" translatable="false">OCDC</string>
+    <string name="password_label">Contrasena del directorio</string>
+    <string name="zip_path_label">Ruta al archivo ZIP</string>
+    <string name="recording">Grabando…</string>
+    <string name="man">Hombre</string>
+    <string name="woman">Mujer</string>
+    <string name="unknown">Desconocido</string>
+    <string name="adult">Adulto</string>
+    <string name="teenager">Adolescente</string>
+    <string name="kid">Nino</string>
+    <string name="baby">Bebe</string>
+    <string name="no_password">Modo Super Usuario activado. No se requiere contrasena</string>
+
+    <!-- Warnings -->
+    <string name="warning">Atención!</string>
+    <string name="input_verification">El numero introducido es correcto? Recuerde que no podra cambiarlo luego</string>
+    <string name="invalid_ocdc">OCDC acepta solo letras, numeros y guiones</string>
+    <string name="cancel_changes">Los cambios no seran guardados. Desea continuar?</string>
+    <string name="cannot_create_picture_file">Error : Un fichero fotografico no pudo ser creado</string>
+    <string name="cannot_create_pictures_dir">Error : Un directorio fotografico no pudo ser creado</string>
+    <string name="cannot_access_pictures_dir">Error : No se pudo acceder al directorio de las imágenes</string>
+    <string name="delete_picture_warning">Una vez que se borra la foto no se puede recuperar. Desea continuar?</string>
+    <string name="delete_case_label">Una vez que se borra un caso no se puede recuperar. Desea continuar?</string>
+    <string name="delete_audio_warning">Una vez que se borra un archivo de audio no se puede recuperar. Desea continuar?</string>
+    <string name="cannot_create_case_dir">Error : No se pudo crear el directorio para guardar el caso</string>
+    <string name="cannot_save_pictures">Error : Las fotos no pudieron ser guardadas</string>
+    <string name="cannot_open_json_file">Los datos no pudieron ser cargados</string>
+    <string name="cannot_parse_json_file">Los datos JSON no han podido ser analizados</string>
+    <string name="read_before_export">Una carpeta conteniendo todos sus ficheros será creada y podra ser exportada a traves de: USB, email o bluetooth. Si el archivo se qyeda en su telefono por mas de n %d hours, será encriptado y requerira que al administrador le envie un codigo para decriptarlo.Asegurese que las autoridades pertinentes están listas para recibir el archivo. </string>   <string name="one_photo_minimum">Un caso requiere al menos una foto</string>
+    <string name="country_code_allowed_error_message">Se permiten solo letras</string>
+    <string name="serial_number_allowed_error_message">Se permiten solo numeros</string>
+
+    <!-- res content description -->
+    <string name="return_previous_act">Regresar a la actividad anterior</string>
+    <string name="add_picture">Adicionar una foto al caso</string>
+    <string name="image_description">Imagen del caso</string>
+    <string name="delete_picture_content_description">Boton para borrar la foto</string>
+    <string name="tag_help">Muestra la etiqueta para ayudar a rellebar el formulario</string>
+    <string name="tag_gallery_description">Muestra la galeria de fotos</string>
+    <string name="tag_audio_description">Muestra la lista de audios</string>
+    <string name="tag_delete_description">Borra el caso</string>
+    <string name="tag_save_description">Guarda el caso</string>
+    <string name="edit_button_description">Edita el caso</string>
+    <string name="save_button_description">Guarda el caso en la memoria del telefono</string>
+    <string name="edit_case_description">Edita el caso</string>
+
+    <!-- Settings strings -->
+    <string name="dark_mode">Dark mode (modo oscuro)</string>
+    <string name="dark_mode_info">Activa el fondo oscuro</string>
+    <string name="super_user_mode">Modo Super Usuario</string>
+    <string name="super_user_mode_info">Desactivar la proteccion de contrasena para los files en modo zip</string>
+    <string name="lang">Idioma</string>
+    <string name="lang_info">Cambia la lengua de la aplicacion</string>
+    <string name="show_zip_passwords">Mostrar contrasena para zip</string>
+
+    <!-- Other -->
+    <string name="ocdc_default_value" translatable="false">0</string>
+
+</resources>

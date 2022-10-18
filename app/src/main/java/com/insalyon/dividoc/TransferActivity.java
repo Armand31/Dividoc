@@ -180,6 +180,7 @@ public class TransferActivity extends AppCompatActivity {
         String zipPathWithoutExtension = FilesPath.getExportDirectory() + File.separator + "zip_" + dateAndTime;
 
         // Renaming cases folder with date and time to avoid duplicate during zip extraction
+        // TODO : Could collide anyway if 2 users zip the same second -> Correcting by adding country code and serial number
         String casesFolderNewName = FilesPath.getAppRootFolder() + File.separator + "cases_" + dateAndTime;
         //noinspection StatementWithEmptyBody
         if (!(new File(FilesPath.getCasesFolder())).renameTo(new File(casesFolderNewName))) {}

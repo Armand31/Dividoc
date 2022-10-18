@@ -56,7 +56,17 @@
         <!-- https://stackoverflow.com/questions/18725396/onconfigurationchange-not-called-after-changing-locale -->
         <activity android:name=".AudioGalleryActivity" />
         <activity android:name=".ShowZipPasswordsActivity" />
+        <activity android:name=".FileSelectActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="application/zip" />
+            </intent-filter>
+        </activity>
 
+        <!-- This URI provider is used for saving images taken with the camera and for sharing zip files to other applications -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.insalyon.dividoc.fileprovider"

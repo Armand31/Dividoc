@@ -75,6 +75,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public interface ItemClickListener {
         void editCase(int position);
         void deleteCase(int position);
+        void shareCase(int adapterPosition);
     }
 
     /**
@@ -83,7 +84,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mTextView;
-        public final Button editCaseButton, deleteCaseButton;
+        public final Button editCaseButton, deleteCaseButton, shareButton;
         public File mItem;
 
         public ViewHolder(View itemView) {
@@ -93,6 +94,8 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
             editCaseButton.setOnClickListener(this::onClickEditCase);
             deleteCaseButton = itemView.findViewById(R.id.delete_case_button);
             deleteCaseButton.setOnClickListener(this::onClickDeleteCase);
+            shareButton = itemView.findViewById(R.id.share_case_button);
+            shareButton.setOnClickListener(this::onClickShareCase);
         }
 
         public void onClickEditCase(View view) {
@@ -104,6 +107,12 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
         public void onClickDeleteCase(View view) {
             if (mClickListener != null) {
                 mClickListener.deleteCase(getAdapterPosition());
+            }
+        }
+
+        public void onClickShareCase(View view) {
+            if (mClickListener != null) {
+                mClickListener.shareCase(getAdapterPosition());
             }
         }
 

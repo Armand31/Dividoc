@@ -16,4 +16,6 @@
     <color name="red_8C">#8C041D</color>
     <color name="orange_light">#F2A30F</color>
     <color name="orange_dark">#F26716</color>
+    <color name="pref_icon_light">@color/white</color>
+    <color name="pref_icon_dark">@color/black</color>
 </resources>

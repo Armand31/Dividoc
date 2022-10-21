@@ -11,5 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+
+        <item name="iconPreferenceColor">@color/pref_icon_light</item>
     </style>
 </resources>

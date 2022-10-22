@@ -1,6 +1,8 @@
 package com.insalyon.dividoc.fragments;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -113,7 +115,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
     }
 
     /**
-     * Zip the case and sends it through the ACTION_SEND Intent
+     * Zip the case and sends it through the ACTION_SEND Intent, and grant the permissions
      */
     public void shareCase(int position) {
 
@@ -129,6 +131,15 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
         shareFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareFile.setType("application/zip");
         shareFile.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(shareFile, getString(R.string.share_file)));
+        Intent chooser = Intent.createChooser(shareFile, getString(R.string.share_file));
+
+        // https://stackoverflow.com/questions/45893294/permission-denial-with-file-provider-through-intent
+        List<ResolveInfo> resInfoList = AppContext.getAppContext().getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            AppContext.getAppContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+
+        startActivity(chooser);
     }
 }

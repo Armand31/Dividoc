@@ -13,7 +13,7 @@
     <string name="select_cases_files">Fichiers</string>
     <string name="select_cases_archives">Archives</string>
     <string name="start">Démarrage</string>
-    <string name="discard_changes">Discard des modifications</string>
+    <string name="discard_changes">Ne pas enregistrer</string>
     <string name="return_button">Retour</string>
     <string name="send_button">Envoyer</string>
     <string name="confirm_export">Exportation</string>
@@ -53,7 +53,7 @@
     <string name="country_code_hint">Code pays</string>
     <string name="country_code_allowed" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="serial_number_hint">Numéro de série</string>
-    <string name="delete_label">Delete</string>
+    <string name="delete_label">Supprimer</string>
     <string name="expiration_label">Date d\'expiration du répertoire</string>
     <string name="ocdc" translatable="false">OCDC</string>
     <string name="password_label">Mot de passe du répertoire</string>
@@ -73,7 +73,7 @@
     <string name="warning">Avertissement</string>
     <string name="input_verification">Ce numéro : %s est-il correct ?\nSachez que vous ne pourrez pas le modifier ultérieurement</string>.
     <string name="invalid_ocdc">L\'OCDC n\'accepte que les lettres, les chiffres et les tirets</string>
-    <string name="cancel_changes">Les modifications ne seront pas enregistrées.</string> Voulez-vous continuer ?
+    <string name="cancel_changes">Vous quittez le cas, les modifications ne seront pas enregistrées.</string>
     <string name="cannot_create_picture_file">Erreur : Le fichier image n\'a pas pu être créé</string>
     <string name="cannot_create_pictures_dir">Erreur : Le répertoire images ne peut pas être créé</string>
     <string name="cannot_access_pictures_dir">Erreur : Le répertoire images ne peut être accédé</string>

@@ -40,4 +40,17 @@
         app:iconPadding="0dp"
         style="@style/Widget.MaterialComponents.Button" />
 
+    <Button
+        android:id="@+id/share_case_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="5dp"
+        android:minWidth="0dp"
+        app:icon="@drawable/share"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        style="@style/Widget.MaterialComponents.Button" />
+
 </LinearLayout>

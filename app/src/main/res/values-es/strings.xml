@@ -67,6 +67,7 @@
     <string name="kid">Nino</string>
     <string name="baby">Bebe</string>
     <string name="no_password">Modo Super Usuario activado. No se requiere contrasena</string>
+    <string name="share_file">Compartir archivo</string>
 
     <!-- Warnings -->
     <string name="warning">Atención!</string>

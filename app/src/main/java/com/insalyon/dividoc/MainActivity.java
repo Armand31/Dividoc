@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setButtonListeners();
         switchBetweenFilesAndArchives();
         firstFragmentsLoad();
+        deactivateExportAll();
 
         // If this is the first time the user is using the app, he has to input his serial number via the InitActivity
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -215,5 +219,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    /**
+     * Deactivates the view for exporting all cases in one click. This is an old functionality
+     */
+    private void deactivateExportAll() {
+
+        // Deletes the export all button
+        ((ViewManager)findViewById(R.id.export_file_button).getParent()).removeView(findViewById(R.id.export_file_button));
+
+        // Deletes the archives menu
+        ((ViewManager)findViewById(R.id.select_cases_archives_button).getParent()).removeView(findViewById(R.id.select_cases_archives_button));
     }
 }

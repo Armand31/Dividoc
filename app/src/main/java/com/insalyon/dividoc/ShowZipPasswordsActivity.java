@@ -20,7 +20,7 @@ public class ShowZipPasswordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_zip_passwords);
 
         // Block the screenshots and video recording
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE );
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

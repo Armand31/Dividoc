@@ -43,6 +43,7 @@
         from the use made of the software. Before using the application, it is the USER RESPONSABILITY to verify with the competent authorities
         that all collected or processed informations by the application fulfils the obligations defined by applicable law. Any non-compliance
         with those conditions excludes you from getting the application. </string>
+    <string name="password_is">Super user mode is deactivated. Your zip file is encrypted with the following password : %s\nThis password is copied to the clipboard</string>
 
     <!-- Labels and hints -->
     <string name="name">Name</string>
@@ -71,6 +72,7 @@
     <string name="baby">Baby</string>
     <string name="no_password">Super user mode activated. No password is required</string>
     <string name="share_file">Share file</string>
+    <string name="copy_password_and_proceed">Continue</string>
 
     <!-- Warnings -->
     <string name="warning">Warning</string>

@@ -1,6 +1,10 @@
 package com.insalyon.dividoc.fragments;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -12,6 +16,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -115,12 +120,39 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
     }
 
     /**
-     * Zip the case and sends it through the ACTION_SEND Intent, and grant the permissions
+     * Zip the case, then show and copy password of the archive to clipboard if super user mode is deactivated
      */
-    public void shareCase(int position) {
+    public void zipAndShowPassword(int position) {
 
         // Generating the zip file
         Zip zip = new Zip(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()), adapter.getItem(position).getName());
+
+        // Show a dialog with the password if super user mode is deactivated
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
+        if (!preferences.getBoolean("super_user_mode", true)) {
+
+            // Copying password to clipboard
+            ClipboardManager clipboard = (ClipboardManager) AppContext.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("password", zip.getPassword());
+            clipboard.setPrimaryClip(clip);
+
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
+            builder.setMessage(getResources().getString(R.string.password_is, zip.getPassword()))
+                    .setTitle(getResources().getString(R.string.warning))
+                    .setPositiveButton(getResources().getString(R.string.copy_password_and_proceed), (dialog, id) -> startActionSendActivity(zip))
+                    .setIcon(R.drawable.super_user_mode)
+                    .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {
+                    })
+                    .show();
+        } else {
+            startActionSendActivity(zip);
+        }
+    }
+
+    /**
+     * Send the generated zip file to ACTION_SEND intent through URI, after permissions were granted
+     */
+    private void startActionSendActivity(Zip zip) {
 
         // Referencing the generated zip through the URI in order to share it with the ACTION_SEND intent
         String uriString = zip.getOutputAbsolutePath(); //(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()));
@@ -141,5 +173,6 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
         }
 
         startActivity(chooser);
+
     }
 }

@@ -16,7 +16,7 @@ import java.security.SecureRandom;
 
 public class Zip {
 
-    private String outputAbsolutePath;
+    private String outputAbsolutePath, password;
     private final String filename;
     private static final String exportDir = FilesPath.getAppRootFolder() + File.separator + "export";
 
@@ -58,7 +58,7 @@ public class Zip {
             zipParameters.setPassword(password);
 
             // Saving the password and the expiration date in a custom shared preferences file, used to display information on the zip file
-            SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zipInfo", Context.MODE_PRIVATE);
+            SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = zipInfoSharedPrefs.edit();
             editor.putString(outPathWithoutExtension + "_password", password);
             editor.apply();
@@ -79,6 +79,8 @@ public class Zip {
         return outputAbsolutePath;
     }
 
+    public String getPassword() { return this.password; }
+
     /**
      * Returns a password of length size
      * @return the generated password
@@ -95,6 +97,7 @@ public class Zip {
             password.append(chars.charAt(index));
         }
 
+        this.password = password.toString();
         return password.toString();
     }
 

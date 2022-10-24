@@ -75,7 +75,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public interface ItemClickListener {
         void editCase(int position);
         void deleteCase(int position);
-        void shareCase(int adapterPosition);
+        void zipAndShowPassword(int adapterPosition);
     }
 
     /**
@@ -112,7 +112,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
 
         public void onClickShareCase(View view) {
             if (mClickListener != null) {
-                mClickListener.shareCase(getAdapterPosition());
+                mClickListener.zipAndShowPassword(getAdapterPosition());
             }
         }
 

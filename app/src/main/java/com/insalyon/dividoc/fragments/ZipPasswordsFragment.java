@@ -48,7 +48,7 @@ public class ZipPasswordsFragment extends Fragment {
      */
     public Map<String, String> getZipPasswordsList() {
 
-        SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zipInfo", Context.MODE_PRIVATE);
+        SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
         Map<String, String> passwords = new HashMap<>();
 
         // Get all entries from shared preferences file
@@ -56,7 +56,6 @@ public class ZipPasswordsFragment extends Fragment {
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             if (entry.getKey().contains("_password")) {
                 String key = (entry.getKey().substring(entry.getKey().lastIndexOf(File.separator) + 1)).replace("_password", "");
-                Log.d("zip_passwords", key + " : " + entry.getValue().toString());
                 passwords.put(key, entry.getValue().toString());
             }
         }

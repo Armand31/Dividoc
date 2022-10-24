@@ -28,7 +28,7 @@
 
     <!-- Informational and help messages -->
     <string name="tag_title">Por favor completar el formulario de identificacion de la victima</string>
-    <string name="max_photos_gallery">Numero máximo de fotos</string>
+    <string name="max_photos_gallery">Máximo %d fotos</string>
     <string name="to_help_us">Para ayudarnos</string>
     <string name="provide_file_access">Para ayudar en el proceso de identificacion de la victima se recomienda introducir la mayor cantidad de informacion posible</string>
     <string name="provide_camera">Para ayudar en el proceso de identificacion de la victima se recomienda introducir la mayor cantidad de informacion posible. Al tomar fotos del cuerpo, se facilitara el proceso de identificacion</string>
@@ -40,6 +40,7 @@
     <string name="revoked_location"> El permiso para acceder a la ubicación ha sido revocado. The location permission was revoked. Para usar la aplicacion debe activar el permiso en los ajustes del telefono</string>
     <string name="revoked_audio">El permiso para usar el microfono ha sido revocado. Para usar la aplicacion debe activar el permiso en los ajustes del telefono</string>
     <string name="terms_of_service"> Los programadores, editores y distribuidores de esta aplicación no serán responsables de ninguna reclamación derivada del uso que se haga del software. Antes de utilizar la aplicación, es responsabilidad del USUARIO verificar con las autoridades competentesque toda la información recogida o tratada por la aplicación cumple con las obligaciones definidas por la legislación aplicable. Cualquier incumplimientode dichas condiciones le excluye de la obtención de la aplicación.</string>
+    <string name="password_is">El modo de super usuario está desactivado. Su archivo zip está encriptado con la siguiente contraseña : %s\nEsta contraseña se copia en el portapapeles</string>
 
     <!-- Labels and hints -->
     <string name="name">Nombre</string>
@@ -68,6 +69,7 @@
     <string name="baby">Bebe</string>
     <string name="no_password">Modo Super Usuario activado. No se requiere contrasena</string>
     <string name="share_file">Compartir archivo</string>
+    <string name="copy_password_and_proceed">Continuar</string>
 
     <!-- Warnings -->
     <string name="warning">Atención!</string>

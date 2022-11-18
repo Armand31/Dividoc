@@ -81,6 +81,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:startIconDrawable="@drawable/tag_icon_person"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
@@ -97,6 +98,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:startIconDrawable="@drawable/tag_icon_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/location"
@@ -113,6 +115,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:startIconDrawable="@drawable/tag_icon_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/additional_information"

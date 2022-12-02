@@ -8,6 +8,7 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -151,12 +152,15 @@ public class AudioGalleryActivity extends AppCompatActivity {
      */
     private void startRecording() {
 
+        Intent recordIntent = new Intent(
+                MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
             this.recorder = new MediaRecorder();
             this.recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             this.recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             this.recorder.setOutputFile(workingAudioDirectory + File.separator + "Record_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".mp4");
-            this.recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+            this.recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
 
             try {
                 this.recorder.prepare();

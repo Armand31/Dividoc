@@ -37,7 +37,3 @@ Initiated at INSA Lyon in collaboration with the International Committee of the 
   assist with victim traceability from discovery to disposal.
 
 - **DiviX-Server** : A web server (NodeJS, VueJS, MySQL, Docker) that collects the data gathered by the Android applications and allows to filter and sort cases (victims) by age, sex, date or location, displays the cases location on a map (OpenStreetMap) and automatically extracts password-protected archives and populate the database. This sub-project is no longer maintained and was never deployed due to potential security issues that were not examined.
-
-## Timeline
-
-*End of July 2022 :* First tests in the field using Dividoc in Afghanistan (heroin overdoses due to poverty)

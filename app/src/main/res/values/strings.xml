@@ -116,9 +116,9 @@
     <string name="lang">Language</string>
     <string name="lang_info">Change application language</string>
     <string-array name="language_array">
-        <item>English</item>
-        <item>Français</item>
-        <item>Español</item>
+        <item>🇬🇧 English</item>
+        <item>🇫🇷 Français</item>
+        <item>🇪🇸 Español</item>
     </string-array>
     <string-array name="language_array_values">
         <!-- Language code cannot got '-' & must be 2 small case letter only -->

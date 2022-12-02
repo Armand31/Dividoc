@@ -8,7 +8,6 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -151,9 +150,6 @@ public class AudioGalleryActivity extends AppCompatActivity {
      * Starts the recording of the audio and save the stream in the specified file
      */
     private void startRecording() {
-
-        Intent recordIntent = new Intent(
-                MediaStore.Audio.Media.RECORD_SOUND_ACTION);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
             this.recorder = new MediaRecorder();

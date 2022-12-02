@@ -102,7 +102,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
     }
 
     /**
-     * Deletes the selected case
+     * Deletes the selected case AND the corresponding zip file
      * @param position of the item on the list
      */
     public void deleteCase(int position) {
@@ -112,6 +112,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
                 .setTitle(getResources().getString(R.string.warning))
                 .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
                     FilesPath.deleteDirectory(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()));
+                    FilesPath.deleteDirectory(Zip.exportDir + File.separator + "zip_" + adapter.getItem(position).getName() + ".zip");
                     this.onResume();
                 })
                 .setIcon(R.drawable.delete_trash)

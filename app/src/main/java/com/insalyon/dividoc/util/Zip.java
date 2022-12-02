@@ -18,7 +18,7 @@ public class Zip {
 
     private String outputAbsolutePath, password;
     private final String filename;
-    private static final String exportDir = FilesPath.getAppRootFolder() + File.separator + "export";
+    public static final String exportDir = FilesPath.getAppRootFolder() + File.separator + "export";
 
     /**
      * Public constructor, zip the given file and output the path of the result
@@ -100,5 +100,4 @@ public class Zip {
         this.password = password.toString();
         return password.toString();
     }
-
 }

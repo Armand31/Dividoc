@@ -9,9 +9,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
@@ -112,7 +114,7 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
                 .setTitle(getResources().getString(R.string.warning))
                 .setPositiveButton(getResources().getString(R.string.delete_label), (dialog, id) -> {
                     FilesPath.deleteDirectory(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()));
-                    FilesPath.deleteDirectory(Zip.exportDir + File.separator + "zip_" + adapter.getItem(position).getName() + ".zip");
+                    FilesPath.deleteDirectory( FilesPath.getExportDirectory() + File.separator + adapter.getItem(position).getName() + ".zip");
                     this.onResume();
                 })
                 .setIcon(R.drawable.delete_trash)
@@ -121,24 +123,39 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
     }
 
     /**
-     * Zip the case, then show and copy password of the archive to clipboard if super user mode is deactivated
+     * If the case have not been zipped, the case is zipped
+     * Then it shows and copy the password of the archive to the clipboard if super user mode is deactivated
      */
     public void zipAndShowPassword(int position) {
 
-        // Generating the zip file
-        Zip zip = new Zip(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()), adapter.getItem(position).getName());
+        boolean toBeZipped;
+        String password;
+        SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
+
+        // The case is not zipped if there is already a zip with a password and the user is currently in user mode, meaning we do not recreate a password
+        toBeZipped = !zipInfoSharedPrefs.contains(FilesPath.getZipPathFromName(adapter.getItem(position).getName())) || preferences.getBoolean("super_user_mode", true);
+
+        // Getting or generating the zip file
+        Zip zip = new Zip(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()), adapter.getItem(position).getName(), toBeZipped);
 
         // Show a dialog with the password if super user mode is deactivated
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
         if (!preferences.getBoolean("super_user_mode", true)) {
+
+            // Retrieves the old password if the file was already zipped as non privileged user, else retrieve password from freshly generated zip
+            if (zipInfoSharedPrefs.contains(FilesPath.getZipPathFromName(adapter.getItem(position).getName())) && !preferences.getBoolean("super_user_mode", true)) {
+                password = zipInfoSharedPrefs.getString(FilesPath.getZipPathFromName(adapter.getItem(position).getName()), "Error : Password not found");
+            } else {
+                password = zip.getPassword();
+            }
 
             // Copying password to clipboard
             ClipboardManager clipboard = (ClipboardManager) AppContext.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("password", zip.getPassword());
+            ClipData clip = ClipData.newPlainText("password", password);
             clipboard.setPrimaryClip(clip);
 
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
-            builder.setMessage(getResources().getString(R.string.password_is, zip.getPassword()))
+            builder.setMessage(getResources().getString(R.string.password_is, password))
                     .setTitle(getResources().getString(R.string.warning))
                     .setPositiveButton(getResources().getString(R.string.copy_password_and_proceed), (dialog, id) -> startActionSendActivity(zip))
                     .setIcon(R.drawable.super_user_mode)

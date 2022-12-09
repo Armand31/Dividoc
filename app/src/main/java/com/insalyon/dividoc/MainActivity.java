@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -24,9 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.insalyon.dividoc.fragments.ArchivesFragment;
 import com.insalyon.dividoc.fragments.FilesFragment;
-import com.insalyon.dividoc.fragments.ZipPasswordsFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
@@ -118,22 +114,6 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragments_frame_layout, filesFragment);
                     fragmentTransaction.commit();
 
-                } else if (checkedId == R.id.select_cases_archives_button) {
-
-                    ArchivesFragment archivesFragment = new ArchivesFragment();
-                    // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragments_frame_layout, archivesFragment);
-                    fragmentTransaction.commit();
-
-                } else if (checkedId == R.id.show_passwords_button) {
-
-                    ZipPasswordsFragment zipPasswordsFragment = new ZipPasswordsFragment();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragments_frame_layout, zipPasswordsFragment);
-                    fragmentTransaction.commit();
                 }
             }
         });
@@ -237,8 +217,5 @@ public class MainActivity extends AppCompatActivity {
 
         // Deletes the export all button
         ((ViewManager)findViewById(R.id.export_file_button).getParent()).removeView(findViewById(R.id.export_file_button));
-
-        // Deletes the archives menu
-        ((ViewManager)findViewById(R.id.select_cases_archives_button).getParent()).removeView(findViewById(R.id.select_cases_archives_button));
     }
 }

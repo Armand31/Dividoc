@@ -46,6 +46,13 @@ public class ZipEncryptionJobService extends JobService {
         // Creating a folder to put the encrypted zip, the AES key and initialization vector into it
         String oldZipPathWithoutExtension = jobParameters.getExtras().getString("zipPathWithoutExtension");
         String basename = oldZipPathWithoutExtension.substring(oldZipPathWithoutExtension.lastIndexOf(File.separator) + 1);
+
+        /* ---------------------------------------------------------------------------------
+
+            THE FILE WAS MODIFIED AND (LINE BELOW WITH GETEXPORTDIRECTORY) AND NEED A REVIEW
+
+         --------------------------------------------------------------------------------- */
+
         String encryptionFolder = FilesPath.getExportDirectory() + File.separator + basename;
         FilesPath.createDirectory(encryptionFolder,"Folder for encryption could not be created");
         String zipPathWithoutExtension = encryptionFolder + File.separator + basename;

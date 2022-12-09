@@ -73,6 +73,7 @@
     <string name="no_password">Super user mode activated. No password is required</string>
     <string name="share_file">Share file</string>
     <string name="copy_password_and_proceed">Continue</string>
+    <string name="passwords">Passwords</string>
 
     <!-- Warnings -->
     <string name="warning">Warning</string>

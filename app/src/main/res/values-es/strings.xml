@@ -57,7 +57,7 @@
     <string name="delete_label">Borrar</string>
     <string name="expiration_label">Fecha de expiracion del directorio</string>
     <string name="ocdc" translatable="false">OCDC</string>
-    <string name="password_label">Contrasena del directorio</string>
+    <string name="password_label">Contraseña del directorio</string>
     <string name="zip_path_label">Ruta al archivo ZIP</string>
     <string name="recording">Grabando…</string>
     <string name="man">Hombre</string>
@@ -67,9 +67,10 @@
     <string name="teenager">Adolescente</string>
     <string name="kid">Nino</string>
     <string name="baby">Bebe</string>
-    <string name="no_password">Modo Super Usuario activado. No se requiere contrasena</string>
+    <string name="no_password">Modo Super Usuario activado. No se requiere contraseña</string>
     <string name="share_file">Compartir archivo</string>
     <string name="copy_password_and_proceed">Continuar</string>
+    <string name="passwords">Contraseñas</string>
 
     <!-- Warnings -->
     <string name="warning">Atención!</string>
@@ -111,7 +112,7 @@
     <string name="super_user_mode_info">Desactivar la proteccion de contrasena para los files en modo zip</string>
     <string name="lang">Idioma</string>
     <string name="lang_info">Cambia la lengua de la aplicacion</string>
-    <string name="show_zip_passwords">Mostrar contrasena para zip</string>
+    <string name="show_zip_passwords">Mostrar contraseña para zip</string>
 
     <!-- Other -->
     <string name="ocdc_default_value" translatable="false">0</string>

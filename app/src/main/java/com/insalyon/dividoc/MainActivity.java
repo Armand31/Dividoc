@@ -26,6 +26,7 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.insalyon.dividoc.fragments.ArchivesFragment;
 import com.insalyon.dividoc.fragments.FilesFragment;
+import com.insalyon.dividoc.fragments.ZipPasswordsFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;
@@ -112,19 +113,27 @@ public class MainActivity extends AppCompatActivity {
 
                     FilesFragment filesFragment = new FilesFragment();
                     // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
-                    FragmentManager frag_man = getSupportFragmentManager();
-                    FragmentTransaction frag_trans = frag_man.beginTransaction();
-                    frag_trans.replace(R.id.fragments_frame_layout, filesFragment);
-                    frag_trans.commit();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragments_frame_layout, filesFragment);
+                    fragmentTransaction.commit();
 
                 } else if (checkedId == R.id.select_cases_archives_button) {
 
                     ArchivesFragment archivesFragment = new ArchivesFragment();
                     // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
-                    FragmentManager frag_man = getSupportFragmentManager();
-                    FragmentTransaction frag_trans = frag_man.beginTransaction();
-                    frag_trans.replace(R.id.fragments_frame_layout, archivesFragment);
-                    frag_trans.commit();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragments_frame_layout, archivesFragment);
+                    fragmentTransaction.commit();
+
+                } else if (checkedId == R.id.show_passwords_button) {
+
+                    ZipPasswordsFragment zipPasswordsFragment = new ZipPasswordsFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragments_frame_layout, zipPasswordsFragment);
+                    fragmentTransaction.commit();
                 }
             }
         });

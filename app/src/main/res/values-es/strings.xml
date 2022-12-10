@@ -74,7 +74,7 @@
 
     <!-- Warnings -->
     <string name="warning">Atención!</string>
-    <string name="input_verification">El numero introducido es correcto? Recuerde que no podra cambiarlo luego</string>
+    <string name="input_verification">El numero introducido %s es correcto ? Recuerde que no podra cambiarlo luego</string>
     <string name="invalid_ocdc">OCDC acepta solo letras, numeros y guiones</string>
     <string name="cancel_changes">Los cambios no seran guardados. Desea continuar?</string>
     <string name="cannot_create_picture_file">Error : Un fichero fotografico no pudo ser creado</string>

@@ -1,6 +1,7 @@
 package com.insalyon.dividoc;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -144,6 +145,7 @@ public class InitActivity extends AppCompatActivity {
      * Ask to the user for confirmation of his input (country code and serial number). If he
      * confirms, the user is now asked for permissions
      */
+    @SuppressLint("StringFormatInvalid")
     private void confirmSerialNumber() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -2,7 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: ["workflow"]
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch: # Manual trigger
 
 jobs:

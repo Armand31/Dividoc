@@ -44,6 +44,7 @@
         that all collected or processed informations by the application fulfils the obligations defined by applicable law. Any non-compliance
         with those conditions excludes you from getting the application. </string>
     <string name="password_is">Super user mode is deactivated. Your zip file is encrypted with the following password : %s\nThis password is copied to the clipboard</string>
+    <string name="password_was_copied_to_clipboard">The password was copied to the clipboard</string>
 
     <!-- Labels and hints -->
     <string name="name">Name</string>

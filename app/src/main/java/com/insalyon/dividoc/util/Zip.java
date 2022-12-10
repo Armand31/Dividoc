@@ -16,19 +16,31 @@ import java.security.SecureRandom;
 
 public class Zip {
 
-    private String outputAbsolutePath, password;
+    private final String outputAbsolutePath;
+    private String password;
     private final String filename;
-    public static final String exportDir = FilesPath.getAppRootFolder() + File.separator + "export";
 
     /**
      * Public constructor, zip the given file and output the path of the result
      * @param folderToZipAbsolutePath the path of the file / folder to zip
      */
-    public Zip(String folderToZipAbsolutePath, String inputFilename) {
+    public Zip(String folderToZipAbsolutePath, String inputFilename, boolean toBeZipped) {
 
         this.filename = inputFilename;
+        this.outputAbsolutePath = setOutputAbsolutePath();
 
-        zipFolder(folderToZipAbsolutePath);
+        if (toBeZipped) {
+            zipFolder(folderToZipAbsolutePath);
+        }
+    }
+
+    /**
+     * Sets the output path for the zipped file
+     * @return the output path of the zipped file
+     * TODO : Factorize with com.insalyon.dividoc.util.FilesPath#getZipPathFromName(java.lang.String)
+     */
+    private String setOutputAbsolutePath() {
+        return FilesPath.getExportDirectory() + File.separator + this.filename + ".zip";
     }
 
     /**
@@ -38,8 +50,7 @@ public class Zip {
     private void zipFolder(String folderToZipAbsolutePath) {
 
         // Creating the zip file (empty)
-        FilesPath.createDirectory(Zip.exportDir, "The export directory cannot be created. Aborting...");
-        String outPathWithoutExtension = Zip.exportDir + File.separator + "zip_" + this.filename;
+        FilesPath.createDirectory(FilesPath.getExportDirectory(), "The export directory cannot be created. Aborting...");
 
         // Setting compression for the zipped file
         ZipParameters zipParameters = new ZipParameters();
@@ -60,14 +71,13 @@ public class Zip {
             // Saving the password and the expiration date in a custom shared preferences file, used to display information on the zip file
             SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = zipInfoSharedPrefs.edit();
-            editor.putString(outPathWithoutExtension + "_password", password);
+            editor.putString(this.getOutputAbsolutePath(), password);
             editor.apply();
         }
 
         // Zipping the folder
         try {
-            this.outputAbsolutePath = outPathWithoutExtension + ".zip";
-            ZipFile zipFile = new ZipFile(this.outputAbsolutePath);
+            ZipFile zipFile = new ZipFile(this.getOutputAbsolutePath());
             zipFile.addFolder(folderToZipAbsolutePath, zipParameters);
         } catch (ZipException e) {
             e.printStackTrace();

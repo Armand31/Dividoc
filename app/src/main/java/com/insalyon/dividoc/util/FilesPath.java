@@ -23,7 +23,9 @@ public class FilesPath extends AppCompatActivity {
     private static final String htmlDataFile = "index.html";
 
     // Download directory / App name folder
-    private static final String exportDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + AppContext.getAppContext().getString(AppContext.getAppContext().getApplicationInfo().labelRes);
+    //private static final String downloadDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + AppContext.getAppContext().getString(AppContext.getAppContext().getApplicationInfo().labelRes);
+
+    private static final String exportDirectory = getAppRootFolder() + File.separator + "export";
 
     public static String getAppRootFolder() { return appRootFolder; }
 
@@ -57,9 +59,11 @@ public class FilesPath extends AppCompatActivity {
         return getCasesFolder() + File.separator + caseString + File.separator + "audios";
     }
 
+    //public static String getDownloadDirectory() { return downloadDirectory; }
+
     public static String getExportDirectory() { return exportDirectory; }
 
-    public static String getZipPathFromName(String zipName) { return  exportDirectory + File.separator + zipName; }
+    public static String getZipPathFromName(String zipName) { return  getExportDirectory() + File.separator + zipName + ".zip"; }
 
     /**
      * Create a new directory

@@ -44,6 +44,13 @@ public class TransferActivity extends AppCompatActivity {
     private static final int PASSWORD_LENGTH = 12;
     private static final int ENC_TIME = 24 * 60 * 60 * 1000; // Hours * Minutes * Seconds * Milliseconds
 
+
+    /* ---------------------------------------------------------------------------------
+
+        THE FILE WAS MODIFIED AND (LINES 158 AND 187 WITH GETEXPORTDIRECTORY) AND NEED A REVIEW
+
+     --------------------------------------------------------------------------------- */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

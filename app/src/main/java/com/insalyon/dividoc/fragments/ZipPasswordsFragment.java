@@ -76,9 +76,7 @@ public class ZipPasswordsFragment extends Fragment implements ZipPasswordsFragme
 
         // By going in order of indexes from indexedFromVSN, we result in putting the good order in the final map
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            indexedFromVSN.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> {
-                passwords.put(entry.getValue().substring(entry.getValue().lastIndexOf(File.separator) + 1), Objects.requireNonNull(allEntries.get(entry.getValue())).toString());
-            });
+            indexedFromVSN.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> passwords.put(entry.getValue().substring(entry.getValue().lastIndexOf(File.separator) + 1), Objects.requireNonNull(allEntries.get(entry.getValue())).toString()));
         }
 
         return passwords;

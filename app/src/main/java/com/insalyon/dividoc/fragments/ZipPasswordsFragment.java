@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * Fragment class : https://developer.android.com/guide/fragments
@@ -49,19 +52,33 @@ public class ZipPasswordsFragment extends Fragment implements ZipPasswordsFragme
     }
 
     /**
-     * Get the list of passwords
-     * @return the list of passwords (List<File> Object)
+     * Get the list of passwords, sorted by VSN
+     * @return the list of the zip file / password pairs
      */
     public LinkedHashMap<String, String> getZipPasswordsList() {
 
         SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
-        LinkedHashMap<String, String> passwords = new LinkedHashMap<>();
+        LinkedHashMap<String, String> passwords = new LinkedHashMap<>(); // Final map
+        Map<Integer, String> indexedFromVSN = new HashMap<>(); // Used to keep track of the index of each file according to the VSN
 
         // Get all entries from shared preferences file
         Map<String, ?> allEntries = zipInfoSharedPrefs.getAll();
+
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             String key = (entry.getKey().substring(entry.getKey().lastIndexOf(File.separator) + 1));
-            passwords.put(key, entry.getValue().toString());
+
+            // Getting VSN number from file name and put it in the indexedFromVSN map
+            String indexString = key.replace(".zip", "").substring(key.indexOf("_") + 1);
+            int index = Integer.parseInt(indexString.substring(0, indexString.indexOf("_")));
+
+            indexedFromVSN.put(index, entry.getKey());
+        }
+
+        // By going in order of indexes from indexedFromVSN, we result in putting the good order in the final map
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            indexedFromVSN.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> {
+                passwords.put(entry.getValue().substring(entry.getValue().lastIndexOf(File.separator) + 1), Objects.requireNonNull(allEntries.get(entry.getValue())).toString());
+            });
         }
 
         return passwords;

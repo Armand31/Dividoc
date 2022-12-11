@@ -3,41 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/list_audio_text_view"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="4"
-        android:textSize="20sp"
-        android:gravity="center_vertical" />
-
-    <Button
-        android:id="@+id/play_audio"
-        android:layout_width="wrap_content"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_margin="5dp"
-        android:minWidth="0dp"
-        app:icon="@drawable/play"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        style="@style/Widget.MaterialComponents.Button" />
+        android:layout_width="match_parent"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/delete_audio_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_margin="5dp"
-        android:minWidth="0dp"
-        app:icon="@drawable/delete_trash"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        style="@style/Widget.MaterialComponents.Button" />
+        <TextView
+            android:id="@+id/list_audio_text_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="4"
+            android:textSize="20sp"
+            android:gravity="center_vertical" />
+
+        <Button
+            android:id="@+id/play_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_margin="5dp"
+            android:minWidth="0dp"
+            app:icon="@drawable/play"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            style="@style/Widget.MaterialComponents.Button" />
+
+        <Button
+            android:id="@+id/delete_audio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_margin="5dp"
+            android:minWidth="0dp"
+            app:icon="@drawable/delete_trash"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            style="@style/Widget.MaterialComponents.Button" />
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

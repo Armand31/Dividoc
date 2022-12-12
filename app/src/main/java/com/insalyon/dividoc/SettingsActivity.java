@@ -68,11 +68,24 @@ public class SettingsActivity extends AppCompatActivity {
     public static void setTheme() {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
-        boolean darkMode = sharedPreferences.getBoolean("dark_mode", false);
 
         if (!sharedPreferences.contains("FirstStart") || !sharedPreferences.contains("dark_mode")) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if (darkMode) {
+
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+
+            // Retrieving the system theme in order to set the dark_mode preferences boolean, correcting a bug
+            switch (AppContext.getAppContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                    preferencesEditor.putBoolean("dark_mode", true);
+                    break;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    preferencesEditor.putBoolean("dark_mode", false);
+                    break;
+            }
+
+            preferencesEditor.apply();
+
+        } else if (sharedPreferences.getBoolean("dark_mode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

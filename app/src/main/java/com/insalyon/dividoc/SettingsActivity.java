@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -102,6 +103,17 @@ public class SettingsActivity extends AppCompatActivity {
         // Getting the selected language
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String lang = sharedPreferences.getString("lang", "en");
+
+        // If lang was not changed yet or if auto was selected
+        if (!sharedPreferences.contains("lang") || lang.equals("auto")) {
+
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+            preferencesEditor.putString("lang", "auto");
+            preferencesEditor.apply();
+
+            lang = String.valueOf(Resources.getSystem().getConfiguration().locale).substring(0, 2); // Get system language
+            Log.d("LangTest", "Locale is : " + String.valueOf(Resources.getSystem().getConfiguration().locale).substring(0, 2));
+        }
 
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);

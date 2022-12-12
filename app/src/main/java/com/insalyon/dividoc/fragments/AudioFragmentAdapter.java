@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.insalyon.dividoc.R;
+import com.insalyon.dividoc.util.AppContext;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,7 +53,8 @@ public class AudioFragmentAdapter extends RecyclerView.Adapter<AudioFragmentAdap
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.mItem = audioList.get(position);
-        holder.mTextView.setText(audioList.get(position).getName());
+        String display = AppContext.getAppContext().getString(R.string.audio) + " " + position;
+        holder.mTextView.setText(display);
         playButton.add(holder.playButton);
     }
 

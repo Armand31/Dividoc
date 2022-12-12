@@ -71,6 +71,7 @@
     <string name="no_password">Mode super utilisateur activé. Aucun mot de passe n\'est requis.</string>
     <string name="share_file">Partager le fichier</string>
     <string name="copy_password_and_proceed">Continuer</string>
+    <string name="audio">Audio</string>
 
     <!-- Avertissements -->
     <string name="warning">Avertissement</string>

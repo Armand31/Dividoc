@@ -194,7 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/ocdc"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
 
                     <com.google.android.material.textfield.TextInputEditText

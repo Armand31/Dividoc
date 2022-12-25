@@ -1,4 +1,4 @@
-package com.insalyon.dividoc.fragments;
+package com.insalyon.dividoc.fragments.files;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -9,11 +9,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;

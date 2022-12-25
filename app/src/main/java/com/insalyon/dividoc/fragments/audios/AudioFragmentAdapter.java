@@ -1,8 +1,4 @@
-/*
- * https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example/40584425#40584425
- */
-
-package com.insalyon.dividoc.fragments;
+package com.insalyon.dividoc.fragments.audios;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.insalyon.dividoc.R;
+import com.insalyon.dividoc.util.AppContext;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.insalyon.dividoc.R;
+public class AudioFragmentAdapter extends RecyclerView.Adapter<AudioFragmentAdapter.ViewHolder> {
 
-public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdapter.ViewHolder> {
+    private final List<File> audioList;
+    private final List<Button> playButton;
+    private AudioFragmentAdapter.ItemClickListener mClickListener;
 
-    private final List<File> casesList;
-    private ItemClickListener mClickListener;
+    public AudioFragmentAdapter(List<File> audioList) {
 
-    public FilesFragmentAdapter(List<File> casesList) {
-
-        this.casesList = casesList;
+        this.audioList = audioList;
+        playButton = new ArrayList<>();
     }
 
     /**
@@ -38,7 +38,7 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_cases, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_audio, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,17 +52,24 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.mItem = casesList.get(position);
-        holder.mTextView.setText(casesList.get(position).getName());
+        holder.mItem = audioList.get(position);
+        String display = AppContext.getAppContext().getString(R.string.audio) + " " + position;
+        holder.mTextView.setText(display);
+        playButton.add(holder.playButton);
     }
 
     @Override
     public int getItemCount() {
-        return this.casesList.size();
+        return audioList.size();
     }
 
     File getItem(int id) {
-        return casesList.get(id);
+        return audioList.get(id);
+    }
+
+    public Button getPlayButton(int id) {
+
+        return playButton.get(id);
     }
 
     void setClickListener(ItemClickListener itemClickListener) {
@@ -73,9 +80,8 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
      * Interface for an item click listener
      */
     public interface ItemClickListener {
-        void editCase(int position);
-        void deleteCase(int position);
-        void zipAndShowPassword(int adapterPosition);
+        void startAudio(int position);
+        void deleteAudio(int position);
     }
 
     /**
@@ -84,35 +90,27 @@ public class FilesFragmentAdapter extends RecyclerView.Adapter<FilesFragmentAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mTextView;
-        public final Button editCaseButton, deleteCaseButton, shareButton;
+        public final Button playButton, deleteButton;
         public File mItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.list_fragment_text_view);
-            editCaseButton = itemView.findViewById(R.id.edit_case_button);
-            editCaseButton.setOnClickListener(this::onClickEditCase);
-            deleteCaseButton = itemView.findViewById(R.id.delete_case_button);
-            deleteCaseButton.setOnClickListener(this::onClickDeleteCase);
-            shareButton = itemView.findViewById(R.id.share_case_button);
-            shareButton.setOnClickListener(this::onClickShareCase);
+            mTextView = itemView.findViewById(R.id.list_audio_text_view);
+            playButton = itemView.findViewById(R.id.play_audio);
+            playButton.setOnClickListener(this::onClickPlayAudio);
+            deleteButton = itemView.findViewById(R.id.delete_audio_button);
+            deleteButton.setOnClickListener(this::onClickDeleteAudio);
         }
 
-        public void onClickEditCase(View view) {
+        public void onClickPlayAudio(View view) {
             if (mClickListener != null) {
-                mClickListener.editCase(getAdapterPosition());
+                mClickListener.startAudio(getAdapterPosition());
             }
         }
 
-        public void onClickDeleteCase(View view) {
+        public void onClickDeleteAudio(View view) {
             if (mClickListener != null) {
-                mClickListener.deleteCase(getAdapterPosition());
-            }
-        }
-
-        public void onClickShareCase(View view) {
-            if (mClickListener != null) {
-                mClickListener.zipAndShowPassword(getAdapterPosition());
+                mClickListener.deleteAudio(getAdapterPosition());
             }
         }
 

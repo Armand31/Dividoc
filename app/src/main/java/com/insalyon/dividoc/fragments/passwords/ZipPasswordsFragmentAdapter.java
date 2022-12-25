@@ -1,4 +1,4 @@
-package com.insalyon.dividoc.fragments;
+package com.insalyon.dividoc.fragments.passwords;
 
 import android.text.Html;
 import android.view.LayoutInflater;

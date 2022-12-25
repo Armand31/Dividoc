@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.insalyon.dividoc.fragments.FilesFragment;
+import com.insalyon.dividoc.fragments.files.FilesFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
 import java.io.File;

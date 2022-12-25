@@ -21,7 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.color.MaterialColors;
-import com.insalyon.dividoc.fragments.AudioFragment;
+import com.insalyon.dividoc.fragments.audios.AudioFragment;
 import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 

@@ -1,4 +1,4 @@
-package com.insalyon.dividoc.fragments;
+package com.insalyon.dividoc.fragments.audios;
 
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.insalyon.dividoc.MainActivity;
 import com.insalyon.dividoc.R;
+import com.insalyon.dividoc.fragments.files.FilesFragmentAdapter;
 import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 

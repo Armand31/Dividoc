@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.insalyon.dividoc.fragments.ZipPasswordsFragment;
+import com.insalyon.dividoc.fragments.passwords.ZipPasswordsFragment;
 
 import java.util.Objects;
 

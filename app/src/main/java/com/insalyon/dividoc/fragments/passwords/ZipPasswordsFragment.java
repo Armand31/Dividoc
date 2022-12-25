@@ -1,4 +1,4 @@
-package com.insalyon.dividoc.fragments;
+package com.insalyon.dividoc.fragments.passwords;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.insalyon.dividoc.R;
+import com.insalyon.dividoc.fragments.files.FilesFragmentAdapter;
 import com.insalyon.dividoc.util.AppContext;
 import com.insalyon.dividoc.util.FilesPath;
 
@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * Fragment class : https://developer.android.com/guide/fragments

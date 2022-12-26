@@ -28,7 +28,7 @@ jobs:
 #         uses: android-actions/setup-android@v2
 
       - name: Set up keystore file
-        run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > dividoc-release-key.jks
+        run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > upload-keystore.jks
 
       - name: Set up keystore properties
         run: echo "${{ secrets.KEYSTORE_PROPERTIES }}" | base64 --decode > keystore.properties

@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -92,7 +93,8 @@ public class TagActivity extends AppCompatActivity {
             }, 1, getString(R.string.revoked_camera));
 
             // Verify storage permission to ensure correct execution of the code
-            verifyPermission(Manifest.permission.READ_EXTERNAL_STORAGE, getResources().getString(R.string.provide_file_access), () -> {}, () -> {
+            String permission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
+            verifyPermission(permission, getResources().getString(R.string.provide_file_access), () -> {}, () -> {
                 FilesPath.deleteDirectory(this.workingDirectory);
                 this.finish();
             }, 2, getString(R.string.revoked_file_access));

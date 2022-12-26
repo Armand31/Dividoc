@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -112,7 +111,6 @@ public class SettingsActivity extends AppCompatActivity {
             preferencesEditor.apply();
 
             lang = String.valueOf(Resources.getSystem().getConfiguration().locale).substring(0, 2); // Get system language
-            Log.d("LangTest", "Locale is : " + String.valueOf(Resources.getSystem().getConfiguration().locale).substring(0, 2));
         }
 
         Locale locale = new Locale(lang);

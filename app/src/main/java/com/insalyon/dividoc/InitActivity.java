@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -208,11 +209,21 @@ public class InitActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_MEDIA_AUDIO,
-                Manifest.permission.READ_MEDIA_IMAGES
         };
 
-        ActivityCompat.requestPermissions(this, permissions, 1);
+        // Granular permission for SDK >= 33
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+            String[] permissions2 = new String[permissions.length + 2];
+            System.arraycopy(permissions, 0, permissions2, 0, permissions.length);
+
+            permissions2[permissions2.length - 1] = Manifest.permission.READ_MEDIA_IMAGES;
+            permissions2[permissions2.length - 2] = Manifest.permission.READ_MEDIA_AUDIO;
+
+            ActivityCompat.requestPermissions(this, permissions2, 1);
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, 1);
+        }
 
         InitActivity.this.finish();
     }

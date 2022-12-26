@@ -87,3 +87,6 @@ lint/tmp/
 
 # Release folder
 app/release/
+
+keystore.properties
+*.jks

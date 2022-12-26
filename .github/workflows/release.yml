@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    
+    steps :
+    
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Setup JDK
+        uses: actions/setup-java@v3.9.0
+        with:
+          distribution: 'temurin' 
+          java-version: '17'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+#       - name: Setup Android SDK
+#         uses: android-actions/setup-android@v2
+
+      - name: Set up keystore file
+        run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > dividoc-release-key.jks
+
+      - name: Set up keystore properties
+        run: echo "${{ secrets.KEYSTORE_PROPERTIES }}" | base64 --decode > keystore.properties
+        
+      - name: Build Release APK with Gradle
+        run: ./gradlew assembleRelease
+        
+      - name: Rename release APK
+        run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/Dividoc.apk
+        
+      - name: Upload Release APK
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/outputs/apk/release/Dividoc.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}

@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
         applyPreferences();
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Block the screenshots and video recording

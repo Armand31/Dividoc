@@ -25,9 +25,13 @@ information registered during the burial/disposal process.
 
 ## Supervisors
 
+**Armand Prioreschi** : Main developer and student at INSA Lyon, in telecommunications and networking - [Contact : armand.prioreschi@insa-lyon.fr](mailto:armand.prioreschi@insa-lyon.fr)
+
 **Jose Pablo Baraybar Do Carmo** : Conceiver of the project, Ph.D., anthropologist at the International Committee of the Red Cross (ICRC) - Paris Regional Delegation, Forensic Department - [Contact : jpbaraybar@icrc.org](mailto:jpbaraybar@icrc.org)
 
 **Pierre François** : Student supervisor, Ph.D., researcher and professor at INSA Lyon - [Contact : pierre.francois@insa-lyon.fr](mailto:pierre.francois@insa-lyon.fr)
+
+**Former collaborators** : The list of former contributors is available in the [AUTHORS](AUTHORS) file.
 
 ## More about the project :
 

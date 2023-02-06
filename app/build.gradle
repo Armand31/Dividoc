@@ -17,8 +17,8 @@ android {
         applicationId "com.insalyon.dividoc"
         minSdk 23
         targetSdk 33
-        versionCode 1
-        versionName "0.9"
+        versionCode 2
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

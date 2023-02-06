@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                 .setDisplay(Display.DIALOG)
                 .setUpdateFrom(UpdateFrom.GITHUB)
                 .setGitHubUserAndRepo("Armand31", "Dividoc")
-                .showAppUpdated(true)
                 .setTitleOnUpdateAvailable(getString(R.string.update_title))
                 .setContentOnUpdateAvailable(getString(R.string.update_body))
                 .setTitleOnUpdateNotAvailable(getString(R.string.no_update_title))

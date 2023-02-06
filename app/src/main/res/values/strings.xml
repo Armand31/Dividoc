@@ -135,4 +135,12 @@
     <!-- Other -->
     <string name="ocdc_default_value" translatable="false">0</string>
 
+    <!-- Update -->
+    <string name="update_title">Update available</string>
+    <string name="update_body">A new version of Dividoc is available. It is extending functionalities and correcting bugs. Would you like to install it ?</string>
+    <string name="no_update_title">Dividoc is up to date</string>
+    <string name="no_update_body">No update available. Check for update later.</string>
+    <string name="update_confirm">Update now</string>
+    <string name="update_deny">Later</string>
+
 </resources>

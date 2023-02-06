@@ -422,6 +422,7 @@ public class TagActivity extends AppCompatActivity {
                     }
                     finish();
                 })
+                .setIcon(R.drawable.delete_trash)
                 .setNegativeButton(getString(android.R.string.cancel), (dialogInterface, i) -> {})
                 .show();
     }

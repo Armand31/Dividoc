@@ -118,4 +118,12 @@
     <!-- Other -->
     <string name="ocdc_default_value" translatable="false">0</string>
 
+    <!-- Update -->
+    <string name="update_title">Actualización disponible</string>
+    <string name="update_body">Ya está disponible una nueva versión de Dividoc. Está ampliando funcionalidades y corrigiendo errores. ¿Desea instalarla?</string>
+    <string name="no_update_title">Dividoc está al día</string>
+    <string name="no_update_body">No hay actualizaciones disponibles. Compruebe si hay actualizaciones más tarde.</string>
+    <string name="update_confirm">Actualizar ahora</string>
+    <string name="update_deny">Más tarde</string>
+
 </resources>

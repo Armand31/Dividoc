@@ -21,6 +21,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.Display;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.insalyon.dividoc.fragments.files.FilesFragment;
 import com.insalyon.dividoc.util.FilesPath;
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        searchForUpdate();
     }
 
     /**
@@ -155,6 +160,24 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "There is no file to export", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void searchForUpdate() {
+
+        AppUpdater appUpdater = new AppUpdater(this)
+                .setDisplay(Display.DIALOG)
+                .setUpdateFrom(UpdateFrom.GITHUB)
+                .setGitHubUserAndRepo("Armand31", "Dividoc")
+                .showAppUpdated(true)
+                .setTitleOnUpdateAvailable(getString(R.string.update_title))
+                .setContentOnUpdateAvailable(getString(R.string.update_body))
+                .setTitleOnUpdateNotAvailable(getString(R.string.no_update_title))
+                .setContentOnUpdateNotAvailable(getString(R.string.no_update_body))
+                .setButtonUpdate(getString(R.string.update_confirm))
+                .setButtonDismiss(getString(R.string.update_deny))
+                .setButtonDoNotShowAgain(null)
+                .setCancelable(false);
+        appUpdater.start();
     }
 
     /**

@@ -67,8 +67,9 @@ public class ZipPasswordsFragment extends Fragment implements ZipPasswordsFragme
             String key = (entry.getKey().substring(entry.getKey().lastIndexOf(File.separator) + 1));
 
             // Getting VSN number from file name and put it in the indexedFromVSN map
-            String indexString = key.replace(".zip", "").substring(key.indexOf("_") + 1);
-            int index = Integer.parseInt(indexString.substring(0, indexString.indexOf("_")));
+            String indexString = key.substring(key.indexOf("_") + 1);
+            //int index = Integer.parseInt(indexString.substring(0, indexString.indexOf("_")));
+            int index = Integer.parseInt(indexString);
 
             indexedFromVSN.put(index, entry.getKey());
         }
@@ -87,7 +88,9 @@ public class ZipPasswordsFragment extends Fragment implements ZipPasswordsFragme
     public void copyPasswordToClipboard(int position) {
 
         SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
-        String password = zipInfoSharedPrefs.getString(FilesPath.getZipPathFromName(adapter.getItem(position).replace(".zip", "")), "Copy error");
+        String alreadyZippedName = FilesPath.getZipPathFromName(adapter.getItem(position));
+        String alreadyZippedePathOCDCCropped = alreadyZippedName.replace(".zip", "");
+        String password = zipInfoSharedPrefs.getString(alreadyZippedePathOCDCCropped, "Copy error");
 
         // Copying password to clipboard
         ClipboardManager clipboard = (ClipboardManager) AppContext.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);

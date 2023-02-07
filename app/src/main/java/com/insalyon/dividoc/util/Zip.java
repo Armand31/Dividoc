@@ -19,6 +19,7 @@ public class Zip {
     private final String outputAbsolutePath;
     private String password;
     private final String filename;
+    private final String outputAbsolutePathOCDCCropped;
 
     /**
      * Public constructor, zip the given file and output the path of the result
@@ -28,6 +29,7 @@ public class Zip {
 
         this.filename = inputFilename;
         this.outputAbsolutePath = setOutputAbsolutePath();
+        this.outputAbsolutePathOCDCCropped = outputAbsolutePath.substring(0, outputAbsolutePath.indexOf("_", outputAbsolutePath.indexOf("_") + 1));
 
         if (toBeZipped) {
             zipFolder(folderToZipAbsolutePath);
@@ -71,7 +73,7 @@ public class Zip {
             // Saving the password and the expiration date in a custom shared preferences file, used to display information on the zip file
             SharedPreferences zipInfoSharedPrefs = AppContext.getAppContext().getSharedPreferences("zip_passwords", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = zipInfoSharedPrefs.edit();
-            editor.putString(this.getOutputAbsolutePath(), password);
+            editor.putString(this.getOutputAbsolutePathOCDCCropped(), password);
             editor.apply();
         }
 
@@ -88,6 +90,8 @@ public class Zip {
     public String getOutputAbsolutePath() {
         return outputAbsolutePath;
     }
+
+    public String getOutputAbsolutePathOCDCCropped() { return outputAbsolutePathOCDCCropped; }
 
     public String getPassword() { return this.password; }
 

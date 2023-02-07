@@ -132,7 +132,9 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AppContext.getAppContext());
 
         // The case is not zipped if there is already a zip with a password and the user is currently in user mode, meaning we do not recreate a password
-        toBeZipped = !zipInfoSharedPrefs.contains(FilesPath.getZipPathFromName(adapter.getItem(position).getName())) || preferences.getBoolean("super_user_mode", true);
+        String alreadyZippedName = FilesPath.getZipPathFromName(adapter.getItem(position).getName());
+        String alreadyZippedePathOCDCCropped = alreadyZippedName.substring(0, alreadyZippedName.indexOf("_", alreadyZippedName.indexOf("_") + 1));
+        toBeZipped = !zipInfoSharedPrefs.contains(alreadyZippedePathOCDCCropped) || preferences.getBoolean("super_user_mode", true);
 
         // Getting or generating the zip file
         Zip zip = new Zip(FilesPath.getCaseAbsolutePath(adapter.getItem(position).getName()), adapter.getItem(position).getName(), toBeZipped);
@@ -141,8 +143,8 @@ public class FilesFragment extends Fragment implements FilesFragmentAdapter.Item
         if (!preferences.getBoolean("super_user_mode", true)) {
 
             // Retrieves the old password if the file was already zipped as non privileged user, else retrieve password from freshly generated zip
-            if (zipInfoSharedPrefs.contains(FilesPath.getZipPathFromName(adapter.getItem(position).getName())) && !preferences.getBoolean("super_user_mode", true)) {
-                password = zipInfoSharedPrefs.getString(FilesPath.getZipPathFromName(adapter.getItem(position).getName()), "Error : Password not found");
+            if (zipInfoSharedPrefs.contains(alreadyZippedePathOCDCCropped) && !preferences.getBoolean("super_user_mode", true)) {
+                password = zipInfoSharedPrefs.getString(alreadyZippedePathOCDCCropped, "Error : Password not found");
             } else {
                 password = zip.getPassword();
             }

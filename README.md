@@ -8,11 +8,14 @@
   
 </div>
 
-**Disaster Victim Documentation** is an Android app designed to assist with the documentation of dead bodies
-in the field. The application produces a password-secured archive containing basic
+**Disaster Victim Documentation** is an Android  app designed to assist the documentation of dead bodies in war, disaster and migration areas. The application produces a zip file containing basic
 information collected by the first responder, namely a set of pictures of the body associated
 with its geolocation, as well as a unique identification tag allowing correlation with the
 information registered during the burial/disposal process.
+
+The zip file can be protected by a password or not. The user has 24 hours to send it over a communication channel (Whatsapp, mail, Discord, Telegram, ...), otherwise, the zip file will be encrypted and should be send to a competent authority for decryption.
+
+The process of decryption is explained in the documentation, under [documentation/file_decryption](documentation/file_decryption).
 
 <p align="center">
 <i>Screenshots of Dividoc, from left to right : Main menu, victim identification form and photo gallery view</i>
@@ -23,7 +26,7 @@ information registered during the burial/disposal process.
   <img src="/documentation/images/photo_gallery_view.png" width="200" />
 </p>
 
-## Supervisors
+## Contributors
 
 **Armand Prioreschi** : Main developer and student at INSA Lyon, in telecommunications and networking - [Contact : armand.prioreschi@insa-lyon.fr](mailto:armand.prioreschi@insa-lyon.fr)
 

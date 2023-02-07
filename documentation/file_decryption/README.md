@@ -1,5 +1,7 @@
 Zipped files are encrypted using AES algorithm. The key and the initialization vector that are used for AES encryption and decryption are encrypted with RSA. Here are the commands to decrypt the zipped files, using the OpenSSL library.
 
+First, you need the OpenSSL library that you can download at [https://www.openssl.org/source/](https://www.openssl.org/source/).
+
 ## Decrypt the AES key using RSA
 
 Encrypted RSA key is located in the <zipFileName>.key file

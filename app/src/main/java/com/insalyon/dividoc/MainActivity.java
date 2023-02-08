@@ -25,6 +25,7 @@ import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.insalyon.dividoc.fragments.encrypted.EncryptedFragment;
 import com.insalyon.dividoc.fragments.files.FilesFragment;
 import com.insalyon.dividoc.util.FilesPath;
 
@@ -120,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragments_frame_layout, filesFragment);
                     fragmentTransaction.commit();
 
+                } else if (checkedId == R.id.select_cases_archives_button) {
+
+                    EncryptedFragment archivesFragment = new EncryptedFragment();
+                    // FragmentManager is the class used to manage the fragments of a layout. More information here : https://developer.android.com/guide/fragments/fragmentmanager
+                    FragmentManager frag_man = getSupportFragmentManager();
+                    FragmentTransaction frag_trans = frag_man.beginTransaction();
+                    frag_trans.replace(R.id.fragments_frame_layout, archivesFragment);
+                    frag_trans.commit();
                 }
             }
         });
